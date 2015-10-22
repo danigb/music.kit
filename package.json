@@ -1,0 +1,30 @@
+{
+  "name": "music.kit",
+  "version": "0.0.0",
+  "description": "Your javascript music kit",
+  "main": "index.js",
+  "scripts": {
+    "test": "vows --spec test/*.js",
+    "docs": "docme API.md",
+    "dist": "browserify index.js > dist/music.kit.js && browserify index.js | uglifyjs > dist/music.kit.min.mjs && ls -all dist/*",
+    "coverage": "istanbul cover vows test/*.js",
+    "cover": "npm run coverage && open ./coverage/lcov-report/index.html",
+    "benchmarks": "node test/benchmarks/*.js",
+    "climate": "npm run coverage && npm run codeclimate",
+    "codeclimate": "CODECLIMATE_REPO_TOKEN=fcfefb53aa586b904e50df4da52d6dc294182107e236117758c3a048b17491ce codeclimate-test-reporter < coverage/lcov.info"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danigb/music.kit.git"
+  },
+  "keywords": [
+    "music",
+    "music.kit"
+  ],
+  "author": "danigb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danigb/music.kit/issues"
+  },
+  "homepage": "https://github.com/danigb/music.kit#readme"
+}
