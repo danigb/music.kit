@@ -9,6 +9,21 @@
 
 Your javascript music kit. Cooming soon.
 
+This is the successor of [tonal](https://github.com/danigb/tonal)
+
+A currently work in progress in the following modules:
+
+- [music.notation](https://github.com/danigb/music.notation)
+- [music.note](https://github.com/danigb/music.note)
+- [music.transpose](https://github.com/danigb/music.transpose)
+- [music.operator](https://github.com/danigb/music.operator)
+- [music.note.enharmonics](https://github.com/danigb/music.note.enharmonics)
+- [music.interval](https://github.com/danigb/music.interval)
+- [music.gamut](https://github.com/danigb/music.gamut)
+- [music.pitchSet](https://github.com/danigb/music.pitchSet)
+- [music.scale](https://github.com/danigb/music.scale)
+- [music.chord](https://github.com/danigb/music.chord)
+
 # License
 
 MIT License
