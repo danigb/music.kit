@@ -33,10 +33,13 @@
     "music.gamut": "0.0.2",
     "music.harmonizer": "0.0.4",
     "music.notation": "0.0.5",
-    "music.note.height": "0.0.2",
+    "music.note.height": "0.0.3",
+    "music.note.transpose": "0.0.1",
     "music.pitch.operator": "0.0.4",
     "music.pitchset": "0.0.2",
-    "music.scale": "0.0.1"
+    "music.scale": "0.0.1",
+    "music.scale.degrees": "0.0.0",
+    "music.scales": "0.0.2"
   },
   "devDependencies": {
     "vows": "^0.8.1"
