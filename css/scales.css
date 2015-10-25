@@ -1,5 +1,18 @@
+/*
+#647175 33.5 %Pale Sky(Blue)
+#222120 27.1 %Nero(Black)
+#aba8a0 26.5 %Cloudy(Grey)
+#8b9193 5.9 %Manatee(Blue)
+#e5e5e5 3.3 %White Lilac(Blue)
+#574b3b 1.1 %Metallic Bronze(Brown)
+#957a60 1.0 %Sorrell Brown(Brown)
+#fbb25e 0.8 %Rajah(Orange)
+#a38040 0.7 %Alpine(Yellow)
+*/
 html {
   font-family: 'Lato', sans-serif;
+  background-color: #222120;
+  color: #fbb25e;
 }
 
 #main {
@@ -10,13 +23,16 @@ html {
 ul.steps {
   width: 100%;
   overflow: hidden;
+  padding: 0;
 }
 
 ul.steps li {
   display: block; float: left;
   width: 6%;
-  margin-right: 2%;
+  margin: 5px 2% 5px 0;
   text-align: center;
   padding: 1em 0;
   border: 1px solid black;
+  border-radius: 1px;
 }
+ul.steps li:hover { border-color: #a38040; box-shadow: 0px 0px 3px #a38040; }
