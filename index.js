@@ -8,7 +8,7 @@ music.note = require('music.note.height')
 // music.transpose = require('music.transpose')
 // music.interval = require('music.interval')
 music.gamut = require('music.gamut')
-music.pitchSet = require('music.pitchSet')
+music.pitchSet = require('music.pitchset')
 music.scale = require('music.scale')
 music.chord = require('music.chord')
 
