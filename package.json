@@ -6,7 +6,8 @@
   "scripts": {
     "test": "vows --spec test/*.js",
     "docs": "docme API.md",
-    "dist": "browserify index.js > dist/music.kit.js && browserify index.js | uglifyjs > dist/music.kit.min.mjs && ls -all dist/*",
+    "dist": "browserify index.js | uglifyjs > dist/music.kit.min.js && ls -all dist/",
+    "disc": "browserify --full-paths index.js | uglifyjs | discify > tmp/disc.html && open tmp/disc.html",
     "coverage": "istanbul cover vows test/*.js",
     "cover": "npm run coverage && open ./coverage/lcov-report/index.html",
     "benchmarks": "node test/benchmarks/*.js",
@@ -26,5 +27,18 @@
   "bugs": {
     "url": "https://github.com/danigb/music.kit/issues"
   },
-  "homepage": "https://github.com/danigb/music.kit#readme"
+  "homepage": "https://github.com/danigb/music.kit#readme",
+  "dependencies": {
+    "music.chord": "0.0.1",
+    "music.gamut": "0.0.2",
+    "music.harmonizer": "0.0.4",
+    "music.notation": "0.0.5",
+    "music.note.height": "0.0.2",
+    "music.pitch.operator": "0.0.4",
+    "music.pitchset": "0.0.2",
+    "music.scale": "0.0.1"
+  },
+  "devDependencies": {
+    "vows": "^0.8.1"
+  }
 }
