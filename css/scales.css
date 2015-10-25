@@ -1,0 +1,22 @@
+html {
+  font-family: 'Lato', sans-serif;
+}
+
+#main {
+  max-width: 960px;
+  margin: 4em auto;
+}
+
+ul.steps {
+  width: 100%;
+  overflow: hidden;
+}
+
+ul.steps li {
+  display: block; float: left;
+  width: 6%;
+  margin-right: 2%;
+  text-align: center;
+  padding: 1em 0;
+  border: 1px solid black;
+}

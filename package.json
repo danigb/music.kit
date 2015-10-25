@@ -1,0 +1,20 @@
+{
+  "name": "musik.kit-demos",
+  "version": "0.0.0",
+  "private": "true",
+  "description": "music.kit demo tooling",
+  "main": "index.js",
+  "scripts": {
+    "server": "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danigb/music.kit.git"
+  },
+  "author": "danigb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danigb/music.kit/issues"
+  },
+  "homepage": "https://github.com/danigb/music.kit#readme"
+}
