@@ -1,0 +1,35 @@
+{
+  "name": "music.kit",
+  "version": "0.0.0",
+  "description": "Your javascript music kit",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danigb/music.kit.git"
+  },
+  "keywords": [
+    "music",
+    "note",
+    "transpose",
+    "interval",
+    "gamut",
+    "pitchSet",
+    "scale",
+    "chord",
+    "pitch",
+    "music.kit"
+  ],
+  "author": "danigb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danigb/music.kit/issues"
+  },
+  "homepage": "https://github.com/danigb/music.kit#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "vows": "^0.8.1"
+  }
+}

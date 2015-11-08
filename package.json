@@ -1,13 +1,13 @@
 {
-  "name": "music.kit",
+  "name": "music.kit-tools",
   "version": "0.0.0",
   "description": "Your javascript music kit",
   "main": "index.js",
   "scripts": {
     "test": "vows --spec test/*.js",
     "docs": "docme API.md",
-    "dist": "browserify index.js | uglifyjs > dist/music.kit.min.js && ls -all dist/",
-    "disc": "browserify --full-paths index.js | uglifyjs | discify > tmp/disc.html && open tmp/disc.html",
+    "dist": "browserify lib/index.js | uglifyjs > dist/music.kit.min.js && ls -all dist/",
+    "disc": "browserify --full-paths lib/index.js | uglifyjs | discify > tmp/disc.html && open tmp/disc.html",
     "coverage": "istanbul cover vows test/*.js",
     "cover": "npm run coverage && open ./coverage/lcov-report/index.html",
     "benchmarks": "node test/benchmarks/*.js",
@@ -20,6 +20,14 @@
   },
   "keywords": [
     "music",
+    "note",
+    "transpose",
+    "interval",
+    "gamut",
+    "pitchSet",
+    "scale",
+    "chord",
+    "pitch",
     "music.kit"
   ],
   "author": "danigb",
@@ -29,20 +37,6 @@
   },
   "homepage": "https://github.com/danigb/music.kit#readme",
   "dependencies": {
-    "music.chord": "0.0.x",
-    "music.chords": "0.0.x",
-    "music.gamut": "0.0.x",
-    "music.harmonizer": "0.0.x",
-    "music.notation": "0.0.x",
-    "music.note.height": "0.0.x",
-    "music.note.parser": "0.0.x",
-    "music.interval.parser": "0.0.x",
-    "music.note.transpose": "0.0.x",
-    "music.pitch.operator": "0.0.x",
-    "music.pitchset": "0.0.x",
-    "music.scale": "0.0.x",
-    "music.scale.degrees": "0.0.x",
-    "music.scales": "0.0.x"
   },
   "devDependencies": {
     "vows": "^0.8.1"

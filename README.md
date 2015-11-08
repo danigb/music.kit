@@ -7,11 +7,7 @@
 [![license](https://img.shields.io/npm/l/music.kit.svg)](https://www.npmjs.com/package/music.kit)
 [![musik.kit](https://img.shields.io/badge/music-kit-yellow.svg)](https://www.npmjs.com/package/music.kit)
 
-Your javascript music kit. Cooming soon.
-
-This is the successor of [tonal](https://github.com/danigb/tonal)
-
-`music.kit` is a collection of modules to manipulate music abstractions (not actual music) and helps to write audio or midi software.
+`music.kit` is a collection of functions to manipulate music abstractions (not actual music) and helps to write audio or midi software.
 
 ```js
 var music = require('music.kit')
@@ -30,12 +26,23 @@ var dom7 = music.chords.get('dom7')
 var V7ofV = function (tonic) { return dom7(music.transpose('5P', tonic)) }
 ```
 
-## Characteristics
+This is the successor of [tonal](https://github.com/danigb/tonal)
+
+## Features
+
+- Note, intervals, transposition, distances..
+- Midi and frequency conversion
+- Scales, chords
+- Work with collection of notes: gamut, harmonizer
+- Pitch sets and binary representations
+
+## Philosophy
 
 - Heavy use of string representations: 'C#2' is a pitch, '3M' is an interval. No objects.
-- Pluggable notation library: use scientific notation by default. Change it easily.
-- Modular: each functionallity has its own module (all integrated in music.kit). Require the parts you need.
 - Functional: no classes, no side effects, no mutations. Just functions, data-in data-out. Most of the functions has the data to operate on as last argument and lot of functions are currified.
+- Small and fast
+- Modular: each functionallity has its own module (all integrated in music.kit). Require the parts you need.
+- Different notations: scientific notation by default. Use other easily.
 - Documented: all public functions are documented inside the code. Aside the generated documentation (in API.md file), how to guides are provided in readme.
 - Learneable: since all the modules share the same philosophy is easy to work with them.
 - Tested: carefully tested with coverage support. Codeclimate statistics.
@@ -45,25 +52,9 @@ var V7ofV = function (tonic) { return dom7(music.transpose('5P', tonic)) }
 
 Not yet released.
 
-## Modules
+## Documentation
 
-A currently work in progress in the following modules:
-
-- [music.notation](https://github.com/danigb/music.notation)
-- [music.note.height](https://github.com/danigb/music.note.height)
-- [music.note.enharmonics](https://github.com/danigb/music.note.enharmonics)
-- [music.note.operator](https://github.com/danigb/music.operator)
-- [music.transpose](https://github.com/danigb/music.transpose)
-- [music.harmonizer](https://github.com/danigb/music.harmonizer)
-- [music.interval](https://github.com/danigb/music.interval)
-- [music.gamut](https://github.com/danigb/music.gamut)
-- [music.pitchSet](https://github.com/danigb/music.pitchSet)
-- [music.scale](https://github.com/danigb/music.scale)
-- [music.chord](https://github.com/danigb/music.chord)
-- [music.chord.progression]
-- [music.key]
-
-And [more?...](https://www.npmjs.com/browse/keyword/music.kit)
+[Read the generated documentation here](https://github.com/danigb/music.kit/blob/master/API.md)
 
 ## Resources and inspiration
 
