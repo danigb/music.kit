@@ -1,7 +1,7 @@
 var vows = require('vows')
 var assert = require('assert')
 var parse = require('../lib/note.parse')
-var build = require('../lib/note.build')
+var build = require('../lib/note.str')
 
 function test (notes) {
   var expected = notes.split(' ')
@@ -9,7 +9,7 @@ function test (notes) {
   assert.deepEqual(actual, expected)
 }
 
-vows.describe('note.build').addBatch({
+vows.describe('note.str').addBatch({
   'pitch classes': function () {
     test('C D E F G A B')
     test('C# D# E# F# G# A# B#')

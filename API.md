@@ -14,31 +14,20 @@
 </div>
 <dl>
 <dt>
-<h4 class="name" id="build"><span class="type-signature"></span>build<span class="type-signature"></span></h4>
+<h4 class="name" id="gamut"><span class="type-signature"></span>gamut<span class="type-signature"></span></h4>
 </dt>
 <dd>
+<div class="description">
+<p>In music.kit a gamut is a collection of intervals, pitch classes or notes.
+Scales, chords, pitch sets are examples of gamuts.</p>
+</div>
 <dl class="details">
 <dt class="tag-source">Source:</dt>
 <dd class="tag-source"><ul class="dummy">
 <li>
-<a href="https://github.com/danigb/music.kit/blob/master/pitch.build.js">pitch.build.js</a>
+<a href="https://github.com/danigb/music.kit/blob/master/gamut.js">gamut.js</a>
 <span>, </span>
-<a href="https://github.com/danigb/music.kit/blob/master/pitch.build.js#L4">lineno 4</a>
-</li>
-</ul></dd>
-</dl>
-</dd>
-<dt>
-<h4 class="name" id="chord"><span class="type-signature"></span>chord<span class="type-signature"></span></h4>
-</dt>
-<dd>
-<dl class="details">
-<dt class="tag-source">Source:</dt>
-<dd class="tag-source"><ul class="dummy">
-<li>
-<a href="https://github.com/danigb/music.kit/blob/master/gamut.chord.js">gamut.chord.js</a>
-<span>, </span>
-<a href="https://github.com/danigb/music.kit/blob/master/gamut.chord.js#L4">lineno 4</a>
+<a href="https://github.com/danigb/music.kit/blob/master/gamut.js#L3">lineno 3</a>
 </li>
 </ul></dd>
 </dl>
@@ -94,62 +83,6 @@
 </dl>
 </dd>
 <dt>
-<h4 class="name" id="name"><span class="type-signature"></span>name<span class="signature">(interval)</span><span class="type-signature"> &rarr; {String}</span></h4>
-</dt>
-<dd>
-<div class="description">
-<p>Convert from <a href="https://github.com/danigb/music.array.notation">array interval notation</a>
-to <a href="https://en.wikipedia.org/wiki/Interval_(music">shorthand interval notation</a>#Shorthand_notation)</p>
-<p>The returned string has the form: <code>number + quality</code> where number is the interval number
-(positive integer for ascending intervals, negative integer for descending intervals, never 0)
-and the quality is one of: 'M', 'm', 'P', 'd', 'A' (major, minor, perfect, dimished, augmented)</p>
-</div>
-<h5>Parameters:</h5>
-<table class="params">
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th class="last">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="name"><code>interval</code></td>
-<td class="type">
-<span class="param-type">Array</span>
-</td>
-<td class="description last"><p>the interval in array notation</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="details">
-<dt class="tag-source">Source:</dt>
-<dd class="tag-source"><ul class="dummy">
-<li>
-<a href="https://github.com/danigb/music.kit/blob/master/interval.build.js">interval.build.js</a>
-<span>, </span>
-<a href="https://github.com/danigb/music.kit/blob/master/interval.build.js#L6">lineno 6</a>
-</li>
-</ul></dd>
-</dl>
-<h5>Returns:</h5>
-<div class="param-desc">
-<p>the interval string in shorthand notation or null if not valid interval</p>
-</div>
-<dl>
-<dt>
-Type
-</dt>
-<dd>
-<span class="param-type">String</span>
-</dd>
-</dl>
-<h5>Example</h5>
-<pre class="prettyprint"><code>interval.name([1, 0, 0]) // => '2M'
-interval.name([1, 0, 1]) // => '9M'</code></pre>
-</dd>
-<dt>
 <h4 class="name" id="operation"><span class="type-signature"></span>operation<span class="signature">()</span><span class="type-signature"></span></h4>
 </dt>
 <dd>
@@ -166,68 +99,6 @@ interval.name([1, 0, 1]) // => '9M'</code></pre>
 </li>
 </ul></dd>
 </dl>
-</dd>
-<dt>
-<h4 class="name" id="parse"><span class="type-signature"></span>parse<span class="signature">(str)</span><span class="type-signature"> &rarr; {Array}</span></h4>
-</dt>
-<dd>
-<div class="description">
-<p>Convert from <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>
-to <a href="https://github.com/danigb/music.array.notation">array pitch notation</a></p>
-<p>The string to parse must be in the form of: <code>letter[accidentals][octave]</code>
-The accidentals can be up to four # (sharp) or b (flat) or two x (double sharps)</p>
-<p>This function is cached for better performance.</p>
-</div>
-<h5>Parameters:</h5>
-<table class="params">
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th class="last">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="name"><code>str</code></td>
-<td class="type">
-<span class="param-type">String</span>
-</td>
-<td class="description last"><p>the string to parse</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="details">
-<dt class="tag-source">Source:</dt>
-<dd class="tag-source"><ul class="dummy">
-<li>
-<a href="https://github.com/danigb/music.kit/blob/master/note.parse.js">note.parse.js</a>
-<span>, </span>
-<a href="https://github.com/danigb/music.kit/blob/master/note.parse.js#L7">lineno 7</a>
-</li>
-</ul></dd>
-</dl>
-<h5>Returns:</h5>
-<div class="param-desc">
-<p>the note in array notation or null if not valid note</p>
-</div>
-<dl>
-<dt>
-Type
-</dt>
-<dd>
-<span class="param-type">Array</span>
-</dd>
-</dl>
-<h5>Example</h5>
-<pre class="prettyprint"><code>parse('C') // => [ 0 ]
-parse('c#') // => [ 8 ]
-parse('c##') // => [ 16 ]
-parse('Cx') // => [ 16 ] (double sharp)
-parse('Cb') // => [ -6 ]
-parse('db') // => [ -4 ]
-parse('G4') // => [ 2, 3, null ]
-parse('c#3') // => [ 8, -1, null ]</code></pre>
 </dd>
 <dt>
 <h4 class="name" id="parse"><span class="type-signature"></span>parse<span class="signature">(pitch)</span><span class="type-signature"> &rarr; {Array}</span></h4>
@@ -337,6 +208,68 @@ parse('9b') // => [1, -1, 1]
 parse('-2M') // => [6, -1, -1]</code></pre>
 </dd>
 <dt>
+<h4 class="name" id="parse"><span class="type-signature"></span>parse<span class="signature">(str)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+</dt>
+<dd>
+<div class="description">
+<p>Convert from <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>
+to <a href="https://github.com/danigb/music.array.notation">array pitch notation</a></p>
+<p>The string to parse must be in the form of: <code>letter[accidentals][octave]</code>
+The accidentals can be up to four # (sharp) or b (flat) or two x (double sharps)</p>
+<p>This function is cached for better performance.</p>
+</div>
+<h5>Parameters:</h5>
+<table class="params">
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th class="last">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="name"><code>str</code></td>
+<td class="type">
+<span class="param-type">String</span>
+</td>
+<td class="description last"><p>the string to parse</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="details">
+<dt class="tag-source">Source:</dt>
+<dd class="tag-source"><ul class="dummy">
+<li>
+<a href="https://github.com/danigb/music.kit/blob/master/note.parse.js">note.parse.js</a>
+<span>, </span>
+<a href="https://github.com/danigb/music.kit/blob/master/note.parse.js#L7">lineno 7</a>
+</li>
+</ul></dd>
+</dl>
+<h5>Returns:</h5>
+<div class="param-desc">
+<p>the note in array notation or null if not valid note</p>
+</div>
+<dl>
+<dt>
+Type
+</dt>
+<dd>
+<span class="param-type">Array</span>
+</dd>
+</dl>
+<h5>Example</h5>
+<pre class="prettyprint"><code>parse('C') // => [ 0 ]
+parse('c#') // => [ 8 ]
+parse('c##') // => [ 16 ]
+parse('Cx') // => [ 16 ] (double sharp)
+parse('Cb') // => [ -6 ]
+parse('db') // => [ -4 ]
+parse('G4') // => [ 2, 3, null ]
+parse('c#3') // => [ 8, -1, null ]</code></pre>
+</dd>
+<dt>
 <h4 class="name" id="props"><span class="type-signature"></span>props<span class="signature">(array)</span><span class="type-signature"> &rarr; {Array}</span></h4>
 </dt>
 <dd>
@@ -436,9 +369,9 @@ is always uppercase, and the accidentals, octave and duration are optional.</p>
 <dt class="tag-source">Source:</dt>
 <dd class="tag-source"><ul class="dummy">
 <li>
-<a href="https://github.com/danigb/music.kit/blob/master/note.build.js">note.build.js</a>
+<a href="https://github.com/danigb/music.kit/blob/master/note.str.js">note.str.js</a>
 <span>, </span>
-<a href="https://github.com/danigb/music.kit/blob/master/note.build.js#L6">lineno 6</a>
+<a href="https://github.com/danigb/music.kit/blob/master/note.str.js#L6">lineno 6</a>
 </li>
 </ul></dd>
 </dl>

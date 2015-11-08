@@ -22,7 +22,7 @@ vows.describe('pitch.height').addBatch({
     assert.equal(height([1, 1]), 19)
   },
   'invalid values': function () {
-    assert.equal(height(null), -1)
-    assert.equal(height('blah'), -1)
+    assert.equal(height(null), -Infinity)
+    assert.equal(height('blah'), -Infinity)
   }
 }).export(module)
