@@ -2,10 +2,10 @@
   "name": "music.kit-tools",
   "version": "0.0.0",
   "description": "Your javascript music kit",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "vows --spec test/*.js",
-    "docs": "docme API.md",
+    "docs": "documentation -f md > API.md",
     "dist": "browserify lib/index.js | uglifyjs > dist/music.kit.min.js && ls -all dist/",
     "disc": "browserify --full-paths lib/index.js | uglifyjs | discify > tmp/disc.html && open tmp/disc.html",
     "coverage": "istanbul cover vows test/*.js",
