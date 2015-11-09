@@ -4,7 +4,7 @@
   "description": "Your javascript music kit",
   "main": "lib/index.js",
   "scripts": {
-    "test": "vows --spec test/*.js",
+    "test": "vows test/*.js",
     "docs": "documentation -f md > API.md",
     "dist": "browserify lib/index.js | uglifyjs > dist/music.kit.min.js && ls -all dist/",
     "disc": "browserify --full-paths lib/index.js | uglifyjs | discify > tmp/disc.html && open tmp/disc.html",
@@ -36,9 +36,10 @@
     "url": "https://github.com/danigb/music.kit/issues"
   },
   "homepage": "https://github.com/danigb/music.kit#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "benchmark": "^1.0.0",
+    "teoria": "^2.1.1",
     "vows": "^0.8.1"
   }
 }

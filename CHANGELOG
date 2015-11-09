@@ -1,11 +1,12 @@
 CHANGELOG
 
+[0.0.3] note.enharmonics
 [0.0.2] midi and frequencies. Rename build to str
 [0.0.1] First version, third iteration
 
 
 DIST
-[0.0.2] 7.5kb
+[0.0.3] 8.3kb
 [0.0.1] 7.5kb
 
 BENCHMARKS

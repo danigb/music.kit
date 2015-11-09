@@ -1,22 +1,14 @@
-## `ascending`
+## `gamut`
+
+In music.kit a gamut is a collection of intervals, pitch classes or notes.
+Scales, chords, pitch sets are examples of gamuts.
 
 
 
 
 
 
-
-
-## `distance`
-
-Get the interval between two notes
-
-
-
-
-
-
-## `exports`
+## `gamut.chord`
 
 Build a chord from a source and a tonic. A chord is a list of notes or
 intervals in asceding pitch order
@@ -45,16 +37,6 @@ maj79('A4') // => ['A4', 'C#5', 'E5', 'G#5', 'B5']
 Returns `Array` the chord notes (or intervals if null tonic)
 
 
-## `gamut`
-
-In music.kit a gamut is a collection of intervals, pitch classes or notes.
-Scales, chords, pitch sets are examples of gamuts.
-
-
-
-
-
-
 ## `gamut.harmonics`
 
 Get the distances from the first note of a gamut to the rest of notes
@@ -71,6 +53,15 @@ Pitch classes are treated as notes with octave equal 0
 ```js
 gamut.harmonics('c2 e2 g2') // => ['1P', '3M', '5P']
 ```
+
+
+
+## `gamut.operation`
+
+Apply a function to an array of array pitches
+
+
+
 
 
 
@@ -91,6 +82,33 @@ gamut.set('11 10 9') // => [ '2M', '3M', '4P' ]
 ```
 
 Returns  the set
+
+
+## `gamut.split`
+
+Convert a source to an array. If the source is an array, return it.
+
+Aside from an array itself, the source can be a
+string with elements separated by spaces, commas or bars (`|`) or a single
+element that will be wrapped inside an array
+
+This function __does not perform any transformation__ of the array elements.
+and __it always return an array, even if its empty__.
+
+### Parameters
+
+* `source` **`String or Array`** the source
+
+
+### Examples
+
+```js
+split = require('music.kit/gamut.split')
+split('a | B C , Dmaj7') // => ['a', 'B', 'C', 'Dmaj7']
+split() // => []
+```
+
+Returns `Array` the source as array
 
 
 ## `interval.str`
@@ -117,32 +135,169 @@ interval.str([1, 0, 1]) // => '9M'
 Returns `String` the interval string in shorthand notation or null if not valid interval
 
 
-## `operation`
+## `note`
 
-Apply a function to an array of array pitches
+In music.kit a note is represented by string, usually in scintific notation.
+
+The note module provides functions to manipulate notes:
+
+- Scientific notation: `note.parse` and `note.str`
+- Midi and frequencies: `note.midi`, `note.freq`, `note.fromMidi`
+- Note properties: `note.pitchClass`, `note.setOctave`
+- Enharmonics: `note.enharmonics`
+- Transposition and distances: `note.transpose`, `note.distance`
 
 
 
 
 
 
-## `parse`
+## `note.distance`
 
-Parse a note or an interval
+Get the interval between two notes
+
+This function can be partially applied (see examples)
 
 ### Parameters
 
-* `pitch` **`String`** the note or interval to parse
+* `from` **`String or Array`** the first note
+* `to` **`String or Array`** the other note
+
+
+
+Returns  the interval between them
+
+
+## `note.freq`
+
+Get the pitch frequency in herzs with custom concert tuning
+
+This function is currified so it can be partially applied (see examples)
+
+### Parameters
+
+* `tuning` **`Float`** the frequency of A4 (null means 440)
+* `note` **`String or Array`** the note name
 
 
 ### Examples
 
 ```js
-pitch.parse('C2') // => [0, 2, null]
-pitch.parse('5P') // => [1, 0]
+note.freq(null, 'A4') // => 440
+note.freq(444, 'A4') // => 444
+```
+```js
+// partially applied
+['A4', 'A#4', 'B5'].map(note.freq(440)) // => [440, ...]
+var baroque = note.freq(415)
+baroque('A3') // => 207.5
 ```
 
-Returns `Array` the pitch in array notation
+Returns `Float` the frequency of the note
+
+
+## `note.fromMidi`
+
+Get the note name (in scientific notation) of the given midi number
+
+It uses MIDI's [Tuning Standard](https://en.wikipedia.org/wiki/MIDI_Tuning_Standard)
+where A4 is 69
+
+This method doesn't take into account diatonic spelling. Always the same
+pitch class is given for the same midi number.
+
+### Parameters
+
+* `midi` **`Integer`** the midi number
+
+
+### Examples
+
+```js
+note.fromMidi(69) // => 'A4'
+```
+
+Returns `String` the pitch
+
+
+## `note.midi`
+
+Get the midi number of a note
+
+The note can be an string in scientific notation or
+[array pitch notation](https://github.com/danigb/music.array.notation)
+
+### Parameters
+
+* `note` **`String or Array`** the note in string or array notation
+
+
+### Examples
+
+```js
+midi('A4') // => 69
+midi('A3') // => 57
+midi([0, 2]) // => 36 (C2 in array notation)
+```
+
+Returns `Integer` the midi number
+
+
+## `note.parse`
+
+Convert from [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
+to [array pitch notation](https://github.com/danigb/music.array.notation)
+
+The string to parse must be in the form of: `letter[accidentals][octave]`
+The accidentals can be up to four # (sharp) or b (flat) or two x (double sharps)
+
+This function is cached for better performance.
+
+### Parameters
+
+* `str` **`String`** the string to parse
+
+
+### Examples
+
+```js
+var parse = require('music.kit/note.parse')
+parse('C') // => [ 0 ]
+parse('c#') // => [ 8 ]
+parse('c##') // => [ 16 ]
+parse('Cx') // => [ 16 ] (double sharp)
+parse('Cb') // => [ -6 ]
+parse('db') // => [ -4 ]
+parse('G4') // => [ 2, 3, null ]
+parse('c#3') // => [ 8, -1, null ]
+```
+
+Returns `Array` the note in array notation or null if not valid note
+
+
+## `note.transpose`
+
+Transpose a note by an interval.
+
+This function is currified. The orider of the parameters is indiferent.
+
+### Parameters
+
+* `interval` **`String or Array`** the interval. If its false, the note is not transposed.
+* `note` **`String or Array`** the note to transpose
+
+
+### Examples
+
+```js
+var transpose = require('music.kit/note.transpose')
+transpose('3m', 'C4') // => 'Eb4'
+transpose('C4', '3m') // => 'Eb4'
+tranpose([1, 0, 2], [3, -1, 0]) // => [3, 0, 2]
+['C', 'D', 'E'].map(transpose('3M')) // => ['E', 'F#', 'G#']
+```
+
+Returns  the note transposed
 
 
 ## `parse`
@@ -170,35 +325,22 @@ parse('-2M') // => [6, -1, -1]
 Returns `Array` the interval in array notation or null if not a valid interval
 
 
-## `parse`
+## `pitch.ascending`
 
-Convert from [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
-to [array pitch notation](https://github.com/danigb/music.array.notation)
-
-The string to parse must be in the form of: `letter[accidentals][octave]`
-The accidentals can be up to four # (sharp) or b (flat) or two x (double sharps)
-
-This function is cached for better performance.
+Get a gamut in ascdening pitch order
 
 ### Parameters
 
-* `str` **`String`** the string to parse
+* `gamut` **`String or Array`** the gamut to sort
 
 
 ### Examples
 
 ```js
-parse('C') // => [ 0 ]
-parse('c#') // => [ 8 ]
-parse('c##') // => [ 16 ]
-parse('Cx') // => [ 16 ] (double sharp)
-parse('Cb') // => [ -6 ]
-parse('db') // => [ -4 ]
-parse('G4') // => [ 2, 3, null ]
-parse('c#3') // => [ 8, -1, null ]
+gamut.ascending('c5 d2 f4 D2') // => ['D2', 'D2', 'F4', 'C5']
 ```
 
-Returns `Array` the note in array notation or null if not valid note
+Returns `Array` the gamut in ascending pitch order
 
 
 ## `pitch.height`
@@ -221,6 +363,25 @@ Decorate a function to work with parsed pitches
 
 
 
+
+
+## `pitch.parse`
+
+Parse a note or an interval
+
+### Parameters
+
+* `pitch` **`String`** the note or interval to parse
+
+
+### Examples
+
+```js
+pitch.parse('C2') // => [0, 2, null]
+pitch.parse('5P') // => [1, 0]
+```
+
+Returns `Array` the pitch in array notation
 
 
 ## `pitch.str`
@@ -335,46 +496,5 @@ Returns  a copy of the same note with the octave changed
 
 
 
-
-
-## `split`
-
-Convert a source to an array
-
-The source can be an array (it will return it without modification), a
-string with elements separated by spaces, commas or bars (`|`) or a single
-element (it will be wrapped inside an array)
-
-This function __does not perform any transformation__ of the array elements.
-and __it always return an array, even if its empty__.
-
-### Parameters
-
-* `source` **`String or Array`** the source
-
-
-
-Returns `Array` the source as array
-
-
-## `transpose`
-
-Transpose a note by an interval.
-
-This function is currified. The orider of the parameters is indiferent.
-
-### Parameters
-
-* `interval` **`String or Array`** the interval. If its false, the note is not transposed.
-* `note` **`String or Array`** the note to transpose
-
-
-### Examples
-
-```js
-transpose('3m', 'c2') // => 'Eb3'
-```
-
-Returns  the note transposed
 
 

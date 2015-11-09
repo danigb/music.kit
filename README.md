@@ -84,11 +84,42 @@ kit.note.fromMidi(13) // => 'Bb0'
 kit.note.freq(null, 'A4') // => '440'
 ```
 
-Finally you can transpose or find intervals between notes:
+#### Note transposition
+
+You can transpose notes with the `note.transpose` function. The order of the parameters doesn't matter:
 
 ```js
-kit.note.transpose('3M', 'e3') // => 'G#3'
-kit.note.distance('C2', 'Eb2') // => '3m'
+transpose('C2', '4A') // => 'F#2'
+transpose('4A', 'C2') // => 'F#2'
+```
+
+If you transpose pitch classes (note names without octaves), the returned value will be a pitch class:
+
+```js
+tranpose('A', '3M') // => 'C#'
+tranpose('A5', '3M') // => 'C#5'
+```
+
+Also, you can partially apply the function to get a __transposer__:
+
+```js
+var major3th = transpose('3M')
+major3th('D') // => 'F#'
+```
+
+Transposers allows to work with arrays seamlessly:
+
+```js
+['C', 'D', 'E', 'F', 'G'].map(transpose('3M')) // => ['E', 'F#', 'G#', 'A', 'B']
+['1P', '3m', '5P'].map(transpose('C')) // => ['C', 'Eb', 'G']
+```
+
+#### Note distances
+
+The `note.distance` function get the interval between two notes:
+
+```js
+note.distance('C2', 'D2') // => '2M'
 ```
 
 ### Working with group of notes
