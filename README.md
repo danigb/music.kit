@@ -10,20 +10,21 @@
 `music.kit` is a collection of functions to manipulate music abstractions (not actual music) and helps to write audio or midi software.
 
 ```js
-var music = require('music.kit')
+var kit = require('music.kit')
 // note names, midi and frequencies
-music.note.fromMidi(69) // => 'A4'
-music.note.toFreq('A4') // => 440.0
+kit.note.fromMidi(69) // => 'A4'
+kit.note.freq('A4') // => 440.0
 
 // pitch collections: harmonizers, scales, chords
-m79 = music.harmonizer('1 3b 5 7 9')
+m79 = kit.harmonizer('1 3b 5 7 9')
 m79('C#4') // => ['C#4', 'E4', 'G#4', 'B#4', 'D#5']
-var major = music.scales.get('major')
-major('C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
-var dom7 = music.chords.get('dom7')
 
-// easy to extend
-var V7ofV = function (tonic) { return dom7(music.transpose('5P', tonic)) }
+kit.scale.get('C major') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+var major = kit.scale.get('major')
+major('A') // => ['A', 'B', 'C#', 'D', 'E', 'F#', 'G#']
+
+var dom7 = kit.chord.get('dom7')
+dom7('D') // => ['D', 'F#', 'A', 'C']
 ```
 
 This is the successor of [tonal](https://github.com/danigb/tonal)
@@ -38,10 +39,10 @@ This is the successor of [tonal](https://github.com/danigb/tonal)
 
 ## Philosophy
 
-- Heavy use of string representations: 'C#2' is a pitch, '3M' is an interval. No objects.
 - Functional: no classes, no side effects, no mutations. Just functions, data-in data-out. Most of the functions has the data to operate on as last argument and lot of functions are currified.
+- Heavy use of string representations: 'C#2' is a pitch, '3M' is an interval. No objects.
 - Small and fast
-- Modular: each functionallity has its own module (all integrated in music.kit). Require the parts you need.
+- Modular: each functionallity has its own module (all integrated in music.kit). Require the functions you need.
 - Different notations: scientific notation by default. Use other easily.
 - Documented: all public functions are documented inside the code. Aside the generated documentation (in API.md file), how to guides are provided in readme.
 - Learneable: since all the modules share the same philosophy is easy to work with them.
@@ -51,6 +52,50 @@ This is the successor of [tonal](https://github.com/danigb/tonal)
 ## Install
 
 Not yet released.
+
+## Usage
+
+### Notes
+
+Notes in music.kit are represented by strings. By default it uses scientific notation with the form: `letter[accidentals][octave]/[duration]`. Pitch classes are note names without octave and duration.
+
+The `note` function returns a scientific notation of the given string or null if not valid string:
+
+```js
+// get a note
+kit.note('c2') // => 'C2'
+kit.note('fx') // => 'F##'
+kit.note('blah') // => null
+```
+
+There are several functions to get note properties or to modify them:
+
+```js
+kit.note.octave('C#4') // => 4
+kit.note.setOctave(3, 'Bb0') // => 'Bb3'
+kit.note.pitchClass('Bb5/4') // => 'Bb'
+```
+
+You can transform to midi and frequencies:
+
+```js
+kit.note.midi('A4') // => 69
+kit.note.fromMidi(13) // => 'Bb0'
+kit.note.freq(null, 'A4') // => '440'
+```
+
+Finally you can transpose or find intervals between notes:
+
+```js
+kit.note.transpose('3M', 'e3') // => 'G#3'
+kit.note.distance('C2', 'Eb2') // => '3m'
+```
+
+### Working with group of notes
+
+### Chords
+
+### Scales
 
 ## Documentation
 
