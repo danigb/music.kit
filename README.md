@@ -7,7 +7,7 @@
 [![license](https://img.shields.io/npm/l/music.kit.svg)](https://www.npmjs.com/package/music.kit)
 [![musik.kit](https://img.shields.io/badge/music-kit-yellow.svg)](https://www.npmjs.com/package/music.kit)
 
-`music.kit` is a compact (8.3kb minified) library to manipulate music abstractions (not actual music) to write audio or midi software.
+`music.kit` is a compact (8.8kb minified) library to manipulate music abstractions (not actual music) to write audio or midi software.
 
 ```js
 var kit = require('music.kit')
@@ -139,6 +139,43 @@ note.distance('C2', 'D2') // => '2M'
 ### Chords
 
 ### Scales
+
+#### Build scales from intervals
+
+The simplest use case is build scales from intervals:
+
+```js
+var scale = require('music.kit').scale
+scale('1M 2M 3m 7m', 'F') // => ['F', 'G', 'Ab', 'Eb']
+scale('1 2 3 4 5', 'A3') // => ['A3', 'B3', 'C#4', 'D4', 'E4']
+```
+
+Also, you can partially apply the `scale` function:
+
+```js
+var pentatonic = scale('1 2 3 5 6')
+pentatonic('E') // => ['E', 'F#', 'G#', 'B', 'C#']
+```
+
+#### Build scales from notes
+
+You can also use notes as the source of your scale:
+
+```js
+var lydian = scale('C D E F# G A B')
+lydian('A') // => ['A', 'B', 'C#', 'D#', 'E', 'F#', 'G#']
+```
+
+`scale` function assumes that the first note is the tonic.
+
+#### Get scale intervals
+
+You can get the scale intervals passing `false` as tonic:
+
+```js
+var dorian = scale('D E F G A B C')
+dorian(false) // => ['1P', '2M', '3m', '4P', '5P', '6M', '7m']
+```
 
 ### Using different notations
 

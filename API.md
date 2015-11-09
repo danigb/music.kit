@@ -8,6 +8,25 @@ Scales, chords, pitch sets are examples of gamuts.
 
 
 
+## `gamut.ascending`
+
+Get a gamut in ascdening pitch order
+
+### Parameters
+
+* `gamut` **`String or Array`** the gamut to sort
+
+
+### Examples
+
+```js
+var ascending = require('music.kit/gamut.ascending')
+ascending('c5 d2 f4 D2') // => ['D2', 'D2', 'F4', 'C5']
+```
+
+Returns `Array` the gamut in ascending pitch order
+
+
 ## `gamut.chord`
 
 Build a chord from a source and a tonic. A chord is a list of notes or
@@ -65,6 +84,40 @@ Apply a function to an array of array pitches
 
 
 
+## `gamut.scale`
+
+Build a scale from a source and a tonic. A scale is a set of notes or
+intervals ordered by frequency with a tonic.
+
+A source can be a list of intervals or notes. The tonic must be
+a pitch (with or without octave) or false to get the scale intervals
+
+This function is currified, so you can partially apply the function passing
+one parameter instead of two (see example)
+
+### Parameters
+
+* `source` **`Array`** the list of intervals or notes
+* `tonic` **`String`** the tonic of the scale
+
+
+### Examples
+
+```js
+var scale = require('music.kit/gamut.scale')
+// basic usage
+scale('1 2 3 5 6', 'G') // => ['G', 'A', 'B', 'D', 'E']
+scale('1 2 3 5 6', false) // => ['1P', '2M', '3M', '5P', '6M']
+```
+```js
+// partially applied
+var dorian = scale('D E F G A B C')
+dorian('C4') // => ['C4', 'D4', 'Eb4', 'F4', 'G4', 'A4', 'Bb4']
+```
+
+Returns `Array` the list of notes
+
+
 ## `gamut.set`
 
 A set is a list of uniq pitch classes or simplified intervals in ascending pitch order
@@ -109,6 +162,41 @@ split() // => []
 ```
 
 Returns `Array` the source as array
+
+
+## `interval`
+
+In music.kit an interval is a string with the format `number[quality|accidentals]`
+
+The interval module has functions to create and manipulate intervals
+
+
+
+
+
+
+## `interval.parse`
+
+Convert a [interval shorthand notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)
+to [array interval notation](https://github.com/danigb/music.array.notation)
+
+This function is cached for better performance.
+
+### Parameters
+
+* `interval` **`String`** the interval string
+
+
+### Examples
+
+```js
+var parse = require('music.kit/interval.parse')
+parse('3m') // => [2, -1, 0]
+parse('9b') // => [1, -1, 1]
+parse('-2M') // => [6, -1, -1]
+```
+
+Returns `Array` the interval in array notation or null if not a valid interval
 
 
 ## `interval.str`
@@ -166,6 +254,29 @@ This function can be partially applied (see examples)
 
 
 Returns  the interval between them
+
+
+## `note.enharmonics`
+
+Get the enharmonics of a note. It returns an array of three elements: the
+below enharmonic, the note, and the upper enharmonic
+
+### Parameters
+
+* `pitch` **`String`** the pitch to get the enharmonics from
+
+
+### Examples
+
+```js
+enharmonics = require('music.kit/note.enharmonics')
+enharmonics('C') // => ['B#', 'C', 'Dbb']
+enharmonics('A') // => ['G##', 'A', 'Bbb']
+enharmonics('C#4') // => ['B##3', 'C#4' 'Db4']
+enharmonics('Db') // => ['C#', 'Db', 'Ebbb'])
+```
+
+Returns `Array` an array of pitches ordered by distance to the given one
 
 
 ## `note.freq`
@@ -275,6 +386,76 @@ parse('c#3') // => [ 8, -1, null ]
 Returns `Array` the note in array notation or null if not valid note
 
 
+## `note.pitchClass`
+
+Get the [pitch class](https://en.wikipedia.org/wiki/pitch_class) of a note
+
+### Parameters
+
+* `note` **`String or Array`** the note
+
+
+### Examples
+
+```js
+pc = require('music.kit/note.pitchClass')
+pc('db3') // => 'Db'
+pc('fx/4') // => 'F##'
+```
+
+Returns  the pitch class
+
+
+## `note.setOctave`
+
+Set the octave of the given note
+
+### Parameters
+
+* `octave` **`Integer`** the octave to set
+* `note` **`String or Array`** the note
+
+
+### Examples
+
+```js
+var setOctave = require('music.kit/note.setOctave')
+setOctave('2', 'C#1') // => 'C#2'
+```
+
+Returns  a copy of the same note with the octave changed
+
+
+## `note.str`
+
+Convert from [array notation](https://github.com/danigb/music.array.notation)
+to [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
+
+Array length must be 1 or 3 (see array notation documentation)
+
+The returned string format is `letter[+ accidentals][+ octave][/duration]` where the letter
+is always uppercase, and the accidentals, octave and duration are optional.
+
+This function is memoized for better perfomance.
+
+### Parameters
+
+* `arr` **`Array`** the note in array notation
+
+
+### Examples
+
+```js
+var note = require('music.kit').note
+note.str([0]) // => 'F'
+note.str([0, 4]) // => null (its an interval)
+note.str([0, 4, null]) // => 'F4'
+note.str([0, 4, 2]) // => 'F4/2'
+```
+
+Returns `String` the note in scientific notation or null if not valid note array
+
+
 ## `note.transpose`
 
 Transpose a note by an interval.
@@ -300,47 +481,23 @@ tranpose([1, 0, 2], [3, -1, 0]) // => [3, 0, 2]
 Returns  the note transposed
 
 
-## `parse`
+## `pitch`
 
-Convert a [interval shorthand notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)
-to [array interval notation](https://github.com/danigb/music.array.notation)
+In music.kit a pitch it's a note, an interval or a pitch class. It allows us
+to work with this elements in an uniform way.
 
+All the function in this module are valid for notes, or intervals
 
-
-This function is cached for better performance.
-
-### Parameters
-
-* `interval` **`String`** the interval string
 
 
 ### Examples
 
 ```js
-parse('3m') // => [2, -1, 0]
-parse('9b') // => [1, -1, 1]
-parse('-2M') // => [6, -1, -1]
+var pitch = require('music.kit').pitch
+pitch.height('C2') // => 24
+pitch.height('5P') // => 7
 ```
 
-Returns `Array` the interval in array notation or null if not a valid interval
-
-
-## `pitch.ascending`
-
-Get a gamut in ascdening pitch order
-
-### Parameters
-
-* `gamut` **`String or Array`** the gamut to sort
-
-
-### Examples
-
-```js
-gamut.ascending('c5 d2 f4 D2') // => ['D2', 'D2', 'F4', 'C5']
-```
-
-Returns `Array` the gamut in ascending pitch order
 
 
 ## `pitch.height`
@@ -384,6 +541,48 @@ pitch.parse('5P') // => [1, 0]
 Returns `Array` the pitch in array notation
 
 
+## `pitch.props`
+
+Get the properties of a pitch in array notation as an array of properties
+
+The properties is in the form [number, alteration, octave, duration]
+
+### Parameters
+
+* `array` **`Array`** the pitch in array notation
+
+
+### Examples
+
+```js
+var props = require('music.kit/pitch.props')
+props([2, 1, 4]) // => [1, 2, 4]
+```
+
+Returns `Array` the properties array
+
+
+## `pitch.simplify`
+
+Simplifies a pitch. If its a note, it returns its pitch class. If its an
+interval it returns the simplified interval
+
+### Parameters
+
+* `pitch` **`String or Array`** the pitch
+
+
+### Examples
+
+```js
+var simplify = require('music.kit/pitch.simplify')
+simplify('C#4') // => 'C#'
+simplify('9m') // => '2m'
+```
+
+Returns  the simplified pitch
+
+
 ## `pitch.str`
 
 Convert a pitch in array notation to string. It deals with notes, pitch
@@ -408,90 +607,12 @@ pitch.str([0, 2, 4]) // => 'C2/4'
 Returns `String` the pitch string
 
 
-## `pitchClass`
-
-
-
-
-
-
-
-
-## `props`
-
-Get the properties of a pitch in array notation as an array of properties
-
-The properties is in the form [number, alteration, octave, duration]
-
-### Parameters
-
-* `array` **`Array`** the pitch in array notation
-
-
-
-Returns `Array` the properties array
-
-
 ## `scale`
 
+In music.kit an scale is a set of notes or intervals with a tonic and ordered
+by pitch
 
-
-
-
-
-
-
-## `scientific`
-
-Convert from [array notation](https://github.com/danigb/music.array.notation)
-to [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
-
-Array length must be 1 or 3 (see array notation documentation)
-
-The returned string format is `letter[+ accidentals][+ octave][/duration]` where the letter
-is always uppercase, and the accidentals, octave and duration are optional.
-
-This function is memoized for better perfomance.
-
-### Parameters
-
-* `arr` **`Array`** the note in array notation
-
-
-### Examples
-
-```js
-scientific([0]) // => 'F'
-scientific([0, 4]) // => null (its an interval)
-scientific([0, 4, null]) // => 'F4'
-scientific([0, 4, 2]) // => 'F4/2'
-```
-
-Returns `String` the note in scientific notation or null if not valid note array
-
-
-## `setOctave`
-
-Set the octave of the given note
-
-### Parameters
-
-* `octave` **`Integer`** the octave to set
-* `note` **`String or Array`** the note
-
-
-### Examples
-
-```js
-setOctave('2', 'C#1') // => 'C#2'
-```
-
-Returns  a copy of the same note with the octave changed
-
-
-## `simplify`
-
-
+The `scale` module has functions to create and manipulate scales
 
 
 

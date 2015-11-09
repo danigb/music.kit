@@ -1,12 +1,13 @@
 CHANGELOG
 
+[0.0.4] scale module
 [0.0.3] note.enharmonics
 [0.0.2] midi and frequencies. Rename build to str
 [0.0.1] First version, third iteration
 
 
 DIST
-[0.0.3]
+[0.0.4] 8.8kb
 [0.0.2] 8.3kb
 [0.0.1] 7.5kb
 

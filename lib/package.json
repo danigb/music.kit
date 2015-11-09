@@ -1,6 +1,6 @@
 {
   "name": "music.kit",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Your javascript music kit",
   "main": "index.js",
   "scripts": {
@@ -14,9 +14,11 @@
     "note",
     "transpose",
     "interval",
+    "enharmonics",
     "gamut",
     "pitchSet",
     "scale",
+    "scales",
     "chord",
     "pitch",
     "music.kit"
