@@ -6,6 +6,7 @@
   "scripts": {
     "test": "vows test/*.js",
     "docs": "documentation -f md > API.md",
+    "htmldocs": "documentation -f html -o docs && open docs/index.html",
     "dist": "browserify lib/index.js | uglifyjs > dist/music.kit.min.js && ls -all dist/",
     "disc": "browserify --full-paths lib/index.js | uglifyjs | discify > tmp/disc.html && open tmp/disc.html",
     "coverage": "istanbul cover vows test/*.js",

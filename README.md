@@ -7,7 +7,7 @@
 [![license](https://img.shields.io/npm/l/music.kit.svg)](https://www.npmjs.com/package/music.kit)
 [![musik.kit](https://img.shields.io/badge/music-kit-yellow.svg)](https://www.npmjs.com/package/music.kit)
 
-`music.kit` is a collection of functions to manipulate music abstractions (not actual music) and helps to write audio or midi software.
+`music.kit` is a compact (8.3kb minified) library to manipulate music abstractions (not actual music) to write audio or midi software.
 
 ```js
 var kit = require('music.kit')
@@ -31,7 +31,7 @@ This is the successor of [tonal](https://github.com/danigb/tonal)
 
 ## Features
 
-- Note, intervals, transposition, distances..
+- Note, intervals, transposition, distances, enharmonics
 - Midi and frequency conversion
 - Scales, chords
 - Work with collection of notes: gamut, harmonizer
@@ -68,6 +68,8 @@ kit.note('fx') // => 'F##'
 kit.note('blah') // => null
 ```
 
+#### Note properties
+
 There are several functions to get note properties or to modify them:
 
 ```js
@@ -76,12 +78,22 @@ kit.note.setOctave(3, 'Bb0') // => 'Bb3'
 kit.note.pitchClass('Bb5/4') // => 'Bb'
 ```
 
+#### Midi and frequencies
+
 You can transform to midi and frequencies:
 
 ```js
 kit.note.midi('A4') // => 69
 kit.note.fromMidi(13) // => 'Bb0'
 kit.note.freq(null, 'A4') // => '440'
+```
+
+#### Enharmonics
+
+The `note.enharmonics` function return the nearest enharmonics of a note:
+
+```js
+kit.note.enharmonics('C') // => ['B#', 'C', 'Dbb']
 ```
 
 #### Note transposition
@@ -127,6 +139,8 @@ note.distance('C2', 'D2') // => '2M'
 ### Chords
 
 ### Scales
+
+### Using different notations
 
 ## Documentation
 
