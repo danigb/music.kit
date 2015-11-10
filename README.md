@@ -44,7 +44,7 @@ This is the successor of [tonal](https://github.com/danigb/tonal)
 - Small and fast
 - Modular: each functionallity has its own module (all integrated in music.kit). Require the functions you need.
 - Different notations: scientific notation by default. Use other easily.
-- Documented: all public functions are documented inside the code. Aside the generated documentation (in API.md file), how to guides are provided in readme.
+- Documented: all public functions are documented inside the code. Aside the generated documentation (in API.md file) a 'how to' guides (in GUIDE.md) are provided for each module.
 - Learneable: since all the modules share the same philosophy is easy to work with them.
 - Tested: carefully tested with coverage support. Codeclimate statistics.
 - Advanced features: chord and scale detection, binary sets, chord progressions, key signatures...
@@ -53,12 +53,9 @@ This is the successor of [tonal](https://github.com/danigb/tonal)
 
 Not yet released.
 
-## Usage
+## Usage and documentation
 
-
-### Using different notations
-
-## Documentation
+[Read the music.kit user guide](https://github.com/danigb/music.kit/blob/master/GUIDE.md)
 
 [Read the generated documentation here](http://danigb.github.io/music.kit/docs/)
 
