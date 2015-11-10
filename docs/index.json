@@ -1,0 +1,4266 @@
+[
+  {
+    "description": "In music.kit a gamut is a collection of intervals, pitch classes or notes.\nScales, chords, pitch sets are examples of gamuts.",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 4,
+        "name": "gamut"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 3,
+        "column": 0
+      },
+      "end": {
+        "line": 8,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 0
+        },
+        "end": {
+          "line": 20,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/gamut.js",
+      "code": "'use strict'\n\n/**\n * In music.kit a gamut is a collection of intervals, pitch classes or notes.\n * Scales, chords, pitch sets are examples of gamuts.\n *\n * @name gamut\n */\nmodule.exports = {\n  ascending: require('./gamut.ascending'),\n  chord: require('./gamut.chord'),\n  harmonics: require('./gamut.harmonics'),\n  operation: require('./gamut.operation'),\n  scale: require('./gamut.scale'),\n  set: require('./gamut.set'),\n  binarySet: require('./gamut.binarySet'),\n  fromBinary: require('./gamut.fromBinary'),\n  split: require('./gamut.split')\n}\n"
+    },
+    "name": "gamut",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "gamut"
+    ]
+  },
+  {
+    "description": "Get a gamut in ascdening pitch order",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 3,
+        "name": "gamut.ascending"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 4,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the gamut to sort",
+        "lineNumber": 6,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "gamut"
+      },
+      {
+        "title": "returns",
+        "description": "the gamut in ascending pitch order",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      },
+      {
+        "title": "example",
+        "description": "var ascending = require('music.kit/gamut.ascending')\nascending('c5 d2 f4 D2') // => ['D2', 'D2', 'F4', 'C5']",
+        "lineNumber": 9
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 6,
+        "column": 0
+      },
+      "end": {
+        "line": 17,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 0
+        },
+        "end": {
+          "line": 23,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/gamut.ascending.js",
+      "code": "'use strict'\n\nvar height = require('./pitch.height')\nvar operation = require('./gamut.operation')\n\n/**\n * Get a gamut in ascdening pitch order\n *\n * @name gamut.ascending\n * @function\n * @param {String|Array} gamut - the gamut to sort\n * @return {Array} the gamut in ascending pitch order\n *\n * @example\n * var ascending = require('music.kit/gamut.ascending')\n * ascending('c5 d2 f4 D2') // => ['D2', 'D2', 'F4', 'C5']\n */\nmodule.exports = operation(function (gamut) {\n  return gamut.sort(function (a, b) {\n    return height(a) - height(b)\n  })\n})\n"
+    },
+    "name": "gamut.ascending",
+    "params": [
+      {
+        "title": "param",
+        "description": "the gamut to sort",
+        "lineNumber": 6,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "gamut"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the gamut in ascending pitch order",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> ascending = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/gamut.ascending'</span>)\nascending(<span class=\"hljs-string\">'c5 d2 f4 D2'</span>) <span class=\"hljs-comment\">// =&gt; ['D2', 'D2', 'F4', 'C5']</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "gamut.ascending"
+    ]
+  },
+  {
+    "description": "Get a set binary number\n\nA set binary number is a 12 digit binary, each digit representing a step\nin the chromatic scale. For example, `101010000000` is `['1P', '2M', '3M']`\n\nThe set binary number is very useful to check if two sets are equal or\ncontains same intervals (regarding of note names)",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 9,
+        "name": "gamut.binarySet"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 10,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "a gamut",
+        "lineNumber": 12,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            },
+            {
+              "type": "TypeApplication",
+              "expression": {
+                "type": "NameExpression",
+                "name": "Array"
+              },
+              "applications": [
+                {
+                  "type": "NameExpression",
+                  "name": "Array"
+                }
+              ]
+            }
+          ]
+        },
+        "name": "source"
+      },
+      {
+        "title": "returns",
+        "description": "the binary number",
+        "lineNumber": 13,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        }
+      },
+      {
+        "title": "example",
+        "description": "var binarySet = require('music.kit/gamut.binarySet')\nbinarySet('C2 E4 D3') // => '101010000000'",
+        "lineNumber": 15
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 8,
+        "column": 0
+      },
+      "end": {
+        "line": 25,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 26,
+          "column": 0
+        },
+        "end": {
+          "line": 35,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/gamut.binarySet.js",
+      "code": "'use strict'\n\nvar operation = require('./gamut.operation')\nvar set = require('./gamut.set')\nvar harmonics = require('./gamut.harmonics')\nvar height = require('./pitch.height')\n\n/**\n * Get a set binary number\n *\n * A set binary number is a 12 digit binary, each digit representing a step\n * in the chromatic scale. For example, `101010000000` is `['1P', '2M', '3M']`\n *\n * The set binary number is very useful to check if two sets are equal or\n * contains same intervals (regarding of note names)\n *\n * @name gamut.binarySet\n * @function\n * @param {String|Array|Array<Array>} source - a gamut\n * @return {String} the binary number\n *\n * @example\n * var binarySet = require('music.kit/gamut.binarySet')\n * binarySet('C2 E4 D3') // => '101010000000'\n */\nmodule.exports = operation(function (gamut) {\n  var number = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]\n  var intervals = set(harmonics(gamut))\n  var semitones = intervals.map(height)\n  semitones.forEach(function (s) {\n    number[s] = 1\n  })\n  return number.join('')\n})\n"
+    },
+    "name": "gamut.binarySet",
+    "params": [
+      {
+        "title": "param",
+        "description": "a gamut",
+        "lineNumber": 12,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            },
+            {
+              "type": "TypeApplication",
+              "expression": {
+                "type": "NameExpression",
+                "name": "Array"
+              },
+              "applications": [
+                {
+                  "type": "NameExpression",
+                  "name": "Array"
+                }
+              ]
+            }
+          ]
+        },
+        "name": "source"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the binary number",
+        "lineNumber": 13,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> binarySet = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/gamut.binarySet'</span>)\nbinarySet(<span class=\"hljs-string\">'C2 E4 D3'</span>) <span class=\"hljs-comment\">// =&gt; '101010000000'</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "gamut.binarySet"
+    ]
+  },
+  {
+    "description": "Build a chord from a source and a tonic. A chord is a list of notes or\nintervals in asceding pitch order\n\nThe source can be a list of intervals or notes. The tonic must be\na pitch (with or without octave) or false to get the intervals\n\nThis function is currified, so you can partially apply the function passing\none parameter instead of two (see example)",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 10,
+        "name": "gamut.chord"
+      },
+      {
+        "title": "param",
+        "description": "the list of intervals or notes",
+        "lineNumber": 11,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        },
+        "name": "source"
+      },
+      {
+        "title": "param",
+        "description": "the tonic of the chord or null to get the intervals",
+        "lineNumber": 12,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "tonic"
+      },
+      {
+        "title": "returns",
+        "description": "the chord notes (or intervals if null tonic)",
+        "lineNumber": 13,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      },
+      {
+        "title": "example",
+        "description": "var chord = require('music.chord')\nchord('1 3 5 6', 'G') // => ['G', 'B', 'D', 'E']\nvar maj79 = chord('C E G B D')\nmaj79('A4') // => ['A4', 'C#5', 'E5', 'G#5', 'B5']",
+        "lineNumber": 15
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 4,
+        "column": 0
+      },
+      "end": {
+        "line": 24,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 25,
+          "column": 0
+        },
+        "end": {
+          "line": 29,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/gamut.chord.js",
+      "code": "var harmonics = require('./gamut.harmonics')\nvar transpose = require('./note.transpose')\n\n/**\n * Build a chord from a source and a tonic. A chord is a list of notes or\n * intervals in asceding pitch order\n *\n * The source can be a list of intervals or notes. The tonic must be\n * a pitch (with or without octave) or false to get the intervals\n *\n * This function is currified, so you can partially apply the function passing\n * one parameter instead of two (see example)\n *\n * @name gamut.chord\n * @param {Array} source - the list of intervals or notes\n * @param {String} tonic - the tonic of the chord or null to get the intervals\n * @return {Array} the chord notes (or intervals if null tonic)\n *\n * @example\n * var chord = require('music.chord')\n * chord('1 3 5 6', 'G') // => ['G', 'B', 'D', 'E']\n * var maj79 = chord('C E G B D')\n * maj79('A4') // => ['A4', 'C#5', 'E5', 'G#5', 'B5']\n */\nmodule.exports = function (notes, tonic) {\n  var h = harmonics(notes)\n  return h.map(transpose(tonic))\n}\n"
+    },
+    "name": "gamut.chord",
+    "params": [
+      {
+        "title": "param",
+        "description": "the list of intervals or notes",
+        "lineNumber": 11,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        },
+        "name": "source"
+      },
+      {
+        "title": "param",
+        "description": "the tonic of the chord or null to get the intervals",
+        "lineNumber": 12,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "tonic"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the chord notes (or intervals if null tonic)",
+        "lineNumber": 13,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> chord = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.chord'</span>)\nchord(<span class=\"hljs-string\">'1 3 5 6'</span>, <span class=\"hljs-string\">'G'</span>) <span class=\"hljs-comment\">// =&gt; ['G', 'B', 'D', 'E']</span>\n<span class=\"hljs-keyword\">var</span> maj79 = chord(<span class=\"hljs-string\">'C E G B D'</span>)\nmaj79(<span class=\"hljs-string\">'A4'</span>) <span class=\"hljs-comment\">// =&gt; ['A4', 'C#5', 'E5', 'G#5', 'B5']</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "gamut.chord"
+    ]
+  },
+  {
+    "description": "Get a set from a binary set number and (optionally) a tonic. If the tonic is\na note, you get a pitch set. If its false you get a interval set.",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 4,
+        "name": "gamut.fromBinary"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 5,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the gamut",
+        "lineNumber": 7,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            },
+            {
+              "type": "TypeApplication",
+              "expression": {
+                "type": "NameExpression",
+                "name": "Array"
+              },
+              "applications": [
+                {
+                  "type": "NameExpression",
+                  "name": "Array"
+                }
+              ]
+            }
+          ]
+        },
+        "name": "source"
+      },
+      {
+        "title": "param",
+        "description": "the first note of the set or false to get the intervals",
+        "lineNumber": 8,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "tonic"
+      },
+      {
+        "title": "returns",
+        "description": "the set pitch classes (note names without octaves)",
+        "lineNumber": 9,
+        "type": {
+          "type": "TypeApplication",
+          "expression": {
+            "type": "NameExpression",
+            "name": "Array"
+          },
+          "applications": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            }
+          ]
+        }
+      },
+      {
+        "title": "example",
+        "description": "var fromBinary = require('music.kit/gamut.fromBinary')\n// use a 12 digit binary number:\nfromBinary('101011010101', 'C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']\n// or its decimal equivalent:\nfromBinary(2773, 'C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']\n// get the interval set by passing `false` as tonic:\nfromBinary(2773, false) // => ['1P', '2M', '3M', '4', '5', '6M', '7M']",
+        "lineNumber": 11
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 8,
+        "column": 0
+      },
+      "end": {
+        "line": 26,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 27,
+          "column": 0
+        },
+        "end": {
+          "line": 38,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/gamut.fromBinary.js",
+      "code": "'use strict'\n\nvar curry = require('./_curry2')\nvar transpose = require('./note.transpose')\n\nvar INTERVALS = ['1P', '2m', '2M', '3m', '3M', '4', '4A', '5', '6m', '6M', '7m', '7M']\n\n/**\n * Get a set from a binary set number and (optionally) a tonic. If the tonic is\n * a note, you get a pitch set. If its false you get a interval set.\n *\n * @name gamut.fromBinary\n * @function\n * @param {String|Array|Array<Array>} source - the gamut\n * @param {String} tonic - the first note of the set or false to get the intervals\n * @return {Array<String>} the set pitch classes (note names without octaves)\n *\n * @example\n * var fromBinary = require('music.kit/gamut.fromBinary')\n * // use a 12 digit binary number:\n * fromBinary('101011010101', 'C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']\n * // or its decimal equivalent:\n * fromBinary(2773, 'C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']\n * // get the interval set by passing `false` as tonic:\n * fromBinary(2773, false) // => ['1P', '2M', '3M', '4', '5', '6M', '7M']\n */\nmodule.exports = curry(function (number, tonic) {\n  if (/^1[01]{11}$/.test(number)) number = parseInt(number, 2)\n  else if (typeof number !== 'number') return []\n  var binary = ((number % 2048) + 2048).toString(2)\n\n  var set = []\n  for (var i = 0; i < 12; i++) {\n    if (binary.charAt(i) === '1') set.push(INTERVALS[i])\n  }\n  return tonic === false ? set : set.map(transpose(tonic))\n})\n"
+    },
+    "name": "gamut.fromBinary",
+    "params": [
+      {
+        "title": "param",
+        "description": "the gamut",
+        "lineNumber": 7,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            },
+            {
+              "type": "TypeApplication",
+              "expression": {
+                "type": "NameExpression",
+                "name": "Array"
+              },
+              "applications": [
+                {
+                  "type": "NameExpression",
+                  "name": "Array"
+                }
+              ]
+            }
+          ]
+        },
+        "name": "source"
+      },
+      {
+        "title": "param",
+        "description": "the first note of the set or false to get the intervals",
+        "lineNumber": 8,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "tonic"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the set pitch classes (note names without octaves)",
+        "lineNumber": 9,
+        "type": {
+          "type": "TypeApplication",
+          "expression": {
+            "type": "NameExpression",
+            "name": "Array"
+          },
+          "applications": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            }
+          ]
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> fromBinary = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/gamut.fromBinary'</span>)\n<span class=\"hljs-comment\">// use a 12 digit binary number:</span>\nfromBinary(<span class=\"hljs-string\">'101011010101'</span>, <span class=\"hljs-string\">'C'</span>) <span class=\"hljs-comment\">// =&gt; ['C', 'D', 'E', 'F', 'G', 'A', 'B']</span>\n<span class=\"hljs-comment\">// or its decimal equivalent:</span>\nfromBinary(<span class=\"hljs-number\">2773</span>, <span class=\"hljs-string\">'C'</span>) <span class=\"hljs-comment\">// =&gt; ['C', 'D', 'E', 'F', 'G', 'A', 'B']</span>\n<span class=\"hljs-comment\">// get the interval set by passing `false` as tonic:</span>\nfromBinary(<span class=\"hljs-number\">2773</span>, <span class=\"hljs-literal\">false</span>) <span class=\"hljs-comment\">// =&gt; ['1P', '2M', '3M', '4', '5', '6M', '7M']</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "gamut.fromBinary"
+    ]
+  },
+  {
+    "description": "Get the distances from the first note of a gamut to the rest of notes\n\nPitch classes are treated as notes with octave equal 0",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 5,
+        "name": "gamut.harmonics"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 6,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the list of notes",
+        "lineNumber": 8,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "gamut"
+      },
+      {
+        "title": "example",
+        "description": "gamut.harmonics('c2 e2 g2') // => ['1P', '3M', '5P']",
+        "lineNumber": 10
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 6,
+        "column": 0
+      },
+      "end": {
+        "line": 17,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 0
+        },
+        "end": {
+          "line": 23,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/gamut.harmonics.js",
+      "code": "var operation = require('./gamut.operation')\nvar setOctave = require('./note.setOctave')\nvar distance = require('./note.distance')\n\n/**\n * Get the distances from the first note of a gamut to the rest of notes\n *\n * Pitch classes are treated as notes with octave equal 0\n *\n * @name gamut.harmonics\n * @function\n * @param {String|Array} gamut - the list of notes\n *\n * @example\n * gamut.harmonics('c2 e2 g2') // => ['1P', '3M', '5P']\n */\nmodule.exports = operation(function (gamut) {\n  var notes = gamut.map(setOctave(0))\n  var tonic = notes[0]\n  return notes.map(distance(tonic))\n})\n"
+    },
+    "name": "gamut.harmonics",
+    "params": [
+      {
+        "title": "param",
+        "description": "the list of notes",
+        "lineNumber": 8,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "gamut"
+      }
+    ],
+    "examples": [
+      "gamut.harmonics(<span class=\"hljs-string\">'c2 e2 g2'</span>) <span class=\"hljs-comment\">// =&gt; ['1P', '3M', '5P']</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "gamut.harmonics"
+    ]
+  },
+  {
+    "description": "Apply a function to an array of array pitches",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 3,
+        "name": "gamut.operation"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 4,
+        "name": null
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 5,
+        "column": 0
+      },
+      "end": {
+        "line": 10,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 0
+        },
+        "end": {
+          "line": 19,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/gamut.operation.js",
+      "code": "var split = require('./gamut.split')\nvar parse = require('./pitch.parse')\nvar build = require('./pitch.str')\n\n/**\n * Apply a function to an array of array pitches\n *\n * @name gamut.operation\n * @function\n */\nmodule.exports = function (fn) {\n  return function (source) {\n    var g = split(source)\n    if (Array.isArray(g[0])) return fn(g)\n    var v = fn(g.map(parse))\n    return Array.isArray(v) ? v.map(build) : v\n  }\n}\n"
+    },
+    "name": "gamut.operation",
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "gamut.operation"
+    ]
+  },
+  {
+    "description": "Build a scale from a source and a tonic. A scale is a set of notes or\nintervals ordered by frequency with a tonic.\n\nA source can be a list of intervals or notes. The tonic must be\na pitch (with or without octave) or false to get the scale intervals\n\nThis function is currified, so you can partially apply the function passing\none parameter instead of two (see example)",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 10,
+        "name": "gamut.scale"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 11,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the list of intervals or notes",
+        "lineNumber": 13,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        },
+        "name": "source"
+      },
+      {
+        "title": "param",
+        "description": "the tonic of the scale",
+        "lineNumber": 14,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "tonic"
+      },
+      {
+        "title": "returns",
+        "description": "the list of notes",
+        "lineNumber": 15,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      },
+      {
+        "title": "example",
+        "description": "var scale = require('music.kit/gamut.scale')\n// basic usage\nscale('1 2 3 5 6', 'G') // => ['G', 'A', 'B', 'D', 'E']\nscale('1 2 3 5 6', false) // => ['1P', '2M', '3M', '5P', '6M']",
+        "lineNumber": 17
+      },
+      {
+        "title": "example",
+        "description": "// partially applied\nvar dorian = scale('D E F G A B C')\ndorian('C4') // => ['C4', 'D4', 'Eb4', 'F4', 'G4', 'A4', 'Bb4']",
+        "lineNumber": 23
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 9,
+        "column": 0
+      },
+      "end": {
+        "line": 35,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 36,
+          "column": 0
+        },
+        "end": {
+          "line": 40,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/gamut.scale.js",
+      "code": "'use strict'\n\nvar operation = require('./gamut.operation')\nvar set = require('./gamut.set')\nvar harmonics = require('./gamut.harmonics')\nvar transpose = require('./note.transpose')\nvar curry = require('./_curry2')\n\n/**\n * Build a scale from a source and a tonic. A scale is a set of notes or\n * intervals ordered by frequency with a tonic.\n *\n * A source can be a list of intervals or notes. The tonic must be\n * a pitch (with or without octave) or false to get the scale intervals\n *\n * This function is currified, so you can partially apply the function passing\n * one parameter instead of two (see example)\n *\n * @name gamut.scale\n * @function\n * @param {Array} source - the list of intervals or notes\n * @param {String} tonic - the tonic of the scale\n * @return {Array} the list of notes\n *\n * @example\n * var scale = require('music.kit/gamut.scale')\n * // basic usage\n * scale('1 2 3 5 6', 'G') // => ['G', 'A', 'B', 'D', 'E']\n * scale('1 2 3 5 6', false) // => ['1P', '2M', '3M', '5P', '6M']\n *\n * @example\n * // partially applied\n * var dorian = scale('D E F G A B C')\n * dorian('C4') // => ['C4', 'D4', 'Eb4', 'F4', 'G4', 'A4', 'Bb4']\n */\nmodule.exports = curry(function (notes, tonic) {\n  return intervals(notes).map(transpose(tonic))\n})\n\nvar intervals = operation(function (gamut) {\n  var l = gamut.length\n  var s = set(gamut)\n  var i = gamut[0] ? indexOf(gamut[0][0], s, l) : 0\n  var ordered = s.slice(i, l).concat(s.slice(0, i))\n  return harmonics(ordered).map(function (p) {\n    // if descending, add an octave\n    if (p[0] * 7 + 12 * p[1] < 0) p[1]++\n    return p\n  })\n})\n\nfunction indexOf (p, g, l) {\n  for (var i = 0; i < l; i++) {\n    if (g[i][0] === p) return i\n  }\n}"
+    },
+    "name": "gamut.scale",
+    "params": [
+      {
+        "title": "param",
+        "description": "the list of intervals or notes",
+        "lineNumber": 13,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        },
+        "name": "source"
+      },
+      {
+        "title": "param",
+        "description": "the tonic of the scale",
+        "lineNumber": 14,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "tonic"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the list of notes",
+        "lineNumber": 15,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> scale = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/gamut.scale'</span>)\n<span class=\"hljs-comment\">// basic usage</span>\nscale(<span class=\"hljs-string\">'1 2 3 5 6'</span>, <span class=\"hljs-string\">'G'</span>) <span class=\"hljs-comment\">// =&gt; ['G', 'A', 'B', 'D', 'E']</span>\nscale(<span class=\"hljs-string\">'1 2 3 5 6'</span>, <span class=\"hljs-literal\">false</span>) <span class=\"hljs-comment\">// =&gt; ['1P', '2M', '3M', '5P', '6M']</span>",
+      "<span class=\"hljs-comment\">// partially applied</span>\n<span class=\"hljs-keyword\">var</span> dorian = scale(<span class=\"hljs-string\">'D E F G A B C'</span>)\ndorian(<span class=\"hljs-string\">'C4'</span>) <span class=\"hljs-comment\">// =&gt; ['C4', 'D4', 'Eb4', 'F4', 'G4', 'A4', 'Bb4']</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "gamut.scale"
+    ]
+  },
+  {
+    "description": "A set is a list of uniq pitch classes or simplified intervals in ascending pitch order",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 3,
+        "name": "gamut.set"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 4,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the gamut",
+        "lineNumber": 6,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "gamut"
+      },
+      {
+        "title": "returns",
+        "description": "the set",
+        "lineNumber": 7,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        }
+      },
+      {
+        "title": "example",
+        "description": "gamut.set('E7 C2 e D5 c1') // => ['C', 'D', 'E']\ngamut.set('11 10 9') // => [ '2M', '3M', '4P' ]",
+        "lineNumber": 9
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 7,
+        "column": 0
+      },
+      "end": {
+        "line": 18,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 0
+        },
+        "end": {
+          "line": 27,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/gamut.set.js",
+      "code": "'use strict'\n\nvar simplify = require('./pitch.simplify')\nvar operation = require('./gamut.operation')\nvar ascending = require('./gamut.ascending')\n\n/**\n * A set is a list of uniq pitch classes or simplified intervals in ascending pitch order\n *\n * @name gamut.set\n * @function\n * @param {String|Array} gamut - the gamut\n * @return {String|Array} the set\n *\n * @example\n * gamut.set('E7 C2 e D5 c1') // => ['C', 'D', 'E']\n * gamut.set('11 10 9') // => [ '2M', '3M', '4P' ]\n */\nmodule.exports = operation(function (gamut) {\n  var sorted = ascending(gamut.map(simplify))\n  return sorted.reduce(function (uniq, value, index) {\n    if (index === 0 || !equal(sorted[index - 1], value)) uniq.push(value)\n    return uniq\n  }, [])\n})\n\nfunction equal (a, b) {\n  return a[0] === b[0] && a[1] === b[1]\n}"
+    },
+    "name": "gamut.set",
+    "params": [
+      {
+        "title": "param",
+        "description": "the gamut",
+        "lineNumber": 6,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "gamut"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the set",
+        "lineNumber": 7,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        }
+      }
+    ],
+    "examples": [
+      "gamut.set(<span class=\"hljs-string\">'E7 C2 e D5 c1'</span>) <span class=\"hljs-comment\">// =&gt; ['C', 'D', 'E']</span>\ngamut.set(<span class=\"hljs-string\">'11 10 9'</span>) <span class=\"hljs-comment\">// =&gt; [ '2M', '3M', '4P' ]</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "gamut.set"
+    ]
+  },
+  {
+    "description": "Convert a source to an array. If the source is an array, return it.\n\nAside from an array itself, the source can be a\nstring with elements separated by spaces, commas or bars (`|`) or a single\nelement that will be wrapped inside an array\n\nThis function __does not perform any transformation__ of the array elements.\nand __it always return an array, even if its empty__.",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 10,
+        "name": "gamut.split"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 11,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the source",
+        "lineNumber": 13,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "source"
+      },
+      {
+        "title": "returns",
+        "description": "the source as array",
+        "lineNumber": 14,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      },
+      {
+        "title": "example",
+        "description": "split = require('music.kit/gamut.split')\nsplit('a | B C , Dmaj7') // => ['a', 'B', 'C', 'Dmaj7']\nsplit() // => []",
+        "lineNumber": 16
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 3,
+        "column": 0
+      },
+      "end": {
+        "line": 22,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 0
+        },
+        "end": {
+          "line": 29,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/gamut.split.js",
+      "code": "var SEP = /\\s*\\|\\s*|\\s*,\\s*|\\s+/\n\n/**\n * Convert a source to an array. If the source is an array, return it.\n *\n * Aside from an array itself, the source can be a\n * string with elements separated by spaces, commas or bars (`|`) or a single\n * element that will be wrapped inside an array\n *\n * This function __does not perform any transformation__ of the array elements.\n * and __it always return an array, even if its empty__.\n *\n * @name gamut.split\n * @function\n * @param {String|Array} source - the source\n * @return {Array} the source as array\n *\n * @example\n * split = require('music.kit/gamut.split')\n * split('a | B C , Dmaj7') // => ['a', 'B', 'C', 'Dmaj7']\n * split() // => []\n */\nmodule.exports = function (source) {\n  if (Array.isArray(source)) return source\n  else if (typeof source === 'string') return source.trim().split(SEP)\n  else if (source === null || typeof source === 'undefined') return []\n  else return [ source ]\n}\n"
+    },
+    "name": "gamut.split",
+    "params": [
+      {
+        "title": "param",
+        "description": "the source",
+        "lineNumber": 13,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "source"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the source as array",
+        "lineNumber": 14,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      }
+    ],
+    "examples": [
+      "split = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/gamut.split'</span>)\nsplit(<span class=\"hljs-string\">'a | B C , Dmaj7'</span>) <span class=\"hljs-comment\">// =&gt; ['a', 'B', 'C', 'Dmaj7']</span>\nsplit() <span class=\"hljs-comment\">// =&gt; []</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "gamut.split"
+    ]
+  },
+  {
+    "description": "In music.kit an interval is a string with the format `number[quality|accidentals]`\n\nThe interval module has functions to create and manipulate intervals",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 5,
+        "name": "interval"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 3,
+        "column": 0
+      },
+      "end": {
+        "line": 9,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 14,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/interval.js",
+      "code": "'use strict'\n\n/**\n * In music.kit an interval is a string with the format `number[quality|accidentals]`\n *\n * The interval module has functions to create and manipulate intervals\n *\n * @name interval\n */\nmodule.exports = {\n  parse: require('./interval.parse'),\n  build: require('./interval.str')\n}\n"
+    },
+    "name": "interval",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "interval"
+    ]
+  },
+  {
+    "description": "Convert a [interval shorthand notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)\nto [array interval notation](https://github.com/danigb/music.array.notation)\n\nThis function is cached for better performance.",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 6,
+        "name": "interval.parse"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 7,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the interval string",
+        "lineNumber": 9,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "interval"
+      },
+      {
+        "title": "returns",
+        "description": "the interval in array notation or null if not a valid interval",
+        "lineNumber": 10,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      },
+      {
+        "title": "example",
+        "description": "var parse = require('music.kit/interval.parse')\nparse('3m') // => [2, -1, 0]\nparse('9b') // => [1, -1, 1]\nparse('-2M') // => [6, -1, -1]",
+        "lineNumber": 12
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 11,
+        "column": 0
+      },
+      "end": {
+        "line": 27,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 28,
+          "column": 0
+        },
+        "end": {
+          "line": 33,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/interval.parse.js",
+      "code": "'use strict'\n\nvar INTERVAL = /^([-+]?)(\\d+)(d{1,4}|m|M|P|A{1,4}|b{1,4}|#{1,4}|)$/\nvar TYPES = 'PMMPPMM'\nvar QALT = {\n  P: { dddd: -4, ddd: -3, dd: -2, d: -1, P: 0, A: 1, AA: 2, AAA: 3, AAAA: 4 },\n  M: { ddd: -4, dd: -3, d: -2, m: -1, M: 0, A: 1, AA: 2, AAA: 3, AAAA: 4 }\n}\nvar cache = {}\n\n/**\n * Convert a [interval shorthand notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)\n * to [array interval notation](https://github.com/danigb/music.array.notation)\n *\n * This function is cached for better performance.\n *\n * @name interval.parse\n * @function\n * @param {String} interval - the interval string\n * @return {Array} the interval in array notation or null if not a valid interval\n *\n * @example\n * var parse = require('music.kit/interval.parse')\n * parse('3m') // => [2, -1, 0]\n * parse('9b') // => [1, -1, 1]\n * parse('-2M') // => [6, -1, -1]\n */\nmodule.exports = function (str) {\n  if (typeof str !== 'string') return null\n  return str in cache ? cache[str] : cache[str] = parse(str)\n}\n\nvar BASES = [ [0, 0], [2, -1], [4, -2], [-1, 1], [1, 0], [3, -1], [5, -2] ]\nfunction parse (str) {\n  var m = INTERVAL.exec(str)\n  if (!m) return null\n  var dir = m[1] === '-' ? -1 : 1\n  var num = +m[2] - 1\n\n  var simple = num % 7\n  var base = BASES[simple]\n\n  var alt\n  if (m[3] === '') alt = 0\n  else if (m[3][0] === '#') alt = m[3].length\n  else if (m[3][0] === 'b') alt = -m[3].length\n  else {\n    alt = QALT[TYPES[simple]][m[3]]\n    if (typeof alt === 'undefined') return null\n  }\n  var oct = dir * Math.floor(num / 7)\n  return [dir * base[0] + 7 * alt, oct + dir * base[1] - 4 * alt]\n}"
+    },
+    "name": "interval.parse",
+    "params": [
+      {
+        "title": "param",
+        "description": "the interval string",
+        "lineNumber": 9,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "interval"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the interval in array notation or null if not a valid interval",
+        "lineNumber": 10,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> parse = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/interval.parse'</span>)\nparse(<span class=\"hljs-string\">'3m'</span>) <span class=\"hljs-comment\">// =&gt; [2, -1, 0]</span>\nparse(<span class=\"hljs-string\">'9b'</span>) <span class=\"hljs-comment\">// =&gt; [1, -1, 1]</span>\nparse(<span class=\"hljs-string\">'-2M'</span>) <span class=\"hljs-comment\">// =&gt; [6, -1, -1]</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "interval.parse"
+    ]
+  },
+  {
+    "description": "Convert from [array interval notation](https://github.com/danigb/music.array.notation)\nto [shorthand interval notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)\n\nThe returned string has the form: `number + quality` where number is the interval number\n(positive integer for ascending intervals, negative integer for descending intervals, never 0)\nand the quality is one of: 'M', 'm', 'P', 'd', 'A' (major, minor, perfect, dimished, augmented)",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 8,
+        "name": "interval.str"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 9,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the interval in array notation",
+        "lineNumber": 11,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        },
+        "name": "interval"
+      },
+      {
+        "title": "returns",
+        "description": "the interval string in shorthand notation or null if not valid interval",
+        "lineNumber": 12,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        }
+      },
+      {
+        "title": "example",
+        "description": "interval.str([1, 0, 0]) // => '2M'\ninterval.str([1, 0, 1]) // => '9M'",
+        "lineNumber": 14
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 6,
+        "column": 0
+      },
+      "end": {
+        "line": 22,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 0
+        },
+        "end": {
+          "line": 29,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/interval.str.js",
+      "code": "'use strict'\n\nvar props = require('./pitch.props')\nvar cache = {}\n\n/**\n * Convert from [array interval notation](https://github.com/danigb/music.array.notation)\n * to [shorthand interval notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)\n *\n * The returned string has the form: `number + quality` where number is the interval number\n * (positive integer for ascending intervals, negative integer for descending intervals, never 0)\n * and the quality is one of: 'M', 'm', 'P', 'd', 'A' (major, minor, perfect, dimished, augmented)\n *\n * @name interval.str\n * @function\n * @param {Array} interval - the interval in array notation\n * @return {String} the interval string in shorthand notation or null if not valid interval\n *\n * @example\n * interval.str([1, 0, 0]) // => '2M'\n * interval.str([1, 0, 1]) // => '9M'\n */\nmodule.exports = function (arr) {\n  if (!Array.isArray(arr) || arr.length !== 2) return null\n  var str = '|' + arr[0] + '|' + arr[1]\n  return str in cache ? cache[str] : cache[str] = build(arr)\n}\n\nvar ALTER = {\n  P: ['dddd', 'ddd', 'dd', 'd', 'P', 'A', 'AA', 'AAA', 'AAAA'],\n  M: ['ddd', 'dd', 'd', 'm', 'M', 'A', 'AA', 'AAA', 'AAAA']\n}\nvar TYPES = 'PMMPPMM'\n\nfunction build (coord) {\n  var p = props(coord)\n  var t = TYPES[p[0]]\n\n  var dir, num, alt\n  // if its descening, invert number\n  if (p[2] < 0) {\n    dir = -1\n    num = (8 - p[0]) - 7 * (p[2] + 1)\n    alt = t === 'P' ? -p[1] : -(p[1] + 1)\n  } else {\n    dir = 1\n    num = p[0] + 1 + 7 * p[2]\n    alt = p[1]\n  }\n  var q = ALTER[t][4 + alt]\n  return dir * num + q\n}"
+    },
+    "name": "interval.str",
+    "params": [
+      {
+        "title": "param",
+        "description": "the interval in array notation",
+        "lineNumber": 11,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        },
+        "name": "interval"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the interval string in shorthand notation or null if not valid interval",
+        "lineNumber": 12,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        }
+      }
+    ],
+    "examples": [
+      "interval.str([<span class=\"hljs-number\">1</span>, <span class=\"hljs-number\">0</span>, <span class=\"hljs-number\">0</span>]) <span class=\"hljs-comment\">// =&gt; '2M'</span>\ninterval.str([<span class=\"hljs-number\">1</span>, <span class=\"hljs-number\">0</span>, <span class=\"hljs-number\">1</span>]) <span class=\"hljs-comment\">// =&gt; '9M'</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "interval.str"
+    ]
+  },
+  {
+    "description": "music.kit is a compact library to manipulate music abstractions (not actual music)\nand while its designed to create algorithmic composition programs,\ncan be use to develop any kind of midi or audio software.",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 5,
+        "name": "music.kit"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 3,
+        "column": 0
+      },
+      "end": {
+        "line": 9,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 11,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/index.js",
+      "code": "'use strict'\n\n/**\n * music.kit is a compact library to manipulate music abstractions (not actual music)\n * and while its designed to create algorithmic composition programs,\n * can be use to develop any kind of midi or audio software.\n *\n * @name music.kit\n */\nvar kit = {}\nkit.note = require('./note')\nkit.pitch = require('./pitch')\nkit.interval = require('./interval')\nkit.gamut = require('./gamut')\nkit.scale = require('./scale')\n\nmodule.exports = kit\n"
+    },
+    "name": "music.kit",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "music.kit"
+    ]
+  },
+  {
+    "description": "In music.kit a note is represented by string, usually in scientific notation.\n\nThe note module provides functions to manipulate notes:\n\n- Scientific notation: `note.parse` and `note.str`\n- Midi and frequencies: `note.midi`, `note.freq`, `note.fromMidi`\n- Note properties: `note.pitchClass`, `note.setOctave`\n- Enharmonics: `note.enharmonics`\n- Transposition and distances: `note.transpose`, `note.distance`",
+    "tags": [
+      {
+        "title": "name",
+        "name": "note"
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 3,
+        "column": 0
+      },
+      "end": {
+        "line": 13,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 14,
+          "column": 0
+        },
+        "end": {
+          "line": 16,
+          "column": 1
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/note.js",
+      "code": "'use strict'\n\n/**\n * In music.kit a note is represented by string, usually in scientific notation.\n *\n * The note module provides functions to manipulate notes:\n *\n * - Scientific notation: `note.parse` and `note.str`\n * - Midi and frequencies: `note.midi`, `note.freq`, `note.fromMidi`\n * - Note properties: `note.pitchClass`, `note.setOctave`\n * - Enharmonics: `note.enharmonics`\n * - Transposition and distances: `note.transpose`, `note.distance`\n */\nfunction note (str) {\n  return note.str(note.parse(str))\n}\n\nnote.parse = require('./note.parse')\nnote.str = require('./note.str')\n\nnote.midi = require('./note.midi')\nnote.fromMidi = require('./note.fromMidi')\nnote.freq = require('./note.freq')\n\n// manipulation\nnote.pitchClass = require('./note.pitchClass')\nnote.setOctave = require('./note.setOctave')\n\nnote.enharmonics = require('./note.enharmonics')\nnote.transpose = require('./note.transpose')\nnote.distance = require('./note.distance')\n\nmodule.exports = note\n"
+    },
+    "name": "note",
+    "kind": "function",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "note"
+    ]
+  },
+  {
+    "description": "Get the interval between two notes\n\nThis function can be partially applied (see examples)",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 5,
+        "name": "note.distance"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 6,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the first note",
+        "lineNumber": 8,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "from"
+      },
+      {
+        "title": "param",
+        "description": "the other note",
+        "lineNumber": 9,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "to"
+      },
+      {
+        "title": "returns",
+        "description": "the interval between them",
+        "lineNumber": 10,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        }
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 4,
+        "column": 0
+      },
+      "end": {
+        "line": 14,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 0
+        },
+        "end": {
+          "line": 19,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/note.distance.js",
+      "code": "var curry = require('./_curry2')\nvar operation = require('./pitch.operation')\n\n/**\n * Get the interval between two notes\n *\n * This function can be partially applied (see examples)\n *\n * @name note.distance\n * @function\n * @param {String|Array} from - the first note\n * @param {String|Array} to - the other note\n * @return {String|Array} the interval between them\n */\nmodule.exports = curry(operation(function (a, b) {\n  if (!Array.isArray(a) || !Array.isArray(b) || a.length === 1 || b.length === 1) return null\n  return [b[0] - a[0], b[1] - a[1]]\n}))\n"
+    },
+    "name": "note.distance",
+    "params": [
+      {
+        "title": "param",
+        "description": "the first note",
+        "lineNumber": 8,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "from"
+      },
+      {
+        "title": "param",
+        "description": "the other note",
+        "lineNumber": 9,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "to"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the interval between them",
+        "lineNumber": 10,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        }
+      }
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "note.distance"
+    ]
+  },
+  {
+    "description": "Get the enharmonics of a note. It returns an array of three elements: the\nbelow enharmonic, the note, and the upper enharmonic",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 4,
+        "name": "note.enharmonics"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 5,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the pitch to get the enharmonics from",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "pitch"
+      },
+      {
+        "title": "returns",
+        "description": "an array of pitches ordered by distance to the given one",
+        "lineNumber": 8,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      },
+      {
+        "title": "example",
+        "description": "enharmonics = require('music.kit/note.enharmonics')\nenharmonics('C') // => ['B#', 'C', 'Dbb']\nenharmonics('A') // => ['G##', 'A', 'Bbb']\nenharmonics('C#4') // => ['B##3', 'C#4' 'Db4']\nenharmonics('Db') // => ['C#', 'Db', 'Ebbb'])",
+        "lineNumber": 10
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 8,
+        "column": 0
+      },
+      "end": {
+        "line": 23,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 24,
+          "column": 0
+        },
+        "end": {
+          "line": 31,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/note.enharmonics.js",
+      "code": "'use strict'\n\nvar transpose = require('./note.transpose')\n\nvar ASC = [-12, 7] // dimished second\nvar DESC = [12, -7] // descending dimished second\n\n/**\n * Get the enharmonics of a note. It returns an array of three elements: the\n * below enharmonic, the note, and the upper enharmonic\n *\n * @name note.enharmonics\n * @function\n * @param {String} pitch - the pitch to get the enharmonics from\n * @return {Array} an array of pitches ordered by distance to the given one\n *\n * @example\n * enharmonics = require('music.kit/note.enharmonics')\n * enharmonics('C') // => ['B#', 'C', 'Dbb']\n * enharmonics('A') // => ['G##', 'A', 'Bbb']\n * enharmonics('C#4') // => ['B##3', 'C#4' 'Db4']\n * enharmonics('Db') // => ['C#', 'Db', 'Ebbb'])\n */\nmodule.exports = function (pitch) {\n  var enharmonics = []\n  enharmonics.push(transpose(DESC, pitch))\n  enharmonics.push(pitch)\n  enharmonics.push(transpose(ASC, pitch))\n  return enharmonics\n}\n"
+    },
+    "name": "note.enharmonics",
+    "params": [
+      {
+        "title": "param",
+        "description": "the pitch to get the enharmonics from",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "pitch"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "an array of pitches ordered by distance to the given one",
+        "lineNumber": 8,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      }
+    ],
+    "examples": [
+      "enharmonics = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/note.enharmonics'</span>)\nenharmonics(<span class=\"hljs-string\">'C'</span>) <span class=\"hljs-comment\">// =&gt; ['B#', 'C', 'Dbb']</span>\nenharmonics(<span class=\"hljs-string\">'A'</span>) <span class=\"hljs-comment\">// =&gt; ['G##', 'A', 'Bbb']</span>\nenharmonics(<span class=\"hljs-string\">'C#4'</span>) <span class=\"hljs-comment\">// =&gt; ['B##3', 'C#4' 'Db4']</span>\nenharmonics(<span class=\"hljs-string\">'Db'</span>) <span class=\"hljs-comment\">// =&gt; ['C#', 'Db', 'Ebbb'])</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "note.enharmonics"
+    ]
+  },
+  {
+    "description": "Get the pitch frequency in herzs with custom concert tuning\n\nThis function is currified so it can be partially applied (see examples)",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 5,
+        "name": "note.freq"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 6,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the frequency of A4 (null means 440)",
+        "lineNumber": 8,
+        "type": {
+          "type": "NameExpression",
+          "name": "Float"
+        },
+        "name": "tuning"
+      },
+      {
+        "title": "param",
+        "description": "the note name",
+        "lineNumber": 9,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "note"
+      },
+      {
+        "title": "returns",
+        "description": "the frequency of the note",
+        "lineNumber": 10,
+        "type": {
+          "type": "NameExpression",
+          "name": "Float"
+        }
+      },
+      {
+        "title": "example",
+        "description": "note.freq(null, 'A4') // => 440\nnote.freq(444, 'A4') // => 444",
+        "lineNumber": 12
+      },
+      {
+        "title": "example",
+        "description": "// partially applied\n['A4', 'A#4', 'B5'].map(note.freq(440)) // => [440, ...]\nvar baroque = note.freq(415)\nbaroque('A3') // => 207.5",
+        "lineNumber": 16
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 5,
+        "column": 0
+      },
+      "end": {
+        "line": 25,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 26,
+          "column": 0
+        },
+        "end": {
+          "line": 37,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/note.freq.js",
+      "code": "'use strict'\n\nvar midi = require('./note.midi')\n\n/**\n * Get the pitch frequency in herzs with custom concert tuning\n *\n * This function is currified so it can be partially applied (see examples)\n *\n * @name note.freq\n * @function\n * @param {Float} tuning - the frequency of A4 (null means 440)\n * @param {String|Array} note - the note name\n * @return {Float} the frequency of the note\n *\n * @example\n * note.freq(null, 'A4') // => 440\n * note.freq(444, 'A4') // => 444\n *\n * @example\n * // partially applied\n * ['A4', 'A#4', 'B5'].map(note.freq(440)) // => [440, ...]\n * var baroque = note.freq(415)\n * baroque('A3') // => 207.5\n */\nmodule.exports = function freq (tuning, pitch) {\n  tuning = tuning || 440\n  if (arguments.length > 1) return freq(tuning)(pitch)\n\n  return function (p) {\n    if (!isNaN(p)) return p\n    var m = midi(p)\n    if (!m) return null\n    return Math.pow(2, (m - 69) / 12) * tuning\n  }\n}\n"
+    },
+    "name": "note.freq",
+    "params": [
+      {
+        "title": "param",
+        "description": "the frequency of A4 (null means 440)",
+        "lineNumber": 8,
+        "type": {
+          "type": "NameExpression",
+          "name": "Float"
+        },
+        "name": "tuning"
+      },
+      {
+        "title": "param",
+        "description": "the note name",
+        "lineNumber": 9,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "note"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the frequency of the note",
+        "lineNumber": 10,
+        "type": {
+          "type": "NameExpression",
+          "name": "Float"
+        }
+      }
+    ],
+    "examples": [
+      "note.freq(<span class=\"hljs-literal\">null</span>, <span class=\"hljs-string\">'A4'</span>) <span class=\"hljs-comment\">// =&gt; 440</span>\nnote.freq(<span class=\"hljs-number\">444</span>, <span class=\"hljs-string\">'A4'</span>) <span class=\"hljs-comment\">// =&gt; 444</span>",
+      "<span class=\"hljs-comment\">// partially applied</span>\n[<span class=\"hljs-string\">'A4'</span>, <span class=\"hljs-string\">'A#4'</span>, <span class=\"hljs-string\">'B5'</span>].map(note.freq(<span class=\"hljs-number\">440</span>)) <span class=\"hljs-comment\">// =&gt; [440, ...]</span>\n<span class=\"hljs-keyword\">var</span> baroque = note.freq(<span class=\"hljs-number\">415</span>)\nbaroque(<span class=\"hljs-string\">'A3'</span>) <span class=\"hljs-comment\">// =&gt; 207.5</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "note.freq"
+    ]
+  },
+  {
+    "description": "Get the note name (in scientific notation) of the given midi number\n\nIt uses MIDI's [Tuning Standard](https://en.wikipedia.org/wiki/MIDI_Tuning_Standard)\nwhere A4 is 69\n\nThis method doesn't take into account diatonic spelling. Always the same\npitch class is given for the same midi number.",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 9,
+        "name": "note.fromMidi"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 10,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the midi number",
+        "lineNumber": 12,
+        "type": {
+          "type": "NameExpression",
+          "name": "Integer"
+        },
+        "name": "midi"
+      },
+      {
+        "title": "returns",
+        "description": "the pitch",
+        "lineNumber": 13,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        }
+      },
+      {
+        "title": "example",
+        "description": "note.fromMidi(69) // => 'A4'",
+        "lineNumber": 15
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 5,
+        "column": 0
+      },
+      "end": {
+        "line": 21,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 0
+        },
+        "end": {
+          "line": 28,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/note.fromMidi.js",
+      "code": "'use strict'\n\nvar CHROMATIC = [ 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B' ]\n\n/**\n * Get the note name (in scientific notation) of the given midi number\n *\n * It uses MIDI's [Tuning Standard](https://en.wikipedia.org/wiki/MIDI_Tuning_Standard)\n * where A4 is 69\n *\n * This method doesn't take into account diatonic spelling. Always the same\n * pitch class is given for the same midi number.\n *\n * @name note.fromMidi\n * @function\n * @param {Integer} midi - the midi number\n * @return {String} the pitch\n *\n * @example\n * note.fromMidi(69) // => 'A4'\n */\nmodule.exports = function (midi) {\n  if (isNaN(midi) || midi < 0 || midi > 127) return null\n  var name = CHROMATIC[midi % 12]\n  var oct = Math.floor(midi / 12) - 1\n  return name + oct\n}\n"
+    },
+    "name": "note.fromMidi",
+    "params": [
+      {
+        "title": "param",
+        "description": "the midi number",
+        "lineNumber": 12,
+        "type": {
+          "type": "NameExpression",
+          "name": "Integer"
+        },
+        "name": "midi"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the pitch",
+        "lineNumber": 13,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        }
+      }
+    ],
+    "examples": [
+      "note.fromMidi(<span class=\"hljs-number\">69</span>) <span class=\"hljs-comment\">// =&gt; 'A4'</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "note.fromMidi"
+    ]
+  },
+  {
+    "description": "Get the midi number of a note\n\nThe note can be an string in scientific notation or\n[array pitch notation](https://github.com/danigb/music.array.notation)",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 6,
+        "name": "note.midi"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 7,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the note in string or array notation",
+        "lineNumber": 9,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "note"
+      },
+      {
+        "title": "returns",
+        "description": "the midi number",
+        "lineNumber": 10,
+        "type": {
+          "type": "NameExpression",
+          "name": "Integer"
+        }
+      },
+      {
+        "title": "example",
+        "description": "midi('A4') // => 69\nmidi('A3') // => 57\nmidi([0, 2]) // => 36 (C2 in array notation)",
+        "lineNumber": 12
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 4,
+        "column": 0
+      },
+      "end": {
+        "line": 19,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 20,
+          "column": 0
+        },
+        "end": {
+          "line": 24,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/note.midi.js",
+      "code": "'use strict'\n\nvar height = require('./pitch.height')\n/**\n * Get the midi number of a note\n *\n * The note can be an string in scientific notation or\n * [array pitch notation](https://github.com/danigb/music.array.notation)\n *\n * @name note.midi\n * @function\n * @param {String|Array} note - the note in string or array notation\n * @return {Integer} the midi number\n *\n * @example\n * midi('A4') // => 69\n * midi('A3') // => 57\n * midi([0, 2]) // => 36 (C2 in array notation)\n */\nmodule.exports = function (note) {\n  var m = height(note) + 12\n  return m < 0 || m > 127 ? null : m\n}\n"
+    },
+    "name": "note.midi",
+    "params": [
+      {
+        "title": "param",
+        "description": "the note in string or array notation",
+        "lineNumber": 9,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "note"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the midi number",
+        "lineNumber": 10,
+        "type": {
+          "type": "NameExpression",
+          "name": "Integer"
+        }
+      }
+    ],
+    "examples": [
+      "midi(<span class=\"hljs-string\">'A4'</span>) <span class=\"hljs-comment\">// =&gt; 69</span>\nmidi(<span class=\"hljs-string\">'A3'</span>) <span class=\"hljs-comment\">// =&gt; 57</span>\nmidi([<span class=\"hljs-number\">0</span>, <span class=\"hljs-number\">2</span>]) <span class=\"hljs-comment\">// =&gt; 36 (C2 in array notation)</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "note.midi"
+    ]
+  },
+  {
+    "description": "Convert from [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)\nto [array pitch notation](https://github.com/danigb/music.array.notation)\n\nThe string to parse must be in the form of: `letter[accidentals][octave]`\nThe accidentals can be up to four # (sharp) or b (flat) or two x (double sharps)\n\nThis function is cached for better performance.",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 9,
+        "name": "note.parse"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 10,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the string to parse",
+        "lineNumber": 12,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "str"
+      },
+      {
+        "title": "returns",
+        "description": "the note in array notation or null if not valid note",
+        "lineNumber": 13,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      },
+      {
+        "title": "example",
+        "description": "var parse = require('music.kit/note.parse')\nparse('C') // => [ 0 ]\nparse('c#') // => [ 8 ]\nparse('c##') // => [ 16 ]\nparse('Cx') // => [ 16 ] (double sharp)\nparse('Cb') // => [ -6 ]\nparse('db') // => [ -4 ]\nparse('G4') // => [ 2, 3, null ]\nparse('c#3') // => [ 8, -1, null ]",
+        "lineNumber": 15
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 7,
+        "column": 0
+      },
+      "end": {
+        "line": 31,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 32,
+          "column": 0
+        },
+        "end": {
+          "line": 36,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/note.parse.js",
+      "code": "'use strict'\n\nvar REGEX = /^([a-gA-G])(#{1,}|b{1,}|x{1,}|)(-?\\d*)(?:\\/(\\d+))?$/\nvar BASES = { C: [0, 0], D: [2, -1], E: [4, -2], F: [-1, 1], G: [1, 0], A: [3, -1], B: [5, -2] }\nvar cache = {}\n\n/**\n * Convert from [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)\n * to [array pitch notation](https://github.com/danigb/music.array.notation)\n *\n * The string to parse must be in the form of: `letter[accidentals][octave]`\n * The accidentals can be up to four # (sharp) or b (flat) or two x (double sharps)\n *\n * This function is cached for better performance.\n *\n * @name note.parse\n * @function\n * @param {String} str - the string to parse\n * @return {Array} the note in array notation or null if not valid note\n *\n * @example\n * var parse = require('music.kit/note.parse')\n * parse('C') // => [ 0 ]\n * parse('c#') // => [ 8 ]\n * parse('c##') // => [ 16 ]\n * parse('Cx') // => [ 16 ] (double sharp)\n * parse('Cb') // => [ -6 ]\n * parse('db') // => [ -4 ]\n * parse('G4') // => [ 2, 3, null ]\n * parse('c#3') // => [ 8, -1, null ]\n */\nmodule.exports = function (str) {\n  return (str in cache) ? cache[str] : cache[str] = parse(str)\n}\n\nfunction parse (str) {\n  var m = REGEX.exec(str)\n  if (!m) return null\n\n  var base = BASES[m[1].toUpperCase()]\n  var alt = m[2].replace(/x/g, '##').length\n  if (m[2][0] === 'b') alt *= -1\n  var fifths = base[0] + 7 * alt\n  if (!m[3]) return [fifths]\n  var oct = +m[3] + base[1] - 4 * alt\n  return [fifths, oct, m[4] ? +m[4] : null]\n}"
+    },
+    "name": "note.parse",
+    "params": [
+      {
+        "title": "param",
+        "description": "the string to parse",
+        "lineNumber": 12,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "str"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the note in array notation or null if not valid note",
+        "lineNumber": 13,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> parse = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/note.parse'</span>)\nparse(<span class=\"hljs-string\">'C'</span>) <span class=\"hljs-comment\">// =&gt; [ 0 ]</span>\nparse(<span class=\"hljs-string\">'c#'</span>) <span class=\"hljs-comment\">// =&gt; [ 8 ]</span>\nparse(<span class=\"hljs-string\">'c##'</span>) <span class=\"hljs-comment\">// =&gt; [ 16 ]</span>\nparse(<span class=\"hljs-string\">'Cx'</span>) <span class=\"hljs-comment\">// =&gt; [ 16 ] (double sharp)</span>\nparse(<span class=\"hljs-string\">'Cb'</span>) <span class=\"hljs-comment\">// =&gt; [ -6 ]</span>\nparse(<span class=\"hljs-string\">'db'</span>) <span class=\"hljs-comment\">// =&gt; [ -4 ]</span>\nparse(<span class=\"hljs-string\">'G4'</span>) <span class=\"hljs-comment\">// =&gt; [ 2, 3, null ]</span>\nparse(<span class=\"hljs-string\">'c#3'</span>) <span class=\"hljs-comment\">// =&gt; [ 8, -1, null ]</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "note.parse"
+    ]
+  },
+  {
+    "description": "Get the [pitch class](https://en.wikipedia.org/wiki/pitch_class) of a note",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 3,
+        "name": "note.pitchClass"
+      },
+      {
+        "title": "param",
+        "description": "the note",
+        "lineNumber": 4,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "note"
+      },
+      {
+        "title": "returns",
+        "description": "the pitch class",
+        "lineNumber": 5,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        }
+      },
+      {
+        "title": "example",
+        "description": "pc = require('music.kit/note.pitchClass')\npc('db3') // => 'Db'\npc('fx/4') // => 'F##'",
+        "lineNumber": 7
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 5,
+        "column": 0
+      },
+      "end": {
+        "line": 16,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 0
+        },
+        "end": {
+          "line": 20,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/note.pitchClass.js",
+      "code": "'use strict'\n\nvar operation = require('./pitch.operation')\n\n/**\n * Get the [pitch class](https://en.wikipedia.org/wiki/pitch_class) of a note\n *\n * @name note.pitchClass\n * @param {String|Array} note the note\n * @return {String|Array} the pitch class\n *\n * @example\n * pc = require('music.kit/note.pitchClass')\n * pc('db3') // => 'Db'\n * pc('fx/4') // => 'F##'\n */\nmodule.exports = operation(function (n) {\n  return [n[0]]\n})\n"
+    },
+    "name": "note.pitchClass",
+    "params": [
+      {
+        "title": "param",
+        "description": "the note",
+        "lineNumber": 4,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "note"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the pitch class",
+        "lineNumber": 5,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        }
+      }
+    ],
+    "examples": [
+      "pc = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/note.pitchClass'</span>)\npc(<span class=\"hljs-string\">'db3'</span>) <span class=\"hljs-comment\">// =&gt; 'Db'</span>\npc(<span class=\"hljs-string\">'fx/4'</span>) <span class=\"hljs-comment\">// =&gt; 'F##'</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "note.pitchClass"
+    ]
+  },
+  {
+    "description": "Set the octave of the given note",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 3,
+        "name": "note.setOctave"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 4,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the octave to set",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "Integer"
+        },
+        "name": "octave"
+      },
+      {
+        "title": "param",
+        "description": "the note",
+        "lineNumber": 7,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "note"
+      },
+      {
+        "title": "returns",
+        "description": "a copy of the same note with the octave changed",
+        "lineNumber": 8,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        }
+      },
+      {
+        "title": "example",
+        "description": "var setOctave = require('music.kit/note.setOctave')\nsetOctave('2', 'C#1') // => 'C#2'",
+        "lineNumber": 10
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 4,
+        "column": 0
+      },
+      "end": {
+        "line": 16,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 0
+        },
+        "end": {
+          "line": 21,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/note.setOctave.js",
+      "code": "var curry = require('./_curry2')\nvar operation = require('./pitch.operation')\n\n/**\n * Set the octave of the given note\n *\n * @name note.setOctave\n * @function\n * @param {Integer} octave - the octave to set\n * @param {String|Array} note - the note\n * @return {String|Array} a copy of the same note with the octave changed\n *\n * @example\n * var setOctave = require('music.kit/note.setOctave')\n * setOctave('2', 'C#1') // => 'C#2'\n */\nmodule.exports = curry(operation(function (oct, n) {\n  if (!Array.isArray(n)) return null\n  return [n[0], -Math.floor(n[0] * 7 / 12) + oct, n[2] || null]\n}))\n"
+    },
+    "name": "note.setOctave",
+    "params": [
+      {
+        "title": "param",
+        "description": "the octave to set",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "Integer"
+        },
+        "name": "octave"
+      },
+      {
+        "title": "param",
+        "description": "the note",
+        "lineNumber": 7,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "note"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "a copy of the same note with the octave changed",
+        "lineNumber": 8,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> setOctave = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/note.setOctave'</span>)\nsetOctave(<span class=\"hljs-string\">'2'</span>, <span class=\"hljs-string\">'C#1'</span>) <span class=\"hljs-comment\">// =&gt; 'C#2'</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "note.setOctave"
+    ]
+  },
+  {
+    "description": "Convert from [array notation](https://github.com/danigb/music.array.notation)\nto [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)\n\nArray length must be 1 or 3 (see array notation documentation)\n\nThe returned string format is `letter[+ accidentals][+ octave][/duration]` where the letter\nis always uppercase, and the accidentals, octave and duration are optional.\n\nThis function is memoized for better perfomance.",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 11,
+        "name": "note.str"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 12,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the note in array notation",
+        "lineNumber": 14,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        },
+        "name": "arr"
+      },
+      {
+        "title": "returns",
+        "description": "the note in scientific notation or null if not valid note array",
+        "lineNumber": 15,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        }
+      },
+      {
+        "title": "example",
+        "description": "var note = require('music.kit').note\nnote.str([0]) // => 'F'\nnote.str([0, 4]) // => null (its an interval)\nnote.str([0, 4, null]) // => 'F4'\nnote.str([0, 4, 2]) // => 'F4/2'",
+        "lineNumber": 17
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 6,
+        "column": 0
+      },
+      "end": {
+        "line": 28,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 29,
+          "column": 0
+        },
+        "end": {
+          "line": 35,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/note.str.js",
+      "code": "'use strict'\n\nvar props = require('./pitch.props')\nvar cache = {}\n\n/**\n * Convert from [array notation](https://github.com/danigb/music.array.notation)\n * to [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)\n *\n * Array length must be 1 or 3 (see array notation documentation)\n *\n * The returned string format is `letter[+ accidentals][+ octave][/duration]` where the letter\n * is always uppercase, and the accidentals, octave and duration are optional.\n *\n * This function is memoized for better perfomance.\n *\n * @name note.str\n * @function\n * @param {Array} arr - the note in array notation\n * @return {String} the note in scientific notation or null if not valid note array\n *\n * @example\n * var note = require('music.kit').note\n * note.str([0]) // => 'F'\n * note.str([0, 4]) // => null (its an interval)\n * note.str([0, 4, null]) // => 'F4'\n * note.str([0, 4, 2]) // => 'F4/2'\n */\nmodule.exports = function (arr) {\n  if (!Array.isArray(arr) || arr.length < 1 || arr.length === 2) return null\n  var str = '|' + arr[0] + '|' + arr[1] + '|' + arr[2]\n  return str in cache ? cache[str] : cache[str] = build(arr)\n}\n\nfunction accidentals (num) {\n  if (num < 0) return Array(-num + 1).join('b')\n  else if (num > 0) return Array(num + 1).join('#')\n  else return ''\n}\n\nvar LETTER = ['C', 'D', 'E', 'F', 'G', 'A', 'B']\nfunction build (coord) {\n  var p = props(coord)\n  return LETTER[p[0]] + accidentals(p[1]) + (p[2] !== null ? p[2] : '') + (p[3] !== null ? p[3] : '')\n}"
+    },
+    "name": "note.str",
+    "params": [
+      {
+        "title": "param",
+        "description": "the note in array notation",
+        "lineNumber": 14,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        },
+        "name": "arr"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the note in scientific notation or null if not valid note array",
+        "lineNumber": 15,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> note = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit'</span>).note\nnote.str([<span class=\"hljs-number\">0</span>]) <span class=\"hljs-comment\">// =&gt; 'F'</span>\nnote.str([<span class=\"hljs-number\">0</span>, <span class=\"hljs-number\">4</span>]) <span class=\"hljs-comment\">// =&gt; null (its an interval)</span>\nnote.str([<span class=\"hljs-number\">0</span>, <span class=\"hljs-number\">4</span>, <span class=\"hljs-literal\">null</span>]) <span class=\"hljs-comment\">// =&gt; 'F4'</span>\nnote.str([<span class=\"hljs-number\">0</span>, <span class=\"hljs-number\">4</span>, <span class=\"hljs-number\">2</span>]) <span class=\"hljs-comment\">// =&gt; 'F4/2'</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "note.str"
+    ]
+  },
+  {
+    "description": "Transpose a note by an interval.\n\nThis function is currified. The orider of the parameters is indiferent.",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 5,
+        "name": "note.transpose"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 6,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the interval. If its false, the note is not\ntransposed.",
+        "lineNumber": 8,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "interval"
+      },
+      {
+        "title": "param",
+        "description": "the note to transpose",
+        "lineNumber": 10,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "note"
+      },
+      {
+        "title": "returns",
+        "description": "the note transposed",
+        "lineNumber": 11,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        }
+      },
+      {
+        "title": "example",
+        "description": "var transpose = require('music.kit/note.transpose')\ntranspose('3m', 'C4') // => 'Eb4'\ntranspose('C4', '3m') // => 'Eb4'\ntranpose([1, 0, 2], [3, -1, 0]) // => [3, 0, 2]\n['C', 'D', 'E'].map(transpose('3M')) // => ['E', 'F#', 'G#']",
+        "lineNumber": 13
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 4,
+        "column": 0
+      },
+      "end": {
+        "line": 22,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 0
+        },
+        "end": {
+          "line": 30,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/note.transpose.js",
+      "code": "var operation = require('./pitch.operation')\nvar curry = require('./_curry2')\n\n/**\n * Transpose a note by an interval.\n *\n * This function is currified. The orider of the parameters is indiferent.\n *\n * @name note.transpose\n * @function\n * @param {String|Array} interval - the interval. If its false, the note is not\n * transposed.\n * @param {String|Array} note - the note to transpose\n * @return {String|Array} the note transposed\n *\n * @example\n * var transpose = require('music.kit/note.transpose')\n * transpose('3m', 'C4') // => 'Eb4'\n * transpose('C4', '3m') // => 'Eb4'\n * tranpose([1, 0, 2], [3, -1, 0]) // => [3, 0, 2]\n * ['C', 'D', 'E'].map(transpose('3M')) // => ['E', 'F#', 'G#']\n */\nmodule.exports = curry(operation(function (i, n) {\n  if (i === false) return n\n  else if (!Array.isArray(i) || !Array.isArray(n)) return null\n  else if (i.length === 1 || n.length === 1) return [n[0] + i[0]]\n  var d = i.length === 2 && n.length === 2 ? null : n[2] || i[2]\n  return [n[0] + i[0], n[1] + i[1], d]\n}))\n"
+    },
+    "name": "note.transpose",
+    "params": [
+      {
+        "title": "param",
+        "description": "the interval. If its false, the note is not\ntransposed.",
+        "lineNumber": 8,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "interval"
+      },
+      {
+        "title": "param",
+        "description": "the note to transpose",
+        "lineNumber": 10,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "note"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the note transposed",
+        "lineNumber": 11,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> transpose = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/note.transpose'</span>)\ntranspose(<span class=\"hljs-string\">'3m'</span>, <span class=\"hljs-string\">'C4'</span>) <span class=\"hljs-comment\">// =&gt; 'Eb4'</span>\ntranspose(<span class=\"hljs-string\">'C4'</span>, <span class=\"hljs-string\">'3m'</span>) <span class=\"hljs-comment\">// =&gt; 'Eb4'</span>\ntranpose([<span class=\"hljs-number\">1</span>, <span class=\"hljs-number\">0</span>, <span class=\"hljs-number\">2</span>], [<span class=\"hljs-number\">3</span>, -<span class=\"hljs-number\">1</span>, <span class=\"hljs-number\">0</span>]) <span class=\"hljs-comment\">// =&gt; [3, 0, 2]</span>\n[<span class=\"hljs-string\">'C'</span>, <span class=\"hljs-string\">'D'</span>, <span class=\"hljs-string\">'E'</span>].map(transpose(<span class=\"hljs-string\">'3M'</span>)) <span class=\"hljs-comment\">// =&gt; ['E', 'F#', 'G#']</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "note.transpose"
+    ]
+  },
+  {
+    "description": "In music.kit a pitch it's a note, an interval or a pitch class. It allows us\nto work with this elements in an uniform way.\n\nAll the function in this module are valid for notes, or intervals",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 6,
+        "name": "pitch"
+      },
+      {
+        "title": "example",
+        "description": "var pitch = require('music.kit').pitch\npitch.height('C2') // => 24\npitch.height('5P') // => 7",
+        "lineNumber": 8
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 3,
+        "column": 0
+      },
+      "end": {
+        "line": 15,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 0
+        },
+        "end": {
+          "line": 24,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/pitch.js",
+      "code": "'use strict'\n\n/**\n * In music.kit a pitch it's a note, an interval or a pitch class. It allows us\n * to work with this elements in an uniform way.\n *\n * All the function in this module are valid for notes, or intervals\n *\n * @name pitch\n *\n * @example\n * var pitch = require('music.kit').pitch\n * pitch.height('C2') // => 24\n * pitch.height('5P') // => 7\n */\nmodule.exports = {\n  parse: require('./pitch.parse'),\n  str: require('./pitch.str'),\n  props: require('./pitch.props'),\n  simplify: require('./pitch.simplify'),\n  height: require('./pitch.height'),\n  operation: require('./pitch.operation')\n}\n"
+    },
+    "name": "pitch",
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> pitch = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit'</span>).pitch\npitch.height(<span class=\"hljs-string\">'C2'</span>) <span class=\"hljs-comment\">// =&gt; 24</span>\npitch.height(<span class=\"hljs-string\">'5P'</span>) <span class=\"hljs-comment\">// =&gt; 7</span>"
+    ],
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "pitch"
+    ]
+  },
+  {
+    "description": "",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 1,
+        "name": "pitch.height"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 3,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the pitch to get the height from",
+        "lineNumber": 5,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "pitch"
+      },
+      {
+        "title": "returns",
+        "description": "the height of -1 if not valid note",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "Integer"
+        }
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 5,
+        "column": 0
+      },
+      "end": {
+        "line": 11,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 0
+        },
+        "end": {
+          "line": 18,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/pitch.height.js",
+      "code": "'use strict'\n\nvar operation = require('./pitch.operation')\n\n/**\n * @name pitch.height\n *\n * @function\n * @param {String|Array} pitch - the pitch to get the height from\n * @return {Integer} the height of -1 if not valid note\n */\nmodule.exports = operation(function (p) {\n  if (!Array.isArray(p)) return -Infinity\n  var f = p[0] * 7\n  var o = p[1] || p[1] === 0 ? p[1] : -Math.floor(f / 12) - 10\n  return f + o * 12\n})\n"
+    },
+    "name": "pitch.height",
+    "params": [
+      {
+        "title": "param",
+        "description": "the pitch to get the height from",
+        "lineNumber": 5,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "pitch"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the height of -1 if not valid note",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "Integer"
+        }
+      }
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "pitch.height"
+    ]
+  },
+  {
+    "description": "Decorate a function to work with parsed pitches",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 3,
+        "name": "pitch.operation"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 4,
+        "name": null
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 4,
+        "column": 0
+      },
+      "end": {
+        "line": 9,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 19,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/pitch.operation.js",
+      "code": "var parse = require('./pitch.parse')\nvar build = require('./pitch.str')\n\n/**\n * Decorate a function to work with parsed pitches\n *\n * @name pitch.operation\n * @function\n */\nmodule.exports = function (fn) {\n  return function (a, b) {\n    var pa = parse(a)\n    var pb = parse(b)\n    if (!pa && !pb) return fn(a, b)\n    var v = fn(pa || a, pb || b)\n    return build(v) || v\n  }\n}\n"
+    },
+    "name": "pitch.operation",
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "pitch.operation"
+    ]
+  },
+  {
+    "description": "Parse a note or an interval",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 3,
+        "name": "pitch.parse"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 4,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the note or interval to parse",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "pitch"
+      },
+      {
+        "title": "returns",
+        "description": "the pitch in array notation",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      },
+      {
+        "title": "example",
+        "description": "pitch.parse('C2') // => [0, 2, null]\npitch.parse('5P') // => [1, 0]",
+        "lineNumber": 9
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 4,
+        "column": 0
+      },
+      "end": {
+        "line": 15,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 0
+        },
+        "end": {
+          "line": 17,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/pitch.parse.js",
+      "code": "var pn = require('./note.parse')\nvar pi = require('./interval.parse')\n\n/**\n * Parse a note or an interval\n *\n * @name pitch.parse\n * @function\n * @param {String} pitch - the note or interval to parse\n * @return {Array} the pitch in array notation\n *\n * @example\n * pitch.parse('C2') // => [0, 2, null]\n * pitch.parse('5P') // => [1, 0]\n */\nmodule.exports = function (n) { return pn(n) || pi(n) }\n"
+    },
+    "name": "pitch.parse",
+    "params": [
+      {
+        "title": "param",
+        "description": "the note or interval to parse",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "pitch"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the pitch in array notation",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      }
+    ],
+    "examples": [
+      "pitch.parse(<span class=\"hljs-string\">'C2'</span>) <span class=\"hljs-comment\">// =&gt; [0, 2, null]</span>\npitch.parse(<span class=\"hljs-string\">'5P'</span>) <span class=\"hljs-comment\">// =&gt; [1, 0]</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "pitch.parse"
+    ]
+  },
+  {
+    "description": "Get the properties of a pitch in array notation as an array of properties\n\nThe properties is in the form [number, alteration, octave, duration]",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 5,
+        "name": "pitch.props"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 6,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the pitch in array notation",
+        "lineNumber": 8,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        },
+        "name": "array"
+      },
+      {
+        "title": "returns",
+        "description": "the properties array",
+        "lineNumber": 9,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      },
+      {
+        "title": "example",
+        "description": "var props = require('music.kit/pitch.props')\nprops([2, 1, 4]) // => [1, 2, 4]",
+        "lineNumber": 11
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 7,
+        "column": 0
+      },
+      "end": {
+        "line": 20,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 0
+        },
+        "end": {
+          "line": 31,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/pitch.props.js",
+      "code": "'use strict'\n\n// Map from number of fifths to interval number (0-index) and octave\n// -1 = fourth, 0 = unison, 1 = fifth, 2 = second, 3 = sixth...\nvar BASES = [[3, 1], [0, 0], [4, 0], [1, -1], [5, -1], [2, -2], [6, -2], [3, -3]]\n\n/**\n * Get the properties of a pitch in array notation as an array of properties\n *\n * The properties is in the form [number, alteration, octave, duration]\n *\n * @name pitch.props\n * @function\n * @param {Array} array - the pitch in array notation\n * @return {Array} the properties array\n *\n * @example\n * var props = require('music.kit/pitch.props')\n * props([2, 1, 4]) // => [1, 2, 4]\n */\nmodule.exports = function (arr) {\n  if (!Array.isArray(arr)) return null\n  var index = (arr[0] + 1) % 7\n  if (index < 0) index = 7 + index\n  var base = BASES[index]\n  var alter = Math.floor((arr[0] + 1) / 7)\n  var oct = arr.length === 1 ? null : arr[1] - base[1] + alter * 4\n  var dur = arr[2] ? '/' + arr[2] : null\n  return [base[0], alter, oct, dur]\n}\n"
+    },
+    "name": "pitch.props",
+    "params": [
+      {
+        "title": "param",
+        "description": "the pitch in array notation",
+        "lineNumber": 8,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        },
+        "name": "array"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the properties array",
+        "lineNumber": 9,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> props = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/pitch.props'</span>)\nprops([<span class=\"hljs-number\">2</span>, <span class=\"hljs-number\">1</span>, <span class=\"hljs-number\">4</span>]) <span class=\"hljs-comment\">// =&gt; [1, 2, 4]</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "pitch.props"
+    ]
+  },
+  {
+    "description": "Simplifies a pitch. If its a note, it returns its pitch class. If its an\ninterval it returns the simplified interval",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 4,
+        "name": "pitch.simplify"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 5,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the pitch",
+        "lineNumber": 7,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "pitch"
+      },
+      {
+        "title": "returns",
+        "description": "the simplified pitch",
+        "lineNumber": 8,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        }
+      },
+      {
+        "title": "example",
+        "description": "var simplify = require('music.kit/pitch.simplify')\nsimplify('C#4') // => 'C#'\nsimplify('9m') // => '2m'",
+        "lineNumber": 10
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 3,
+        "column": 0
+      },
+      "end": {
+        "line": 16,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 0
+        },
+        "end": {
+          "line": 21,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/pitch.simplify.js",
+      "code": "var operation = require('./pitch.operation')\n\n/**\n * Simplifies a pitch. If its a note, it returns its pitch class. If its an\n * interval it returns the simplified interval\n *\n * @name pitch.simplify\n * @function\n * @param {String|Array} pitch - the pitch\n * @return {String|Array} the simplified pitch\n *\n * @example\n * var simplify = require('music.kit/pitch.simplify')\n * simplify('C#4') // => 'C#'\n * simplify('9m') // => '2m'\n */\nmodule.exports = operation(function (p) {\n  if (!Array.isArray(p)) return null\n  return p.length === 2 ? [p[0], -Math.floor(p[0] * 7 / 12)] : [p[0]]\n})\n"
+    },
+    "name": "pitch.simplify",
+    "params": [
+      {
+        "title": "param",
+        "description": "the pitch",
+        "lineNumber": 7,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "pitch"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the simplified pitch",
+        "lineNumber": 8,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> simplify = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/pitch.simplify'</span>)\nsimplify(<span class=\"hljs-string\">'C#4'</span>) <span class=\"hljs-comment\">// =&gt; 'C#'</span>\nsimplify(<span class=\"hljs-string\">'9m'</span>) <span class=\"hljs-comment\">// =&gt; '2m'</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "pitch.simplify"
+    ]
+  },
+  {
+    "description": "Convert a pitch in array notation to string. It deals with notes, pitch\nclasses and intervals.",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 4,
+        "name": "pitch.str"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 5,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the pitch in array notation",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        },
+        "name": "pitch"
+      },
+      {
+        "title": "returns",
+        "description": "the pitch string",
+        "lineNumber": 8,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        }
+      },
+      {
+        "title": "example",
+        "description": "// pitch class\npitch.str([0]) // => 'C'\n// interval\npitch.str([0, 0]) // => '1P'\n// note\npitch.str([0, 2, 4]) // => 'C2/4'",
+        "lineNumber": 10
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 4,
+        "column": 0
+      },
+      "end": {
+        "line": 20,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 0
+        },
+        "end": {
+          "line": 22,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/pitch.str.js",
+      "code": "var ns = require('./note.str')\nvar is = require('./interval.str')\n\n/**\n * Convert a pitch in array notation to string. It deals with notes, pitch\n * classes and intervals.\n *\n * @name pitch.str\n * @function\n * @param {Array} pitch - the pitch in array notation\n * @return {String} the pitch string\n *\n * @example\n * // pitch class\n * pitch.str([0]) // => 'C'\n * // interval\n * pitch.str([0, 0]) // => '1P'\n * // note\n * pitch.str([0, 2, 4]) // => 'C2/4'\n */\nmodule.exports = function (n) { return ns(n) || is(n) }\n"
+    },
+    "name": "pitch.str",
+    "params": [
+      {
+        "title": "param",
+        "description": "the pitch in array notation",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        },
+        "name": "pitch"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the pitch string",
+        "lineNumber": 8,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-comment\">// pitch class</span>\npitch.str([<span class=\"hljs-number\">0</span>]) <span class=\"hljs-comment\">// =&gt; 'C'</span>\n<span class=\"hljs-comment\">// interval</span>\npitch.str([<span class=\"hljs-number\">0</span>, <span class=\"hljs-number\">0</span>]) <span class=\"hljs-comment\">// =&gt; '1P'</span>\n<span class=\"hljs-comment\">// note</span>\npitch.str([<span class=\"hljs-number\">0</span>, <span class=\"hljs-number\">2</span>, <span class=\"hljs-number\">4</span>]) <span class=\"hljs-comment\">// =&gt; 'C2/4'</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "pitch.str"
+    ]
+  },
+  {
+    "description": "In music.kit an scale is a set of notes or intervals with a tonic and ordered\nby pitch\n\nThe `scale` module has functions to create and manipulate scales",
+    "tags": [
+      {
+        "title": "name",
+        "name": "scale"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 2,
+        "column": 0
+      },
+      "end": {
+        "line": 7,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 0
+        },
+        "end": {
+          "line": 9,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/scale.js",
+      "code": "var scale = require('./gamut.scale')\nscale.pattern = require('./scale.pattern')\nscale.get = require('./scale.get')\nscale.names = require('./scale.names')\n\nmodule.exports = scale\n"
+    },
+    "name": "scale",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "scale"
+    ]
+  },
+  {
+    "description": "Get a scale by name using a dictionary. It returns a data object with the\nfollowing properties:\n\n- name {String}: the name of the scale\n- tonic {String}: the tonic of the scale or null if no tonic\n- intervals {Array}: an array of scale intervals\n- notes {Array}: an array of scale notes (if tonic) or empty array\n- binary: intervals in a 12-digit binary number\n- decimal: the decimal equivalent of the binary number",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 11,
+        "name": "scale.get"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 12,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the scale name (optionally can include the tonic)",
+        "lineNumber": 14,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "name"
+      },
+      {
+        "title": "returns",
+        "description": "a data object with the scale properties",
+        "lineNumber": 15,
+        "type": {
+          "type": "NameExpression",
+          "name": "Object"
+        }
+      },
+      {
+        "title": "example",
+        "description": "var getScale = require('music.kit/scale.get')\ngetScale('major') // => { name: 'major', aliases: [ 'ionian' ],\n// binary: '101011010101', decimal: 2773, tonic: null, notes: [],\n// intervals: [ '1', '2', '3', '4', '5', '6', '7' ] }\ngetScale('C major') // => { name: 'C major', aliases: [ 'C ionian' ],\n// binary: '101011010101', decimal: 2773, tonic: 'C',\n// notes: [ 'C', 'D', 'E', 'F', 'G', 'A', 'B' ],\n// intervals: [ '1', '2', '3', '4', '5', '6', '7' ] }",
+        "lineNumber": 17
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 8,
+        "column": 0
+      },
+      "end": {
+        "line": 33,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 34,
+          "column": 0
+        },
+        "end": {
+          "line": 46,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/scale.get.js",
+      "code": "'use strict'\n\nvar scales = require('./data/scales')\nvar transpose = require('./note.transpose')\nvar NONE = { name: null, intervals: [], aliases: [], binary: null, decimal: null }\nvar NAME = /^([^\\s]+)\\s(.*)$/\n\n/**\n * Get a scale by name using a dictionary. It returns a data object with the\n * following properties:\n *\n * - name {String}: the name of the scale\n * - tonic {String}: the tonic of the scale or null if no tonic\n * - intervals {Array}: an array of scale intervals\n * - notes {Array}: an array of scale notes (if tonic) or empty array\n * - binary: intervals in a 12-digit binary number\n * - decimal: the decimal equivalent of the binary number\n *\n * @name scale.get\n * @function\n * @param {String} name - the scale name (optionally can include the tonic)\n * @return {Object} a data object with the scale properties\n *\n * @example\n * var getScale = require('music.kit/scale.get')\n * getScale('major') // => { name: 'major', aliases: [ 'ionian' ],\n * // binary: '101011010101', decimal: 2773, tonic: null, notes: [],\n * // intervals: [ '1', '2', '3', '4', '5', '6', '7' ] }\n * getScale('C major') // => { name: 'C major', aliases: [ 'C ionian' ],\n * // binary: '101011010101', decimal: 2773, tonic: 'C',\n * // notes: [ 'C', 'D', 'E', 'F', 'G', 'A', 'B' ],\n * // intervals: [ '1', '2', '3', '4', '5', '6', '7' ] }\n */\nmodule.exports = function (name) {\n  var m = NAME.exec(name)\n  var tonic = m ? m[1] : null\n  var type = (m ? m[2] : name.toString())\n  type = type ? type.trim().toLowerCase() : type\n  var def = scales[type]\n  if (!def) return NONE\n  var tonicify = function (t) { return tonic ? tonic + ' ' + t : t }\n  return { name: tonicify(def.name), aliases: def.aliases.map(tonicify),\n    binary: def.binary, decimal: def.decimal, intervals: def.intervals.slice(),\n    tonic: tonic, notes: tonic ? def.intervals.map(transpose(tonic)) : [] }\n}\n"
+    },
+    "name": "scale.get",
+    "params": [
+      {
+        "title": "param",
+        "description": "the scale name (optionally can include the tonic)",
+        "lineNumber": 14,
+        "type": {
+          "type": "NameExpression",
+          "name": "String"
+        },
+        "name": "name"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "a data object with the scale properties",
+        "lineNumber": 15,
+        "type": {
+          "type": "NameExpression",
+          "name": "Object"
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> getScale = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/scale.get'</span>)\ngetScale(<span class=\"hljs-string\">'major'</span>) <span class=\"hljs-comment\">// =&gt; { name: 'major', aliases: [ 'ionian' ],</span>\n<span class=\"hljs-comment\">// binary: '101011010101', decimal: 2773, tonic: null, notes: [],</span>\n<span class=\"hljs-comment\">// intervals: [ '1', '2', '3', '4', '5', '6', '7' ] }</span>\ngetScale(<span class=\"hljs-string\">'C major'</span>) <span class=\"hljs-comment\">// =&gt; { name: 'C major', aliases: [ 'C ionian' ],</span>\n<span class=\"hljs-comment\">// binary: '101011010101', decimal: 2773, tonic: 'C',</span>\n<span class=\"hljs-comment\">// notes: [ 'C', 'D', 'E', 'F', 'G', 'A', 'B' ],</span>\n<span class=\"hljs-comment\">// intervals: [ '1', '2', '3', '4', '5', '6', '7' ] }</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "scale.get"
+    ]
+  },
+  {
+    "description": "Given a list of notes get the scale names",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 3,
+        "name": "scale.names"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 4,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the scale notes",
+        "lineNumber": 6,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "notes"
+      },
+      {
+        "title": "returns",
+        "description": "an array of scale names or all known scale names if no arguments provided",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      },
+      {
+        "title": "example",
+        "description": "// get all known scale names\nscale.names() // => ['major', 'minor', ... ] (89 names)",
+        "lineNumber": 9
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 5,
+        "column": 0
+      },
+      "end": {
+        "line": 16,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 0
+        },
+        "end": {
+          "line": 20,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/scale.names.js",
+      "code": "'use strict'\n\nvar data = require('./data/scales.json')\n\n/**\n * Given a list of notes get the scale names\n *\n * @name scale.names\n * @function\n * @param {String|Array} notes - the scale notes\n * @return {Array} an array of scale names or all known scale names if no arguments provided\n *\n * @example\n * // get all known scale names\n * scale.names() // => ['major', 'minor', ... ] (89 names)\n */\nmodule.exports = function () {\n  if (arguments.length === 0) return Object.keys(data)\n}\n"
+    },
+    "name": "scale.names",
+    "params": [
+      {
+        "title": "param",
+        "description": "the scale notes",
+        "lineNumber": 6,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "String"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            }
+          ]
+        },
+        "name": "notes"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "an array of scale names or all known scale names if no arguments provided",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-comment\">// get all known scale names</span>\nscale.names() <span class=\"hljs-comment\">// =&gt; ['major', 'minor', ... ] (89 names)</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "scale.names"
+    ]
+  },
+  {
+    "description": "Select notes from a scale using degree numbers.\n\nThe resulting array will contain the notes in the same order as degrees.\nIf a given degree is not present in the scale, the result will contain a\nnull in that position.\n\nThis function is currified so it can be partially applied.",
+    "tags": [
+      {
+        "title": "name",
+        "description": null,
+        "lineNumber": 9,
+        "name": "scale.pattern"
+      },
+      {
+        "title": "function",
+        "description": null,
+        "lineNumber": 10,
+        "name": null
+      },
+      {
+        "title": "param",
+        "description": "the degrees numbers list",
+        "lineNumber": 12,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            },
+            {
+              "type": "NameExpression",
+              "name": "String"
+            }
+          ]
+        },
+        "name": "degrees"
+      },
+      {
+        "title": "param",
+        "description": "the scale notes",
+        "lineNumber": 13,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            },
+            {
+              "type": "NameExpression",
+              "name": "String"
+            }
+          ]
+        },
+        "name": "scale"
+      },
+      {
+        "title": "returns",
+        "description": "the melodic pattern (or null if not present)",
+        "lineNumber": 14,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      },
+      {
+        "title": "example",
+        "description": "var pattern = require('music.kit/scale.pattern')\n// basic usage:\npattern('1 3 5', 'C D E F G A B') // => [ 'C', 'E', 'G' ]\n// order matters:\npattern('1 5 2 6', 'C D E F G A B') // => [ 'C', 'G', 'D', 'A' ]\n// not found degrees are null:\npattern('1 2 6', 'C D E F G') // => [ 'C', 'D', null ]\n// numbers bigger than 7 are transposed one octave or more:\npattern('1 8 15', 'C2 D2 E2') // => ['C2', 'C3', 'C4']\n// partially applied:\nvar triad = scale.pattern('1 3 5')\ntriad('C D E F G A B') // => ['C', 'E', 'G']",
+        "lineNumber": 16
+      },
+      {
+        "title": "kind",
+        "kind": "function"
+      },
+      {
+        "title": "memberof",
+        "description": "module"
+      },
+      {
+        "title": "static"
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 11,
+        "column": 0
+      },
+      "end": {
+        "line": 39,
+        "column": 3
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 40,
+          "column": 0
+        },
+        "end": {
+          "line": 62,
+          "column": 0
+        }
+      },
+      "file": "/Users/Dani/Code/Music.kit/kit/lib/scale.pattern.js",
+      "code": "'use strict'\n\nvar split = require('./gamut.split')\nvar operation = require('./gamut.operation')\nvar scale = require('./gamut.scale')\nvar transpose = require('./note.transpose')\n\n// STEPS: each number of fifths (base F) has a step number (base 0)\nvar STEPS = [3, 0, 4, 1, 5, 2, 6]\n\n/**\n * Select notes from a scale using degree numbers.\n *\n * The resulting array will contain the notes in the same order as degrees.\n * If a given degree is not present in the scale, the result will contain a\n * null in that position.\n *\n * This function is currified so it can be partially applied.\n *\n * @name scale.pattern\n * @function\n * @param {Array|String} degrees - the degrees numbers list\n * @param {Array|String} scale - the scale notes\n * @return {Array} the melodic pattern (or null if not present)\n *\n * @example\n * var pattern = require('music.kit/scale.pattern')\n * // basic usage:\n * pattern('1 3 5', 'C D E F G A B') // => [ 'C', 'E', 'G' ]\n * // order matters:\n * pattern('1 5 2 6', 'C D E F G A B') // => [ 'C', 'G', 'D', 'A' ]\n * // not found degrees are null:\n * pattern('1 2 6', 'C D E F G') // => [ 'C', 'D', null ]\n * // numbers bigger than 7 are transposed one octave or more:\n * pattern('1 8 15', 'C2 D2 E2') // => ['C2', 'C3', 'C4']\n * // partially applied:\n * var triad = scale.pattern('1 3 5')\n * triad('C D E F G A B') // => ['C', 'E', 'G']\n */\nmodule.exports = function pattern (pttn, notes) {\n  if (arguments.length === 2) return pattern(pttn)(notes)\n\n  return operation(function (g) {\n    var nums = split(pttn).map(function (n) { return +n - 1 })\n    var index = []\n    scale(g, false).forEach(function (item) {\n      var fifths = (item[0] + 1) % 7\n      index[STEPS[fifths]] = item\n    })\n    var selected = nums.map(function (n) {\n      var i = index[n % 7]\n      // up an octave if number > 7\n      if (i && n > 6) {\n        i = i.slice()\n        i[1] = i[1] + Math.floor(n / 7)\n      }\n      return i\n    })\n    return selected.map(transpose(g[0]))\n  })\n}\n"
+    },
+    "name": "scale.pattern",
+    "params": [
+      {
+        "title": "param",
+        "description": "the degrees numbers list",
+        "lineNumber": 12,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            },
+            {
+              "type": "NameExpression",
+              "name": "String"
+            }
+          ]
+        },
+        "name": "degrees"
+      },
+      {
+        "title": "param",
+        "description": "the scale notes",
+        "lineNumber": 13,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "Array"
+            },
+            {
+              "type": "NameExpression",
+              "name": "String"
+            }
+          ]
+        },
+        "name": "scale"
+      }
+    ],
+    "returns": [
+      {
+        "title": "returns",
+        "description": "the melodic pattern (or null if not present)",
+        "lineNumber": 14,
+        "type": {
+          "type": "NameExpression",
+          "name": "Array"
+        }
+      }
+    ],
+    "examples": [
+      "<span class=\"hljs-keyword\">var</span> pattern = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'music.kit/scale.pattern'</span>)\n<span class=\"hljs-comment\">// basic usage:</span>\npattern(<span class=\"hljs-string\">'1 3 5'</span>, <span class=\"hljs-string\">'C D E F G A B'</span>) <span class=\"hljs-comment\">// =&gt; [ 'C', 'E', 'G' ]</span>\n<span class=\"hljs-comment\">// order matters:</span>\npattern(<span class=\"hljs-string\">'1 5 2 6'</span>, <span class=\"hljs-string\">'C D E F G A B'</span>) <span class=\"hljs-comment\">// =&gt; [ 'C', 'G', 'D', 'A' ]</span>\n<span class=\"hljs-comment\">// not found degrees are null:</span>\npattern(<span class=\"hljs-string\">'1 2 6'</span>, <span class=\"hljs-string\">'C D E F G'</span>) <span class=\"hljs-comment\">// =&gt; [ 'C', 'D', null ]</span>\n<span class=\"hljs-comment\">// numbers bigger than 7 are transposed one octave or more:</span>\npattern(<span class=\"hljs-string\">'1 8 15'</span>, <span class=\"hljs-string\">'C2 D2 E2'</span>) <span class=\"hljs-comment\">// =&gt; ['C2', 'C3', 'C4']</span>\n<span class=\"hljs-comment\">// partially applied:</span>\n<span class=\"hljs-keyword\">var</span> triad = scale.pattern(<span class=\"hljs-string\">'1 3 5'</span>)\ntriad(<span class=\"hljs-string\">'C D E F G A B'</span>) <span class=\"hljs-comment\">// =&gt; ['C', 'E', 'G']</span>"
+    ],
+    "kind": "function",
+    "memberof": "module",
+    "scope": "static",
+    "members": {
+      "instance": [],
+      "static": []
+    },
+    "events": [],
+    "path": [
+      "scale.pattern"
+    ]
+  }
+]

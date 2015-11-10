@@ -21,19 +21,28 @@
     this.tonicIndex = 0
     this.name = 'major'
 
+    var real = new Float32Array([0,0.4,0.4,1,1,1,0.3,0.7,0.6,0.5,0.9,0.8])
+    var imag = new Float32Array(real.length)
+    var hornTable = this.ctx.createPeriodicWave(real, imag)
+
     play () {
       var ctx = this.ctx
-      var notes = music.scales(this.name, this.tonic() + '4')
-      var farfisa = this.farfisa
-      notes.push(this.tonic() + '5')
-      notes = notes.concat(music.scales(this.name, this.tonic() + '4').reverse())
-      var delay = 0.1
-      notes.forEach(function (note) {
-        console.log(note, delay)
-        farfisa.keyDown(note, delay)
-        delay += 0.5
-        farfisa.keyUp(note, delay - 0.1)
-        console.log(note, delay - 0.1)
+      var pattern = music.scale.degrees('1 2 3 4 5 6 7 8 7 6 5 4 3 2 1')
+      var notes = pattern(music.scales(this.name, this.tonic() + 4))
+      notes.map(music.note.toFreq).forEach(function (freq) {
+        if (!freq) return
+        var osc = ctx.createOscillator()
+        // osc.setPeriodicWave(hornTable)
+        osc.type = 'sine'
+        osc.frequency.value = freq
+        var vol = ctx.createGain()
+        vol.gain.value = 0.3
+        vol.connect(ctx.destination)
+        osc.connect(vol)
+        osc.start(time)
+        time += 0.5
+        vol.gain.setValueAtTime(0, time - 0.1)
+        osc.stop(time)
       })
     }
 
@@ -45,13 +54,12 @@
       this.tonicIndex = (this.tonicIndex + 1) % this.tonics.length
     }
 
+    var scalePattern = music.scale.degrees('1 2 3 4 5 6 7')
     notes () {
-      var scale = music.scales(this.name, this.tonic())
-      var deg = music.scale.degrees('1 2 3 4 5 6 7', scale)
-      return deg
+      return scalePattern(music.scales(this.name, this.tonic()))
     }
     intervals () {
-      return music.scales(this.name, false)
+      return scalePattern(music.scales(this.name, false))
     }
 
     random () {
