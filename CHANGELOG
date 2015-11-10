@@ -1,5 +1,6 @@
 CHANGELOG
 
+[0.0.8] Add chord dictionary
 [0.0.7] Add scale dictionary (89 scales)
 [0.0.6] gamut.binarySet and gamut.fromBinary
 [0.0.5] scale.pattern

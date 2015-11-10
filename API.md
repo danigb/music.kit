@@ -1,3 +1,22 @@
+## `chord`
+
+In music.kit an chord is a list of notes or intervals ordered
+by pitch
+
+The `chord` module has functions to create and manipulate chord
+
+
+
+### Examples
+
+```js
+var kit = require('music.kit')
+kit.chord('1 3 5 6', 'G') // => ['G', 'B', 'D', 'E']
+kit.chord.get('Cmaj7') // => ['C', 'E', 'G', 'B']
+```
+
+
+
 ## `gamut`
 
 In music.kit a gamut is a collection of intervals, pitch classes or notes.

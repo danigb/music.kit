@@ -292,7 +292,7 @@ pattern(mixolydian) // => ...
 
 ## Documentation
 
-[Read the generated documentation here](https://github.com/danigb/music.kit/blob/master/API.md)
+[Read the generated documentation here](http://danigb.github.io/music.kit/docs/)
 
 ## Resources and inspiration
 
