@@ -15,25 +15,25 @@
       return music.note.fromMidi(60 + i).slice(0, -1)
     })
     this.ctx = new AudioContext()
+    this.farfisa = new farfisa(this.ctx)
     this.names = music.scales.names()
     this.total = this.names.length
     this.tonicIndex = 0
     this.name = 'major'
 
     play () {
-      var time = this.ctx.currentTime + 0.1
       var ctx = this.ctx
       var notes = music.scales(this.name, this.tonic() + '4')
+      var farfisa = this.farfisa
       notes.push(this.tonic() + '5')
       notes = notes.concat(music.scales(this.name, this.tonic() + '4').reverse())
-      notes.map(music.note.toFreq).forEach(function (freq) {
-        var vco = ctx.createOscillator()
-        vco.type = 'sine'
-        vco.frequency.value = freq
-        vco.connect(ctx.destination)
-        vco.start(time)
-        time += 0.5
-        vco.stop(time - 0.1)
+      var delay = 0.1
+      notes.forEach(function (note) {
+        console.log(note, delay)
+        farfisa.keyDown(note, delay)
+        delay += 0.5
+        farfisa.keyUp(note, delay - 0.1)
+        console.log(note, delay - 0.1)
       })
     }
 

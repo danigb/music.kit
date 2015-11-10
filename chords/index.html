@@ -1,0 +1,39 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Chords demos</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="../css/demos.css">
+
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script>html5.addElements('chords')</script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+    <div id="main">
+      <chords></chords>
+    </div>
+
+    <script src="scoregram.tag" type="riot/tag"></script>
+    <script src="chords.tag" type="riot/tag"></script>
+    <script src="../node_modules/webaudio-organ/dist/farfisa.min.js"></script>
+    <script src="../js/snap.svg-min.js"></script>
+    <script src="../js/music.kit.min.js"></script>
+    <script src="../js/soundfont-player.min.js"></script>
+    <script src="../js/riot+compiler.min.js"></script>
+
+    <script>
+    riot.mount('chords', {})
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+    <script>
+      WebFont.load({ google: { families: ['Lato'] } });
+    </script>
+  </body>
+
+</html>

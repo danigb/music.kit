@@ -16,5 +16,7 @@
   "bugs": {
     "url": "https://github.com/danigb/music.kit/issues"
   },
-  "homepage": "https://github.com/danigb/music.kit#readme"
+  "homepage": "https://github.com/danigb/music.kit#readme",
+  "dependencies": {
+  }
 }
