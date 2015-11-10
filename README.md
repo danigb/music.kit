@@ -7,7 +7,7 @@
 [![license](https://img.shields.io/npm/l/music.kit.svg)](https://www.npmjs.com/package/music.kit)
 [![music.kit](https://img.shields.io/badge/music-kit-yellow.svg)](https://www.npmjs.com/package/music.kit)
 
-`music.kit` is a compact library to manipulate music abstractions (not actual music) and while its designed to create algorithmic composition programs, can be use to develop any kind of midi or audio software.
+`music.kit` is a [compact](http://danigb.github.io/music.kit/docs/disc.html) library to manipulate music abstractions (not actual music) and while its designed to create algorithmic composition programs, can be use to develop any kind of midi or audio software.
 
 ```js
 var kit = require('music.kit')

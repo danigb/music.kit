@@ -1,5 +1,5 @@
 var Benchmark = require('benchmark')
-var transpose = require('../../lib/note.transpose')
+var transpose = require('../../../lib/note/transpose')
 var teoria = require('teoria')
 
 function generateNotes (size) {
