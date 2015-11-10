@@ -1,5 +1,9 @@
 CHANGELOG
 
+[0.0.10]
+- Add chord.notes and scale.notes
+- Add gamut.rotate
+
 [0.0.9] Move modules to folders
 [0.0.8] Add chord dictionary
 [0.0.7] Add scale dictionary (89 scales)

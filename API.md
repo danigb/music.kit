@@ -144,6 +144,26 @@ Apply a function to an array of array pitches
 
 
 
+## `gamut.rotate`
+
+Rotate the gamut
+
+### Parameters
+
+* `count` **`Integer`** the number of rotations
+* `gamut` **`String or Array`** a list of notes or intervals
+
+
+### Examples
+
+```js
+var rotate = require('music.kit/gamut/rotate')
+rotate(1, 'C D E') // => ['D', 'E', 'C']
+```
+
+Returns `Array` the gamut rotated count times
+
+
 ## `gamut.scale`
 
 Build a scale from a source and a tonic. A scale is a set of notes or

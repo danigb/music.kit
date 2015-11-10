@@ -8,7 +8,7 @@
     "docs": "cp README.md lib/README.md && (cd lib/ && exec npm run docs)",
     "guide": "cat lib/GUIDE.md lib/note/GUIDE.md lib/gamut/GUIDE.md lib/scale/GUIDE.md > GUIDE.md",
     "dist": "browserify lib/index.js | uglifyjs > dist/music.kit.min.js && ls -all dist/",
-    "disc": "browserify --full-paths lib/index.js | uglifyjs | discify > tmp/disc.html && open tmp/disc.html",
+    "disc": "browserify --full-paths lib/index.js | uglifyjs | discify > docs/disc.html && open docs/disc.html",
     "build": "npm run guide && npm run docs && npm run dist && npm run coverage",
     "coverage": "istanbul cover vows test/**/*.test.js",
     "cover": "npm run coverage && open ./coverage/lcov-report/index.html",
