@@ -178,6 +178,24 @@ rotate(1, 'C D E') // => ['D', 'E', 'C']
 Returns `Array` the gamut rotated count times
 
 
+## `gamut.rotations`
+
+Get all rotations of a gamut
+
+### Parameters
+
+* `gamut` **`String or Array`** the gamut
+* `all` **`Array`** the rotations of the gamut
+
+
+### Examples
+
+```js
+rotations('C d E') // => [ ['C', 'd', 'E'], ['d', 'E', 'C'], ['E', 'C', 'd'] ]
+```
+
+
+
 ## `gamut.scale`
 
 Build a scale from a source and a tonic. A scale is a set of notes or
@@ -210,6 +228,26 @@ dorian('C4') // => ['C4', 'D4', 'Eb4', 'F4', 'G4', 'A4', 'Bb4']
 ```
 
 Returns `Array` the list of notes
+
+
+## `gamut.select`
+
+Select some elements from a gamut
+
+### Parameters
+
+* `numbers` **`String or Array`** a __1-based__ index of the elements
+* `gamut` **`String or Array`** the notes or intervals
+
+
+### Examples
+
+```js
+var select = require('music.kit/gamut/select')
+select('1 3 5', 'C D E F G A B') // => ['C', 'E', 'G']
+```
+
+Returns `Array` the selected elements
 
 
 ## `gamut.set`
@@ -651,6 +689,8 @@ Returns `Array` the pitch in array notation
 Get the properties of a pitch in array notation as an array of properties
 
 The properties is in the form [number, alteration, octave, duration]
+
+__This is the only function in music.kit that only accepts array.notation format__
 
 ### Parameters
 
