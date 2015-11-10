@@ -1,12 +1,12 @@
 var vows = require('vows')
 var assert = require('assert')
-var notes = require('../../lib/scale/notes')
+var notes = require('../../lib/chord/notes')
 
-vows.describe('music.scale.notes').addBatch({
+vows.describe('music.chord.notes').addBatch({
   'get notes': function () {
-    assert.deepEqual(notes('major', 'C'), [ 'C', 'D', 'E', 'F', 'G', 'A', 'B' ])
+    assert.deepEqual(notes('Maj7', 'C'), [ 'C', 'E', 'G', 'B' ])
   },
   'partial': function () {
-    assert.deepEqual(notes('major')('C'), [ 'C', 'D', 'E', 'F', 'G', 'A', 'B' ])
+    assert.deepEqual(notes('Maj7')('C'), [ 'C', 'E', 'G', 'B' ])
   }
 }).export(module)

@@ -56,25 +56,6 @@ Scales, chords, pitch sets are examples of gamuts.
 
 
 
-## `gamut.ascending`
-
-Get a gamut in ascdening pitch order
-
-### Parameters
-
-* `gamut` **`String or Array`** the gamut to sort
-
-
-### Examples
-
-```js
-var ascending = require('music.kit/gamut.ascending')
-ascending('c5 d2 f4 D2') // => ['D2', 'D2', 'F4', 'C5']
-```
-
-Returns `Array` the gamut in ascending pitch order
-
-
 ## `gamut.chord`
 
 Build a chord from a source and a tonic. A chord is a list of notes or
@@ -178,24 +159,6 @@ rotate(1, 'C D E') // => ['D', 'E', 'C']
 Returns `Array` the gamut rotated count times
 
 
-## `gamut.rotations`
-
-Get all rotations of a gamut
-
-### Parameters
-
-* `gamut` **`String or Array`** the gamut
-* `all` **`Array`** the rotations of the gamut
-
-
-### Examples
-
-```js
-rotations('C d E') // => [ ['C', 'd', 'E'], ['d', 'E', 'C'], ['E', 'C', 'd'] ]
-```
-
-
-
 ## `gamut.scale`
 
 Build a scale from a source and a tonic. A scale is a set of notes or
@@ -267,6 +230,25 @@ gamut.set('11 10 9') // => [ '2M', '3M', '4P' ]
 ```
 
 Returns  the set
+
+
+## `gamut.sort`
+
+Get a gamut in ascdening pitch order
+
+### Parameters
+
+* `gamut` **`String or Array`** the gamut to sort
+
+
+### Examples
+
+```js
+var sort = require('music.kit/gamut.sort')
+sort('c5 d2 f4 D2') // => ['D2', 'D2', 'F4', 'C5']
+```
+
+Returns `Array` the gamut in sort pitch order
 
 
 ## `gamut.split`
