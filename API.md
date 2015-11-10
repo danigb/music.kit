@@ -32,6 +32,20 @@ chords['Maj7'] // => { name: 'Maj7', intervals: ['1', '3', ...], aliases: [] }
 
 
 
+## `chord.notes`
+
+Get chord notes from a chord type and a tonic
+
+### Parameters
+
+* `type` **`String`** the chord type
+* `tonic` **`String`** the tonic
+
+
+
+Returns `Array` the chord notes
+
+
 ## `gamut`
 
 In music.kit a gamut is a collection of intervals, pitch classes or notes.
@@ -777,6 +791,20 @@ scale.names('D E F G A B C') [ 'D dorian' ]
 ```
 
 Returns `Array` an array of scale names or all known scale names if no arguments provided
+
+
+## `scale.notes`
+
+Get scale notes from a scale type and a tonic
+
+### Parameters
+
+* `type` **`String`** the scale type
+* `tonic` **`String`** the tonic
+
+
+
+Returns `Array` the scale notes
 
 
 ## `scale.pattern`

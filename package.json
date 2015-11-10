@@ -1,5 +1,6 @@
 {
   "name": "music.kit-tools",
+  "private": "true",
   "version": "0.0.0",
   "description": "Your javascript music kit",
   "main": "lib/index.js",
