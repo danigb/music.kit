@@ -1,5 +1,6 @@
 CHANGELOG
 
+[0.0.6] gamut.binarySet and gamut.fromBinary
 [0.0.5] scale.pattern
 [0.0.4] scale module
 [0.0.3] note.enharmonics

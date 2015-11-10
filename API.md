@@ -27,6 +27,31 @@ ascending('c5 d2 f4 D2') // => ['D2', 'D2', 'F4', 'C5']
 Returns `Array` the gamut in ascending pitch order
 
 
+## `gamut.binarySet`
+
+Get a set binary number
+
+A set binary number is a 12 digit binary, each digit representing a step
+in the chromatic scale. For example, `101010000000` is `['1P', '2M', '3M']`
+
+The set binary number is very useful to check if two sets are equal or
+contains same intervals (regarding of note names)
+
+### Parameters
+
+* `source` **`String or Array or Array<Array>`** a gamut
+
+
+### Examples
+
+```js
+var binarySet = require('music.kit/gamut.binarySet')
+binarySet('C2 E4 D3') // => '101010000000'
+```
+
+Returns `String` the binary number
+
+
 ## `gamut.chord`
 
 Build a chord from a source and a tonic. A chord is a list of notes or
@@ -54,6 +79,32 @@ maj79('A4') // => ['A4', 'C#5', 'E5', 'G#5', 'B5']
 ```
 
 Returns `Array` the chord notes (or intervals if null tonic)
+
+
+## `gamut.fromBinary`
+
+Get a set from a binary set number and (optionally) a tonic. If the tonic is
+a note, you get a pitch set. If its false you get a interval set.
+
+### Parameters
+
+* `source` **`String or Array or Array<Array>`** the gamut
+* `tonic` **`String`** the first note of the set or false to get the intervals
+
+
+### Examples
+
+```js
+var fromBinary = require('music.kit/gamut.fromBinary')
+// use a 12 digit binary number:
+fromBinary('101011010101', 'C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+// or its decimal equivalent:
+fromBinary(2773, 'C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+// get the interval set by passing `false` as tonic:
+fromBinary(2773, false) // => ['1P', '2M', '3M', '4', '5', '6M', '7M']
+```
+
+Returns  the set pitch classes (note names without octaves)
 
 
 ## `gamut.harmonics`
