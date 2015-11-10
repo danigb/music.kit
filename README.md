@@ -15,15 +15,19 @@ var kit = require('music.kit')
 kit.note.fromMidi(69) // => 'A4'
 kit.note.freq('A4') // => 440.0
 
+// Transpose notes
+kit.transpose('C2', '3m') // => ['Eb2']
+['A', 'B', 'C'].map(transpose('2M')) // => ['B', 'C#', 'D']
+
 // pitch collections: harmonizers, scales, chords
-m79 = kit.harmonizer('1 3b 5 7 9')
-m79('C#4') // => ['C#4', 'E4', 'G#4', 'B#4', 'D#5']
+chord = kit.harmonizer('1 3b 5 7 9')
+chord('C#4') // => ['C#4', 'E4', 'G#4', 'B#4', 'D#5']
 
-kit.scale.get('C major') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
-var major = kit.scale.get('major')
-major('A') // => ['A', 'B', 'C#', 'D', 'E', 'F#', 'G#']
+kit.scale.spell('C major') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+var major = kit.scale.type('aeolian')
+major('A') // => ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
-var dom7 = kit.chord.get('dom7')
+var dom7 = kit.chord.type('dom7')
 dom7('D') // => ['D', 'F#', 'A', 'C']
 ```
 

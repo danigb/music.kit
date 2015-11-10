@@ -54,6 +54,15 @@ vows.describe('note.transpose').addBatch({
       assert.equal(transpose(), null)
     }
   },
+  'edge cases': function () {
+    var tr = function (i) { return i.split(' ').map(transpose('C2')) }
+    assert.deepEqual(tr('1d 1P 1A'), ['Cb2', 'C2', 'C#2'])
+    assert.deepEqual(tr('-1d -1P -1A'), ['C#2', 'C2', 'Cb2'])
+    assert.deepEqual(tr('2d 2m 2M 2A'), [ 'Dbb2', 'Db2', 'D2', 'D#2' ])
+    assert.deepEqual(tr('-2d -2m -2M -2A'), [ 'B#1', 'B1', 'Bb1', 'Bbb1' ])
+    assert.deepEqual(tr('5P -5P 5A -5A'), ['G2', 'F1', 'G#2', 'Fb1'])
+    assert.deepEqual(tr('6M -6M 6m -6m'), ['A2', 'Eb1', 'Ab2', 'E1'])
+  },
   'irrelevant orden of parameters': function () {
     assert.equal(transpose('2M', 'E2'), 'F#2')
     assert.equal(transpose('E2', '2M'), 'F#2')
