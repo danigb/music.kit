@@ -1,5 +1,6 @@
 CHANGELOG
 
+[0.0.5] scale.pattern
 [0.0.4] scale module
 [0.0.3] note.enharmonics
 [0.0.2] midi and frequencies. Rename build to str
@@ -7,6 +8,7 @@ CHANGELOG
 
 
 DIST
+[0.0.5] 9.4kb
 [0.0.4] 8.8kb
 [0.0.2] 8.3kb
 [0.0.1] 7.5kb

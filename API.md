@@ -225,7 +225,7 @@ Returns `String` the interval string in shorthand notation or null if not valid 
 
 ## `note`
 
-In music.kit a note is represented by string, usually in scintific notation.
+In music.kit a note is represented by string, usually in scientific notation.
 
 The note module provides functions to manipulate notes:
 
@@ -617,5 +617,41 @@ The `scale` module has functions to create and manipulate scales
 
 
 
+
+
+## `scale.pattern`
+
+Select notes from a scale using degree numbers.
+
+The resulting array will contain the notes in the same order as degrees.
+If a given degree is not present in the scale, the result will contain a
+null in that position.
+
+This function is currified so it can be partially applied.
+
+### Parameters
+
+* `degrees` **`Array or String`** the degrees numbers list
+* `scale` **`Array or String`** the scale notes
+
+
+### Examples
+
+```js
+var pattern = require('music.kit/scale.pattern')
+// basic usage:
+pattern('1 3 5', 'C D E F G A B') // => [ 'C', 'E', 'G' ]
+// order matters:
+pattern('1 5 2 6', 'C D E F G A B') // => [ 'C', 'G', 'D', 'A' ]
+// not found degrees are null:
+pattern('1 2 6', 'C D E F G') // => [ 'C', 'D', null ]
+// numbers bigger than 7 are transposed one octave or more:
+pattern('1 8 15', 'C2 D2 E2') // => ['C2', 'C3', 'C4']
+// partially applied:
+var triad = scale.pattern('1 3 5')
+triad('C D E F G A B') // => ['C', 'E', 'G']
+```
+
+Returns `Array` the melodic pattern (or null if not present)
 
 

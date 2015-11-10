@@ -7,7 +7,7 @@
 [![license](https://img.shields.io/npm/l/music.kit.svg)](https://www.npmjs.com/package/music.kit)
 [![musik.kit](https://img.shields.io/badge/music-kit-yellow.svg)](https://www.npmjs.com/package/music.kit)
 
-`music.kit` is a compact (8.8kb minified) library to manipulate music abstractions (not actual music) to write audio or midi software.
+`music.kit` is a compact library to manipulate music abstractions (not actual music) and while its designed to create algorithmic composition programs, can be use to develop any kind of midi or audio software.
 
 ```js
 var kit = require('music.kit')
@@ -55,17 +55,29 @@ Not yet released.
 
 ## Usage
 
+### Functional
+
+From the user perspective, the most different part of music.kit its accept there are no objects and everything is a function, so insted of: `new Note('C4').transpose('2M')` you will write `transpose('2M', 'C4')` (in this case, the order of parameters doesn't matter, but in most functions what usually is `this` is the __last__ argument)
+
+While other libraries uses objects to represent notes and intervals, in music.kit they are just strings.
+
+Once you accept this two things, music.kit its just easy: no surprises, no side effects.
+
 ### Notes
 
-Notes in music.kit are represented by strings. By default it uses scientific notation with the form: `letter[accidentals][octave]/[duration]`. Pitch classes are note names without octave and duration.
+Notes in music.kit are represented by strings, and by default it uses scientific notation with the form: `letter[accidentals][octave]/[duration]`.
 
-The `note` function returns a scientific notation of the given string or null if not valid string:
+Pitch classes are note names without octave and duration. They are used a lot to describe sets like scales.
+
+The `note` function returns a scientific notation of the given string or null if not valid string. It can be used to check if some string is a note:
 
 ```js
 // get a note
 kit.note('c2') // => 'C2'
 kit.note('fx') // => 'F##'
 kit.note('blah') // => null
+// filter notes
+['e', 'f', 'g', 'h', 'i'].filter(kit.note) // => ['e', 'f', 'g']
 ```
 
 #### Note properties
@@ -73,9 +85,12 @@ kit.note('blah') // => null
 There are several functions to get note properties or to modify them:
 
 ```js
+// get properties
 kit.note.octave('C#4') // => 4
-kit.note.setOctave(3, 'Bb0') // => 'Bb3'
 kit.note.pitchClass('Bb5/4') // => 'Bb'
+
+// set properties
+kit.note.setOctave(3, 'Bb0') // => 'Bb3'
 ```
 
 #### Midi and frequencies
@@ -175,6 +190,30 @@ You can get the scale intervals passing `false` as tonic:
 ```js
 var dorian = scale('D E F G A B C')
 dorian(false) // => ['1P', '2M', '3m', '4P', '5P', '6M', '7m']
+```
+
+#### Melodic patterns with scales
+
+The `scale.pattern` function uses a list of degrees to select notes from a scale. The notes are returned in the same order as the degree numbers:
+
+```js
+pattern('3 2 1', 'C D E F G A B') // => ['E', 'D', 'C']
+```
+
+Degree numbers bigger than 7 will make the note to be transported one or more octaves. Notice that this only works if the tonic of the scale (the first note) have an explicit octave number:
+
+```js
+pattern('1 8 15', 'C2 D2 E2') // => ['C2', 'C3', 'C4']
+pattern('1 8 15', 'C2 D5 E') // => ['C2', 'C3', 'C4']
+pattern('1 8 15', 'C D E') // => ['C', 'C', 'C']
+```
+
+The partially applied version of this function is useful to create melodic patterns ([Bergonzi](http://www.amazon.com/Melodic-Structures-Jerry-Bergonzi/dp/B000FSVJEI) would love this) with independence of the scale:
+
+```js
+var pattern = pattern('1 2 7 9 3') // <- partially applied
+pattern(major) // => ...
+pattern(mixolydian) // => ...
 ```
 
 ### Using different notations
