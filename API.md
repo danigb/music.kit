@@ -728,6 +728,8 @@ Given a list of notes get the scale names
 ```js
 // get all known scale names
 scale.names() // => ['major', 'minor', ... ] (89 names)
+scale.names('D E F G A B C') [ 'D dorian' ]
+scale.names('D E F G A B C') [ 'D dorian' ]
 ```
 
 Returns `Array` an array of scale names or all known scale names if no arguments provided

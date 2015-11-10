@@ -5,7 +5,7 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 [![npm version](https://img.shields.io/npm/v/music.kit.svg)](https://www.npmjs.com/package/music.kit)
 [![license](https://img.shields.io/npm/l/music.kit.svg)](https://www.npmjs.com/package/music.kit)
-[![musik.kit](https://img.shields.io/badge/music-kit-yellow.svg)](https://www.npmjs.com/package/music.kit)
+[![music.kit](https://img.shields.io/badge/music-kit-yellow.svg)](https://www.npmjs.com/package/music.kit)
 
 `music.kit` is a compact library to manipulate music abstractions (not actual music) and while its designed to create algorithmic composition programs, can be use to develop any kind of midi or audio software.
 
@@ -230,8 +230,38 @@ lydian('A') // => ['A', 'B', 'C#', 'D#', 'E', 'F#', 'G#']
 You can get the scale intervals passing `false` as tonic:
 
 ```js
-var dorian = scale('D E F G A B C')
+var dorian = kit.scale('D E F G A B C')
 dorian(false) // => ['1P', '2M', '3m', '4P', '5P', '6M', '7m']
+```
+
+#### Get scale by name
+
+music.kit includes a dictionary with 89 scales. You can access them by passing the scale name (with or without tonic) to the `scale.get` function:
+
+```js
+kit.scale('major') // => { name: 'major', intervals: ['1P', '2M'...], ...}
+kit.scale('C major') // => { name: 'C major', notes: ['C', 'D', ...], ...}
+```
+
+`scale.get` returns a data object with the following properties:
+
+- name: the scale name
+- aliases: an array of scale aliases
+- intervals: an array of scale intervals
+- notes: an array of notes (or empty array if the scale has no tonic)
+
+#### Get scale names
+
+You can all available scale names invoking `scale.names` without arguments:
+
+```js
+kit.scale.names() // => ['major', 'dorian', ...] (89 names)
+```
+
+You can pass a list of notes to `scale.names` function:
+
+```js
+kit.scale.names('C D E F G A Bb') // => ['C mixolydian', 'C dominant']
 ```
 
 #### Melodic patterns with scales
