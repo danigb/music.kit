@@ -17,6 +17,21 @@ kit.chord.get('Cmaj7') // => ['C', 'E', 'G', 'B']
 
 
 
+## `chord.dictionary`
+
+Chord dictionary
+
+
+
+### Examples
+
+```js
+var chords = require('music.kit/chord/dictionary')
+chords['Maj7'] // => { name: 'Maj7', intervals: ['1', '3', ...], aliases: [] }
+```
+
+
+
 ## `gamut`
 
 In music.kit a gamut is a collection of intervals, pitch classes or notes.
@@ -44,31 +59,6 @@ ascending('c5 d2 f4 D2') // => ['D2', 'D2', 'F4', 'C5']
 ```
 
 Returns `Array` the gamut in ascending pitch order
-
-
-## `gamut.binarySet`
-
-Get a set binary number
-
-A set binary number is a 12 digit binary, each digit representing a step
-in the chromatic scale. For example, `101010000000` is `['1P', '2M', '3M']`
-
-The set binary number is very useful to check if two sets are equal or
-contains same intervals (regarding of note names)
-
-### Parameters
-
-* `source` **`String or Array or Array<Array>`** a gamut
-
-
-### Examples
-
-```js
-var binarySet = require('music.kit/gamut.binarySet')
-binarySet('C2 E4 D3') // => '101010000000'
-```
-
-Returns `String` the binary number
 
 
 ## `gamut.chord`
@@ -700,6 +690,21 @@ The `scale` module has functions to create and manipulate scales
 
 
 
+## `scale.dictionary`
+
+Scale dictionary
+
+
+
+### Examples
+
+```js
+var scales = require('music.kit/scale/dictionary')
+scales['major'] // => { name: 'major', intervals: ['1', '2', ...], aliases: [] }
+```
+
+
+
 ## `scale.get`
 
 Get a scale by name using a dictionary. It returns a data object with the
@@ -788,5 +793,42 @@ triad('C D E F G A B') // => ['C', 'E', 'G']
 ```
 
 Returns `Array` the melodic pattern (or null if not present)
+
+
+## `set`
+
+In music.kit a set is a collection of pitch classes (or simple intervals)
+sorted in ascending order
+
+The `set` module has functions to create and manipulate set
+
+
+
+
+
+
+## `set.binary`
+
+Get a set binary number
+
+A set binary number is a 12 digit binary, each digit representing a step
+in the chromatic scale. For example, `101010000000` is `['1P', '2M', '3M']`
+
+The set binary number is very useful to check if two sets are equal or
+contains same intervals (regarding of note names)
+
+### Parameters
+
+* `source` **`String or Array or Array<Array>`** a gamut
+
+
+### Examples
+
+```js
+var binary = require('music.kit/set/binary')
+binary('C2 E4 D3') // => '101010000000'
+```
+
+Returns `String` the binary number
 
 

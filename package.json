@@ -4,7 +4,7 @@
   "description": "Your javascript music kit",
   "main": "lib/index.js",
   "scripts": {
-    "test": "vows test/**/*.test.js",
+    "test": "vows test/*.test.js test/**/*.test.js",
     "docs": "cp README.md lib/README.md && (cd lib/ && exec npm run docs)",
     "dist": "browserify lib/index.js | uglifyjs > dist/music.kit.min.js && ls -all dist/",
     "disc": "browserify --full-paths lib/index.js | uglifyjs | discify > tmp/disc.html && open tmp/disc.html",
