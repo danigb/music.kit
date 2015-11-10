@@ -51,7 +51,19 @@ This is the successor of [tonal](https://github.com/danigb/tonal)
 
 ## Install
 
-Not yet released.
+For node environments, install it with npm: `npm i --save music.kit` and require it:
+
+```js
+var kit = require('music.kit')
+kit.note.transpose('C2', '3M')
+```
+
+For browsers you can gran the [distribution file](https://raw.githubusercontent.com/danigb/music.kit/master/dist/music.kit.min.js) and include in your html (a global `kit` variable is exported with the whole library):
+
+```html
+<script src="../js/music.kit.min.js"></script>
+<script>console.log(kit.note.transpose('C2', '3M'))</script>
+```
 
 ## Usage and documentation
 

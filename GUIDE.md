@@ -24,7 +24,7 @@ music.kit is divided in modules:
 
 #### Node environments
 
-Install it with npm (recommended): `npm i --save music.kit` and require the library:
+Install it with npm: `npm i --save music.kit` and require the library:
 
 ```js
 var kit = require('music.kit')
