@@ -12,11 +12,10 @@
 
   <script>
     this.tonics = Array.apply(null, Array(12)).map(function (e, i) {
-      return music.note.fromMidi(60 + i).slice(0, -1)
+      return kit.note.fromMidi(60 + i).slice(0, -1)
     })
     this.ctx = new AudioContext()
-    this.farfisa = new farfisa(this.ctx)
-    this.names = music.scales.names()
+    this.names = kit.scales.names()
     this.total = this.names.length
     this.tonicIndex = 0
     this.name = 'major'
@@ -27,9 +26,9 @@
 
     play () {
       var ctx = this.ctx
-      var pattern = music.scale.degrees('1 2 3 4 5 6 7 8 7 6 5 4 3 2 1')
-      var notes = pattern(music.scales(this.name, this.tonic() + 4))
-      notes.map(music.note.toFreq).forEach(function (freq) {
+      var pttn = kit.scale.pattern('1 2 3 4 5 6 7 8 7 6 5 4 3 2 1')
+      var notes = pttn(kit.scale.get(this.tonic() + '4 ' + this.name).notes)
+      notes.map(kit.note.toFreq).forEach(function (freq) {
         if (!freq) return
         var osc = ctx.createOscillator()
         // osc.setPeriodicWave(hornTable)
@@ -54,12 +53,12 @@
       this.tonicIndex = (this.tonicIndex + 1) % this.tonics.length
     }
 
-    var scalePattern = music.scale.degrees('1 2 3 4 5 6 7')
+    var scalePattern = kit.scale.degrees('1 2 3 4 5 6 7')
     notes () {
-      return scalePattern(music.scales(this.name, this.tonic()))
+      return scalePattern(kit.scales(this.name, this.tonic()))
     }
     intervals () {
-      return scalePattern(music.scales(this.name, false))
+      return scalePattern(kit.scales(this.name, false))
     }
 
     random () {

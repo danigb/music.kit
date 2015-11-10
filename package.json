@@ -5,6 +5,7 @@
   "description": "music.kit demo tooling",
   "main": "index.js",
   "scripts": {
+    "update": "cp ../kit/dist/music.kit.min.js js/ && rm -rf docs && mv ../kit/docs .",
     "server": "http-server"
   },
   "repository": {

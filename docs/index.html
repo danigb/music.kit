@@ -1,7 +1,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>music.kit 0.0.7</title>
+  <title>music.kit 0.0.13</title>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
   <link href='assets/github.css' type='text/css' rel='stylesheet' />
@@ -11,22 +11,27 @@
     <div class='clearfix flex flex-stretch mxn2'>
       <div class='documentation-sidebar relative top-0 bottom-0 right-0 px2 py2 col-3 sm-show'>
         <div class='font-smaller fixed col-3 top-0 bottom-0 left-0 overflow-auto black bg-cloudy'>
-          <a href="/" class="h5 button block button-transparent">music.kit 0.0.7</a>
+          <a href="/" class="h5 button block button-transparent">music.kit 0.0.13</a>
           <div class='px2'>
+              <a
+                href='#chord'
+                class='regular block'>
+                <code>chord</code>
+              </a>
+              <a
+                href='#chord-dictionary'
+                class='regular block'>
+                <code>chord.dictionary</code>
+              </a>
+              <a
+                href='#chord-notes'
+                class='regular block'>
+                <code>chord.notes</code>
+              </a>
               <a
                 href='#gamut'
                 class='regular block'>
                 <code>gamut</code>
-              </a>
-              <a
-                href='#gamut-ascending'
-                class='regular block'>
-                <code>gamut.ascending</code>
-              </a>
-              <a
-                href='#gamut-binaryset'
-                class='regular block'>
-                <code>gamut.binarySet</code>
               </a>
               <a
                 href='#gamut-chord'
@@ -49,14 +54,29 @@
                 <code>gamut.operation</code>
               </a>
               <a
+                href='#gamut-rotate'
+                class='regular block'>
+                <code>gamut.rotate</code>
+              </a>
+              <a
                 href='#gamut-scale'
                 class='regular block'>
                 <code>gamut.scale</code>
               </a>
               <a
+                href='#gamut-select'
+                class='regular block'>
+                <code>gamut.select</code>
+              </a>
+              <a
                 href='#gamut-set'
                 class='regular block'>
                 <code>gamut.set</code>
+              </a>
+              <a
+                href='#gamut-sort'
+                class='regular block'>
+                <code>gamut.sort</code>
               </a>
               <a
                 href='#gamut-split'
@@ -179,6 +199,11 @@
                 <code>scale</code>
               </a>
               <a
+                href='#scale-dictionary'
+                class='regular block'>
+                <code>scale.dictionary</code>
+              </a>
+              <a
                 href='#scale-get'
                 class='regular block'>
                 <code>scale.get</code>
@@ -189,9 +214,24 @@
                 <code>scale.names</code>
               </a>
               <a
+                href='#scale-notes'
+                class='regular block'>
+                <code>scale.notes</code>
+              </a>
+              <a
                 href='#scale-pattern'
                 class='regular block'>
                 <code>scale.pattern</code>
+              </a>
+              <a
+                href='#set'
+                class='regular block'>
+                <code>set</code>
+              </a>
+              <a
+                href='#set-binary'
+                class='regular block'>
+                <code>set.binary</code>
               </a>
           </div>
         </div>
@@ -199,6 +239,107 @@
       <div class='sm-col  col-9  flex flex-column'>
         <div class='flex-auto full-width'>
           <div class='px1'>
+<section id='chord'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#chord'>
+      <code>
+        chord<span class='gray'></span>
+      </code>
+    </a>
+  </h3>
+  <p>In music.kit an chord is a list of notes or intervals ordered
+by pitch</p>
+<p>The <code>chord</code> module has functions to create and manipulate chord</p>
+
+
+
+
+
+
+    <h4>Examples</h4>
+<pre><span class="hljs-keyword">var</span> kit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit'</span>)
+kit.chord(<span class="hljs-string">'1 3 5 6'</span>, <span class="hljs-string">'G'</span>) <span class="hljs-comment">// =&gt; ['G', 'B', 'D', 'E']</span>
+kit.chord.get(<span class="hljs-string">'Cmaj7'</span>) <span class="hljs-comment">// =&gt; ['C', 'E', 'G', 'B']</span></pre>
+
+
+
+
+</section>
+<section id='chord-dictionary'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#chord-dictionary'>
+      <code>
+        chord.dictionary<span class='gray'></span>
+      </code>
+    </a>
+  </h3>
+  <p>Chord dictionary</p>
+
+
+
+
+
+
+    <h4>Examples</h4>
+<pre><span class="hljs-keyword">var</span> chords = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/chord/dictionary'</span>)
+chords[<span class="hljs-string">'Maj7'</span>] <span class="hljs-comment">// =&gt; { name: 'Maj7', intervals: ['1', '3', ...], aliases: [] }</span></pre>
+
+
+
+
+</section>
+<section id='chord-notes'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#chord-notes'>
+      <code>
+        chord.notes<span class='gray'>(type, tonic)</span>
+      </code>
+    </a>
+  </h3>
+  <p>Get chord notes from a chord type and a tonic</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>type</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>
+            </td>
+            <td><p>the chord type</p>
+</td>
+          </tr>
+          <tr>
+            <td>tonic</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>
+            </td>
+            <td><p>the tonic</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>the chord notes</p>
+
+      </span>
+
+
+
+
+
+
+</section>
 <section id='gamut'class='mt2 mb2 py1 px2 keyline-top'>
   <h3 class='regular'>
     <a class='black' href='#gamut'>
@@ -215,104 +356,6 @@ Scales, chords, pitch sets are examples of gamuts.</p>
 
 
 
-
-
-
-
-</section>
-<section id='gamut-ascending'class='mt2 mb2 py1 px2 keyline-top'>
-  <h3 class='regular'>
-    <a class='black' href='#gamut-ascending'>
-      <code>
-        gamut.ascending<span class='gray'>(gamut)</span>
-      </code>
-    </a>
-  </h3>
-  <p>Get a gamut in ascdening pitch order</p>
-
-
-    <p>
-      <table class='table-light overflow-hidden bg-cloudy-light'>
-        <thead>
-          <th class='col-3'>parameter</th>
-          <th class='col-3'>type</th>
-          <th class='col-6'>description</th>
-        </thead>
-          <tr>
-            <td>gamut</td>
-            <td>
-              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>
-            </td>
-            <td><p>the gamut to sort</p>
-</td>
-          </tr>
-      </table>
-    </p>
-
-
-      <h4>Returns</h4>
-      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
-      :
-      <span class='force-inline'>
-        <p>the gamut in ascending pitch order</p>
-
-      </span>
-
-
-    <h4>Examples</h4>
-<pre><span class="hljs-keyword">var</span> ascending = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/gamut.ascending'</span>)
-ascending(<span class="hljs-string">'c5 d2 f4 D2'</span>) <span class="hljs-comment">// =&gt; ['D2', 'D2', 'F4', 'C5']</span></pre>
-
-
-
-
-</section>
-<section id='gamut-binaryset'class='mt2 mb2 py1 px2 keyline-top'>
-  <h3 class='regular'>
-    <a class='black' href='#gamut-binaryset'>
-      <code>
-        gamut.binarySet<span class='gray'>(source)</span>
-      </code>
-    </a>
-  </h3>
-  <p>Get a set binary number</p>
-<p>A set binary number is a 12 digit binary, each digit representing a step
-in the chromatic scale. For example, <code>101010000000</code> is <code>['1P', '2M', '3M']</code></p>
-<p>The set binary number is very useful to check if two sets are equal or
-contains same intervals (regarding of note names)</p>
-
-
-    <p>
-      <table class='table-light overflow-hidden bg-cloudy-light'>
-        <thead>
-          <th class='col-3'>parameter</th>
-          <th class='col-3'>type</th>
-          <th class='col-6'>description</th>
-        </thead>
-          <tr>
-            <td>source</td>
-            <td>
-              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> or Array<<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>>
-            </td>
-            <td><p>a gamut</p>
-</td>
-          </tr>
-      </table>
-    </p>
-
-
-      <h4>Returns</h4>
-      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code></code>
-      :
-      <span class='force-inline'>
-        <p>the binary number</p>
-
-      </span>
-
-
-    <h4>Examples</h4>
-<pre><span class="hljs-keyword">var</span> binarySet = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/gamut.binarySet'</span>)
-binarySet(<span class="hljs-string">'C2 E4 D3'</span>) <span class="hljs-comment">// =&gt; '101010000000'</span></pre>
 
 
 
@@ -501,6 +544,61 @@ fromBinary(<span class="hljs-number">2773</span>, <span class="hljs-literal">fal
 
 
 </section>
+<section id='gamut-rotate'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#gamut-rotate'>
+      <code>
+        gamut.rotate<span class='gray'>(count, gamut)</span>
+      </code>
+    </a>
+  </h3>
+  <p>Rotate the gamut</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>count</td>
+            <td>
+              <code>Integer</code>
+            </td>
+            <td><p>the number of rotations</p>
+</td>
+          </tr>
+          <tr>
+            <td>gamut</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>
+            </td>
+            <td><p>a list of notes or intervals</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>the gamut rotated count times</p>
+
+      </span>
+
+
+    <h4>Examples</h4>
+<pre><span class="hljs-keyword">var</span> rotate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/gamut/rotate'</span>)
+rotate(<span class="hljs-number">1</span>, <span class="hljs-string">'C D E'</span>) <span class="hljs-comment">// =&gt; ['D', 'E', 'C']</span></pre>
+
+
+
+
+</section>
 <section id='gamut-scale'class='mt2 mb2 py1 px2 keyline-top'>
   <h3 class='regular'>
     <a class='black' href='#gamut-scale'>
@@ -565,6 +663,61 @@ dorian(<span class="hljs-string">'C4'</span>) <span class="hljs-comment">// =&gt
 
 
 </section>
+<section id='gamut-select'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#gamut-select'>
+      <code>
+        gamut.select<span class='gray'>(numbers, gamut)</span>
+      </code>
+    </a>
+  </h3>
+  <p>Select some elements from a gamut</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>numbers</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>
+            </td>
+            <td><p>a <strong>1-based</strong> index of the elements</p>
+</td>
+          </tr>
+          <tr>
+            <td>gamut</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>
+            </td>
+            <td><p>the notes or intervals</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>the selected elements</p>
+
+      </span>
+
+
+    <h4>Examples</h4>
+<pre><span class="hljs-keyword">var</span> select = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/gamut/select'</span>)
+select(<span class="hljs-string">'1 3 5'</span>, <span class="hljs-string">'C D E F G A B'</span>) <span class="hljs-comment">// =&gt; ['C', 'E', 'G']</span></pre>
+
+
+
+
+</section>
 <section id='gamut-set'class='mt2 mb2 py1 px2 keyline-top'>
   <h3 class='regular'>
     <a class='black' href='#gamut-set'>
@@ -607,6 +760,53 @@ dorian(<span class="hljs-string">'C4'</span>) <span class="hljs-comment">// =&gt
     <h4>Examples</h4>
 <pre>gamut.set(<span class="hljs-string">'E7 C2 e D5 c1'</span>) <span class="hljs-comment">// =&gt; ['C', 'D', 'E']</span>
 gamut.set(<span class="hljs-string">'11 10 9'</span>) <span class="hljs-comment">// =&gt; [ '2M', '3M', '4P' ]</span></pre>
+
+
+
+
+</section>
+<section id='gamut-sort'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#gamut-sort'>
+      <code>
+        gamut.sort<span class='gray'>(gamut)</span>
+      </code>
+    </a>
+  </h3>
+  <p>Get a gamut in ascdening pitch order</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>gamut</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>
+            </td>
+            <td><p>the gamut to sort</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>the gamut in sort pitch order</p>
+
+      </span>
+
+
+    <h4>Examples</h4>
+<pre><span class="hljs-keyword">var</span> sort = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/gamut.sort'</span>)
+sort(<span class="hljs-string">'c5 d2 f4 D2'</span>) <span class="hljs-comment">// =&gt; ['D2', 'D2', 'F4', 'C5']</span></pre>
 
 
 
@@ -1523,6 +1723,7 @@ pitch.parse(<span class="hljs-string">'5P'</span>) <span class="hljs-comment">//
   </h3>
   <p>Get the properties of a pitch in array notation as an array of properties</p>
 <p>The properties is in the form [number, alteration, octave, duration]</p>
+<p><strong>This is the only function in music.kit that only accepts array.notation format</strong></p>
 
 
     <p>
@@ -1684,6 +1885,29 @@ by pitch</p>
 
 
 </section>
+<section id='scale-dictionary'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#scale-dictionary'>
+      <code>
+        scale.dictionary<span class='gray'></span>
+      </code>
+    </a>
+  </h3>
+  <p>Scale dictionary</p>
+
+
+
+
+
+
+    <h4>Examples</h4>
+<pre><span class="hljs-keyword">var</span> scales = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/scale/dictionary'</span>)
+scales[<span class="hljs-string">'major'</span>] <span class="hljs-comment">// =&gt; { name: 'major', intervals: ['1', '2', ...], aliases: [] }</span></pre>
+
+
+
+
+</section>
 <section id='scale-get'class='mt2 mb2 py1 px2 keyline-top'>
   <h3 class='regular'>
     <a class='black' href='#scale-get'>
@@ -1787,7 +2011,61 @@ getScale(<span class="hljs-string">'C major'</span>) <span class="hljs-comment">
 
     <h4>Examples</h4>
 <pre><span class="hljs-comment">// get all known scale names</span>
-scale.names() <span class="hljs-comment">// =&gt; ['major', 'minor', ... ] (89 names)</span></pre>
+scale.names() <span class="hljs-comment">// =&gt; ['major', 'minor', ... ] (89 names)</span>
+scale.names(<span class="hljs-string">'D E F G A B C'</span>) [ <span class="hljs-string">'D dorian'</span> ]
+scale.names(<span class="hljs-string">'D E F G A B C'</span>) [ <span class="hljs-string">'D dorian'</span> ]</pre>
+
+
+
+
+</section>
+<section id='scale-notes'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#scale-notes'>
+      <code>
+        scale.notes<span class='gray'>(type, tonic)</span>
+      </code>
+    </a>
+  </h3>
+  <p>Get scale notes from a scale type and a tonic</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>type</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>
+            </td>
+            <td><p>the scale type</p>
+</td>
+          </tr>
+          <tr>
+            <td>tonic</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>
+            </td>
+            <td><p>the tonic</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>the scale notes</p>
+
+      </span>
+
+
 
 
 
@@ -1857,6 +2135,79 @@ pattern(<span class="hljs-string">'1 8 15'</span>, <span class="hljs-string">'C2
 <span class="hljs-comment">// partially applied:</span>
 <span class="hljs-keyword">var</span> triad = scale.pattern(<span class="hljs-string">'1 3 5'</span>)
 triad(<span class="hljs-string">'C D E F G A B'</span>) <span class="hljs-comment">// =&gt; ['C', 'E', 'G']</span></pre>
+
+
+
+
+</section>
+<section id='set'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#set'>
+      <code>
+        set<span class='gray'></span>
+      </code>
+    </a>
+  </h3>
+  <p>In music.kit a set is a collection of pitch classes (or simple intervals)
+sorted in ascending order</p>
+<p>The <code>set</code> module has functions to create and manipulate set</p>
+
+
+
+
+
+
+
+
+
+
+</section>
+<section id='set-binary'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#set-binary'>
+      <code>
+        set.binary<span class='gray'>(source)</span>
+      </code>
+    </a>
+  </h3>
+  <p>Get a set binary number</p>
+<p>A set binary number is a 12 digit binary, each digit representing a step
+in the chromatic scale. For example, <code>101010000000</code> is <code>['1P', '2M', '3M']</code></p>
+<p>The set binary number is very useful to check if two sets are equal or
+contains same intervals (regarding of note names)</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>source</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> or Array<<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>>
+            </td>
+            <td><p>a gamut</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>the binary number</p>
+
+      </span>
+
+
+    <h4>Examples</h4>
+<pre><span class="hljs-keyword">var</span> binary = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/set/binary'</span>)
+binary(<span class="hljs-string">'C2 E4 D3'</span>) <span class="hljs-comment">// =&gt; '101010000000'</span></pre>
 
 
 

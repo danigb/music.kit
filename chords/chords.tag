@@ -30,7 +30,7 @@
 
   <script>
     this.tonics = Array.apply(null, Array(12)).map(function (e, i) {
-      return music.note.fromMidi(60 + i).slice(0, -1)
+      return kit.note.fromMidi(60 + i).slice(0, -1)
     })
     this.keys = ['major', 'minor', 'melodic minor', 'harmonic minor', 'dorian', 'phrygian', 'lydian', 'mixolydian', 'locrian']
     this.ctx = new AudioContext()
@@ -43,7 +43,7 @@
       return function() {
         var tonic = name.split(' ')[0] + '4'
         var type = name.split(' ')[1]
-        var notes = music.chords(type, tonic)
+        var notes = kit.chords(type, tonic)
         notes.forEach(function (n) { soundfont.play(n, 0) })
         //farfisa.keyDown(tonic)
         //farfisa.keyUp(tonic, 0.5)
@@ -51,20 +51,20 @@
     }
 
     chords () {
-      var scale = music.scales(this.key(), this.tonic() + '4')
+      var scale = kit.scale.notes(this.key(), this.tonic() + '4')
       var all = scale.map(function (note, i) {
-        var mode = music.gamut.rotate(i, scale)
-        var notes = music.scale.degrees('1 3 5 7', mode)
-        var type = music.chords.find(notes)
+        var mode = kit.gamut.rotate(i, scale)
+        var notes = kit.scale.degrees('1 3 5 7', mode)
+        var type = kit.chords.find(notes)
         return { name: note.slice(0, -1) + type, root: note, type: type, notes: notes }
       })
       return all
     }
 
     derivedChords (interval, type) {
-      var scale = music.scales(this.key(), this.tonic() + '4')
+      var scale = kit.scales(this.key(), this.tonic() + '4')
       return scale.map(function (note) {
-        var tonic = music.note.transpose(note, interval)
+        var tonic = kit.note.transpose(note, interval)
         return { name: tonic.slice(0, -1) + type }
       })
 

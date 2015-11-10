@@ -20,7 +20,7 @@ a {
   color: #fbb25e;
 }
 
-#main {
+#main, #app {
   max-width: 960px;
   margin: 4em auto;
 }

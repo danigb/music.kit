@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <title>Chords demos</title>
+    <title>Harmony maker</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="../css/demos.css">
 
@@ -15,21 +15,25 @@
   </head>
 
   <body>
-    <div id="main">
-      <chords></chords>
+    <div id="app">
+      <h1>Harmony makers</h1>
+      <h3>
+        <a href="#" onclick={ nextTonic }>{{ tonic }}</a>
+        <a href="#" onclick={ nextKey }>{{ key }}</a>
+      </h3>
+      <ul name="chord-list" class="steps">
+        <a href="#" v-for="chord in chords">
+          <li>{{ chord.name }}</li>
+        </a>
+      </ul>
     </div>
 
-    <script src="scoregram.tag" type="riot/tag"></script>
-    <script src="chords.tag" type="riot/tag"></script>
+    <script src="../js/vue.js"></script>
     <script src="../js/farfisa.min.js"></script>
-    <script src="../js/snap.svg-min.js"></script>
     <script src="../js/music.kit.min.js"></script>
     <script src="../js/soundfont-player.min.js"></script>
-    <script src="../js/riot+compiler.min.js"></script>
+    <script src="./harmony.js"></script>
 
-    <script>
-    riot.mount('chords', {})
-    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
     <script>
       WebFont.load({ google: { families: ['Lato'] } });
