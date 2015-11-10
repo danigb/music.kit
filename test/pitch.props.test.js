@@ -42,5 +42,12 @@ vows.describe('pitch.height').addBatch({
     assert.deepEqual(prop(2, '1 2 3 4 5 6 7', interval), [0, 0, 0, 0, 0, 0, 0])
     assert.deepEqual(prop(2, '8 9 10 11 12 13 14', interval), [1, 1, 1, 1, 1, 1, 1])
     assert.deepEqual(prop(2, '15 16 17 18 19 20 21', interval), [2, 2, 2, 2, 2, 2, 2])
+  },
+  'invalid pitches': function () {
+    assert.equal(props(), null)
+    assert.equal(props(null), null)
+    assert.equal(props('C2'), null)
+    assert.equal(props('blah'), null)
   }
+
 }).export(module)

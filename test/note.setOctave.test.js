@@ -20,5 +20,8 @@ vows.describe('pitch.setOctave').addBatch({
       ['C#2', 'Db2', 'F#2', 'Ab2'])
     assert.deepEqual(pitchClasses('0123456').map(setOctave(0)).map(note),
       ['C0', 'G0', 'D0', 'A0', 'E0', 'B0', 'F#0'])
+  },
+  'invalid pitch': function () {
+    assert.equal(setOctave(0, 'Blah'), null)
   }
 }).export(module)

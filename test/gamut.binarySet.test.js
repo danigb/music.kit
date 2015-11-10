@@ -8,5 +8,8 @@ vows.describe('gamut.binarySet').addBatch({
     assert.equal(binarySet('C D e f#'), '101010100000')
     assert.equal(binarySet('c d e f g a b'), '101011010101')
     assert.equal(binarySet('c d e f g a b c d e f'), '101011010101')
+  },
+  'compare binary sets': function () {
+    assert.equal(binarySet('c d eb f g a bb'), binarySet('d e f g a b c'))
   }
 }).export(module)

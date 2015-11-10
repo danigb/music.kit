@@ -9,5 +9,9 @@ vows.describe('pitch.simplify').addBatch({
   'intervals': function () {
     assert.deepEqual('6 7 8 9 10 11 12 13M 13m'.split(' ').map(simplify),
       ['6M', '7M', '1P', '2M', '3M', '4P', '5P', '6M', '6m'])
+  },
+  'invalid pitch': function () {
+    assert.equal(simplify('blah'), null)
+    assert.equal(simplify(), null)
   }
 }).export(module)

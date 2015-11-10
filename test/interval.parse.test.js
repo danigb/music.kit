@@ -23,6 +23,10 @@ vows.describe('interval.parse').addBatch({
     assert.deepEqual('15 16 17 18 19 20 21'.split(' ').map(parse),
       [ [ 0, 2 ], [ 2, 1 ], [ 4, 0 ], [ -1, 3 ], [ 1, 2 ], [ 3, 1 ], [ 5, 0 ] ])
   },
+  'invalid intervals': function () {
+    assert.equal(parse('5M'), null)
+    assert.equal(parse('3P'), null)
+  },
   'invalid values': function () {
     assert.equal(parse(null), null)
     assert.equal(parse('blah'), null)

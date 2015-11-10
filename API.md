@@ -274,6 +274,17 @@ interval.str([1, 0, 1]) // => '9M'
 Returns `String` the interval string in shorthand notation or null if not valid interval
 
 
+## `music.kit`
+
+music.kit is a compact library to manipulate music abstractions (not actual music)
+and while its designed to create algorithmic composition programs,
+can be use to develop any kind of midi or audio software.
+
+
+
+
+
+
 ## `note`
 
 In music.kit a note is represented by string, usually in scientific notation.
@@ -668,6 +679,58 @@ The `scale` module has functions to create and manipulate scales
 
 
 
+
+
+## `scale.get`
+
+Get a scale by name using a dictionary. It returns a data object with the
+following properties:
+
+- name {String}: the name of the scale
+- tonic {String}: the tonic of the scale or null if no tonic
+- intervals {Array}: an array of scale intervals
+- notes {Array}: an array of scale notes (if tonic) or empty array
+- binary: intervals in a 12-digit binary number
+- decimal: the decimal equivalent of the binary number
+
+### Parameters
+
+* `name` **`String`** the scale name (optionally can include the tonic)
+
+
+### Examples
+
+```js
+var getScale = require('music.kit/scale.get')
+getScale('major') // => { name: 'major', aliases: [ 'ionian' ],
+// binary: '101011010101', decimal: 2773, tonic: null, notes: [],
+// intervals: [ '1', '2', '3', '4', '5', '6', '7' ] }
+getScale('C major') // => { name: 'C major', aliases: [ 'C ionian' ],
+// binary: '101011010101', decimal: 2773, tonic: 'C',
+// notes: [ 'C', 'D', 'E', 'F', 'G', 'A', 'B' ],
+// intervals: [ '1', '2', '3', '4', '5', '6', '7' ] }
+```
+
+Returns `Object` a data object with the scale properties
+
+
+## `scale.names`
+
+Given a list of notes get the scale names
+
+### Parameters
+
+* `notes` **`String or Array`** the scale notes
+
+
+### Examples
+
+```js
+// get all known scale names
+scale.names() // => ['major', 'minor', ... ] (89 names)
+```
+
+Returns `Array` an array of scale names or all known scale names if no arguments provided
 
 
 ## `scale.pattern`
