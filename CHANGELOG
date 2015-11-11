@@ -1,5 +1,6 @@
 CHANGELOG
 
+[0.0.17] Move gamut functions to its modules
 [0.0.16] Expose dictionary module
 [0.0.15] chord.get and chord.names
 [0.0.14] scale.get and scale.spell merged

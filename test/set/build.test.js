@@ -1,6 +1,6 @@
 var vows = require('vows')
 var assert = require('assert')
-var set = require('../../lib/gamut/set')
+var set = require('../../lib/set/build')
 
 vows.describe('gamut.set').addBatch({
   'pitch set': function () {

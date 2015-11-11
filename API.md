@@ -17,6 +17,42 @@ kit.chord.get('Cmaj7') // => ['C', 'E', 'G', 'B']
 
 
 
+## `chord.build`
+
+Build a chord from a source and a tonic. A chord is a list of notes or
+intervals in asceding pitch order
+
+The source can be a list of intervals or notes. The tonic must be
+a pitch (with or without octave) or false to get the intervals
+
+This function is currified, so you can partially apply the function passing
+one parameter instead of two (see example)
+
+This function is exported as 'chord' (instead of 'chord.build') in music.kit
+
+### Parameters
+
+* `source` **`Array`** the list of intervals or notes
+* `tonic` **`String`** the tonic of the chord or null to get the intervals
+
+
+### Examples
+
+```js
+var chord = require('music.kit/chord/build')
+chord('1 3 5 6', 'G') // => ['G', 'B', 'D', 'E']
+var maj79 = chord('C E G B D')
+maj79('A4') // => ['A4', 'C#5', 'E5', 'G#5', 'B5']
+```
+```js
+// exported as chord
+var kit = require('music.kit')
+kit.chord('1 3 5', 'C')
+```
+
+Returns `Array` the chord notes (or intervals if null tonic)
+
+
 ## `chord.dictionary`
 
 Chord dictionary
@@ -87,6 +123,17 @@ chord.names('D E F G A B C') [ 'D dorian' ]
 Returns `Array` an array of chord names or all known chord names if no arguments provided
 
 
+## `d`
+
+Dictionary is a module to work with dictionaries of pitch collections
+
+Its the foundation of the scale and chord dictionary of music.kit
+
+
+
+
+
+
 ## `dictionary.build`
 
 Create a dictionary
@@ -95,6 +142,8 @@ The data is a hash map of keys associated to arrays. The array contains:
 
 - A interval list (as string or as array)
 - (Optionally) an array of name aliases
+
+This function is exported in music.kit as ´dictionary´  (see example)
 
 ### Parameters
 
@@ -121,6 +170,11 @@ chords['M7'].name // => 'Maj7'
 // get chord by binary numbers
 chords['100010010001'].name // => 'Maj7'
 chords[2193].name // => 'Maj7'
+```
+```js
+var kit = require('music.kit')
+// this function is exported as `dictionary` not `dictionary.build`
+kit.dictionary(...)
 ```
 
 Returns `Hash` the dictionary
@@ -169,35 +223,6 @@ Scales, chords, pitch sets are examples of gamuts.
 
 
 
-
-
-## `gamut.chord`
-
-Build a chord from a source and a tonic. A chord is a list of notes or
-intervals in asceding pitch order
-
-The source can be a list of intervals or notes. The tonic must be
-a pitch (with or without octave) or false to get the intervals
-
-This function is currified, so you can partially apply the function passing
-one parameter instead of two (see example)
-
-### Parameters
-
-* `source` **`Array`** the list of intervals or notes
-* `tonic` **`String`** the tonic of the chord or null to get the intervals
-
-
-### Examples
-
-```js
-var chord = require('music.chord')
-chord('1 3 5 6', 'G') // => ['G', 'B', 'D', 'E']
-var maj79 = chord('C E G B D')
-maj79('A4') // => ['A4', 'C#5', 'E5', 'G#5', 'B5']
-```
-
-Returns `Array` the chord notes (or intervals if null tonic)
 
 
 ## `gamut.fromBinary`
@@ -274,40 +299,6 @@ rotate(1, 'C D E') // => ['D', 'E', 'C']
 Returns `Array` the gamut rotated count times
 
 
-## `gamut.scale`
-
-Build a scale from a source and a tonic. A scale is a set of notes or
-intervals ordered by frequency with a tonic.
-
-A source can be a list of intervals or notes. The tonic must be
-a pitch (with or without octave) or false to get the scale intervals
-
-This function is currified, so you can partially apply the function passing
-one parameter instead of two (see example)
-
-### Parameters
-
-* `source` **`Array`** the list of intervals or notes
-* `tonic` **`String`** the tonic of the scale
-
-
-### Examples
-
-```js
-var scale = require('music.kit/gamut.scale')
-// basic usage
-scale('1 2 3 5 6', 'G') // => ['G', 'A', 'B', 'D', 'E']
-scale('1 2 3 5 6', false) // => ['1P', '2M', '3M', '5P', '6M']
-```
-```js
-// partially applied
-var dorian = scale('D E F G A B C')
-dorian('C4') // => ['C4', 'D4', 'Eb4', 'F4', 'G4', 'A4', 'Bb4']
-```
-
-Returns `Array` the list of notes
-
-
 ## `gamut.select`
 
 Select some elements from a gamut
@@ -326,25 +317,6 @@ select('1 3 5', 'C D E F G A B') // => ['C', 'E', 'G']
 ```
 
 Returns `Array` the selected elements
-
-
-## `gamut.set`
-
-A set is a list of uniq pitch classes or simplified intervals in ascending pitch order
-
-### Parameters
-
-* `gamut` **`String or Array`** the gamut
-
-
-### Examples
-
-```js
-gamut.set('E7 C2 e D5 c1') // => ['C', 'D', 'E']
-gamut.set('11 10 9') // => [ '2M', '3M', '4P' ]
-```
-
-Returns  the set
 
 
 ## `gamut.sort`
@@ -882,6 +854,48 @@ The `scale` module has functions to create and manipulate scales
 
 
 
+## `scale.build`
+
+Build a scale from a source and a tonic. A scale is a set of notes or
+intervals ordered by frequency with a tonic.
+
+A source can be a list of intervals or notes. The tonic must be
+a pitch (with or without octave) or false to get the scale intervals
+
+This function is currified, so you can partially apply the function passing
+one parameter instead of two (see example)
+
+This function is exported in music.kit as `scale` instead of `scale.build`
+(see example)
+
+### Parameters
+
+* `source` **`Array`** the list of intervals or notes
+* `tonic` **`String`** the tonic of the scale
+
+
+### Examples
+
+```js
+var scale = require('music.kit/scale/build')
+// basic usage
+scale('1 2 3 5 6', 'G') // => ['G', 'A', 'B', 'D', 'E']
+scale('1 2 3 5 6', false) // => ['1P', '2M', '3M', '5P', '6M']
+```
+```js
+// partially applied
+var dorian = scale('D E F G A B C')
+dorian('C4') // => ['C4', 'D4', 'Eb4', 'F4', 'G4', 'A4', 'Bb4']
+```
+```js
+// music.kit exports 'scale'
+var kit = require('music.kit')
+kit.scale('D E F G A B C')
+```
+
+Returns `Array` the list of notes
+
+
 ## `scale.dictionary`
 
 Scale dictionary
@@ -1023,5 +1037,32 @@ binary('C2 E4 D3') // => '101010000000'
 ```
 
 Returns `String` the binary number
+
+
+## `set.build`
+
+A set is a list of uniq pitch classes or simplified intervals in ascending pitch order
+
+This function is exported as `set` (see examples)
+
+### Parameters
+
+* `gamut` **`String or Array`** the gamut
+
+
+### Examples
+
+```js
+var set = require('music.kit/set/build')
+set('E7 C2 e D5 c1') // => ['C', 'D', 'E']
+set('11 10 9') // => [ '2M', '3M', '4P' ]
+```
+```js
+// use the function from music.kit
+var kit = require('music.kit')
+kit.set('e4 f5 ...')
+```
+
+Returns  the set
 
 
