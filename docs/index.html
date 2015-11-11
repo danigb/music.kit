@@ -1,7 +1,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>music.kit 0.0.13</title>
+  <title>music.kit 0.0.17</title>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
   <link href='assets/github.css' type='text/css' rel='stylesheet' />
@@ -11,7 +11,7 @@
     <div class='clearfix flex flex-stretch mxn2'>
       <div class='documentation-sidebar relative top-0 bottom-0 right-0 px2 py2 col-3 sm-show'>
         <div class='font-smaller fixed col-3 top-0 bottom-0 left-0 overflow-auto black bg-cloudy'>
-          <a href="/" class="h5 button block button-transparent">music.kit 0.0.13</a>
+          <a href="/" class="h5 button block button-transparent">music.kit 0.0.17</a>
           <div class='px2'>
               <a
                 href='#chord'
@@ -19,24 +19,49 @@
                 <code>chord</code>
               </a>
               <a
+                href='#chord-build'
+                class='regular block'>
+                <code>chord.build</code>
+              </a>
+              <a
                 href='#chord-dictionary'
                 class='regular block'>
                 <code>chord.dictionary</code>
               </a>
               <a
-                href='#chord-notes'
+                href='#chord-get'
                 class='regular block'>
-                <code>chord.notes</code>
+                <code>chord.get</code>
+              </a>
+              <a
+                href='#chord-names'
+                class='regular block'>
+                <code>chord.names</code>
+              </a>
+              <a
+                href='#d'
+                class='regular block'>
+                <code>d</code>
+              </a>
+              <a
+                href='#dictionary-build'
+                class='regular block'>
+                <code>dictionary.build</code>
+              </a>
+              <a
+                href='#dictionary-getter'
+                class='regular block'>
+                <code>dictionary.getter</code>
+              </a>
+              <a
+                href='#dictionary-names'
+                class='regular block'>
+                <code>dictionary.names</code>
               </a>
               <a
                 href='#gamut'
                 class='regular block'>
                 <code>gamut</code>
-              </a>
-              <a
-                href='#gamut-chord'
-                class='regular block'>
-                <code>gamut.chord</code>
               </a>
               <a
                 href='#gamut-frombinary'
@@ -59,19 +84,9 @@
                 <code>gamut.rotate</code>
               </a>
               <a
-                href='#gamut-scale'
-                class='regular block'>
-                <code>gamut.scale</code>
-              </a>
-              <a
                 href='#gamut-select'
                 class='regular block'>
                 <code>gamut.select</code>
-              </a>
-              <a
-                href='#gamut-set'
-                class='regular block'>
-                <code>gamut.set</code>
               </a>
               <a
                 href='#gamut-sort'
@@ -132,6 +147,11 @@
                 href='#note-midi'
                 class='regular block'>
                 <code>note.midi</code>
+              </a>
+              <a
+                href='#note-name'
+                class='regular block'>
+                <code>note.name</code>
               </a>
               <a
                 href='#note-parse'
@@ -199,6 +219,11 @@
                 <code>scale</code>
               </a>
               <a
+                href='#scale-build'
+                class='regular block'>
+                <code>scale.build</code>
+              </a>
+              <a
                 href='#scale-dictionary'
                 class='regular block'>
                 <code>scale.dictionary</code>
@@ -214,11 +239,6 @@
                 <code>scale.names</code>
               </a>
               <a
-                href='#scale-notes'
-                class='regular block'>
-                <code>scale.notes</code>
-              </a>
-              <a
                 href='#scale-pattern'
                 class='regular block'>
                 <code>scale.pattern</code>
@@ -232,6 +252,11 @@
                 href='#set-binary'
                 class='regular block'>
                 <code>set.binary</code>
+              </a>
+              <a
+                href='#set-build'
+                class='regular block'>
+                <code>set.build</code>
               </a>
           </div>
         </div>
@@ -265,107 +290,11 @@ kit.chord.get(<span class="hljs-string">'Cmaj7'</span>) <span class="hljs-commen
 
 
 </section>
-<section id='chord-dictionary'class='mt2 mb2 py1 px2 keyline-top'>
+<section id='chord-build'class='mt2 mb2 py1 px2 keyline-top'>
   <h3 class='regular'>
-    <a class='black' href='#chord-dictionary'>
+    <a class='black' href='#chord-build'>
       <code>
-        chord.dictionary<span class='gray'></span>
-      </code>
-    </a>
-  </h3>
-  <p>Chord dictionary</p>
-
-
-
-
-
-
-    <h4>Examples</h4>
-<pre><span class="hljs-keyword">var</span> chords = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/chord/dictionary'</span>)
-chords[<span class="hljs-string">'Maj7'</span>] <span class="hljs-comment">// =&gt; { name: 'Maj7', intervals: ['1', '3', ...], aliases: [] }</span></pre>
-
-
-
-
-</section>
-<section id='chord-notes'class='mt2 mb2 py1 px2 keyline-top'>
-  <h3 class='regular'>
-    <a class='black' href='#chord-notes'>
-      <code>
-        chord.notes<span class='gray'>(type, tonic)</span>
-      </code>
-    </a>
-  </h3>
-  <p>Get chord notes from a chord type and a tonic</p>
-
-
-    <p>
-      <table class='table-light overflow-hidden bg-cloudy-light'>
-        <thead>
-          <th class='col-3'>parameter</th>
-          <th class='col-3'>type</th>
-          <th class='col-6'>description</th>
-        </thead>
-          <tr>
-            <td>type</td>
-            <td>
-              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>
-            </td>
-            <td><p>the chord type</p>
-</td>
-          </tr>
-          <tr>
-            <td>tonic</td>
-            <td>
-              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>
-            </td>
-            <td><p>the tonic</p>
-</td>
-          </tr>
-      </table>
-    </p>
-
-
-      <h4>Returns</h4>
-      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
-      :
-      <span class='force-inline'>
-        <p>the chord notes</p>
-
-      </span>
-
-
-
-
-
-
-</section>
-<section id='gamut'class='mt2 mb2 py1 px2 keyline-top'>
-  <h3 class='regular'>
-    <a class='black' href='#gamut'>
-      <code>
-        gamut<span class='gray'></span>
-      </code>
-    </a>
-  </h3>
-  <p>In music.kit a gamut is a collection of intervals, pitch classes or notes.
-Scales, chords, pitch sets are examples of gamuts.</p>
-
-
-
-
-
-
-
-
-
-
-</section>
-<section id='gamut-chord'class='mt2 mb2 py1 px2 keyline-top'>
-  <h3 class='regular'>
-    <a class='black' href='#gamut-chord'>
-      <code>
-        gamut.chord<span class='gray'>(source, tonic)</span>
+        chord.build<span class='gray'>(source, tonic)</span>
       </code>
     </a>
   </h3>
@@ -375,6 +304,7 @@ intervals in asceding pitch order</p>
 a pitch (with or without octave) or false to get the intervals</p>
 <p>This function is currified, so you can partially apply the function passing
 one parameter instead of two (see example)</p>
+<p>This function is exported as 'chord' (instead of 'chord.build') in music.kit</p>
 
 
     <p>
@@ -414,10 +344,365 @@ one parameter instead of two (see example)</p>
 
 
     <h4>Examples</h4>
-<pre><span class="hljs-keyword">var</span> chord = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.chord'</span>)
+<pre><span class="hljs-keyword">var</span> chord = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/chord/build'</span>)
 chord(<span class="hljs-string">'1 3 5 6'</span>, <span class="hljs-string">'G'</span>) <span class="hljs-comment">// =&gt; ['G', 'B', 'D', 'E']</span>
 <span class="hljs-keyword">var</span> maj79 = chord(<span class="hljs-string">'C E G B D'</span>)
-maj79(<span class="hljs-string">'A4'</span>) <span class="hljs-comment">// =&gt; ['A4', 'C#5', 'E5', 'G#5', 'B5']</span></pre>
+maj79(<span class="hljs-string">'A4'</span>) <span class="hljs-comment">// =&gt; ['A4', 'C#5', 'E5', 'G#5', 'B5']</span></pre><pre><span class="hljs-comment">// exported as chord</span>
+<span class="hljs-keyword">var</span> kit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit'</span>)
+kit.chord(<span class="hljs-string">'1 3 5'</span>, <span class="hljs-string">'C'</span>)</pre>
+
+
+
+
+</section>
+<section id='chord-dictionary'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#chord-dictionary'>
+      <code>
+        chord.dictionary<span class='gray'></span>
+      </code>
+    </a>
+  </h3>
+  <p>Chord dictionary</p>
+
+
+
+
+
+
+    <h4>Examples</h4>
+<pre><span class="hljs-keyword">var</span> chords = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/chord/dictionary'</span>)
+chords[<span class="hljs-string">'Maj7'</span>] <span class="hljs-comment">// =&gt; { name: 'Maj7', intervals: ['1', '3', ...], aliases: [] }</span></pre>
+
+
+
+
+</section>
+<section id='chord-get'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#chord-get'>
+      <code>
+        chord.get<span class='gray'>(name)</span>
+      </code>
+    </a>
+  </h3>
+  <p>Get a chord by name using a dictionary.</p>
+<p>You can get chord notes with a note as tonic or the chord intervals by passing
+<code>false</code> as tonic</p>
+<p>There is two ways to get a chord:</p>
+<ul>
+<li>With type and tonic: <code>chord.get('Maj7', 'C')</code></li>
+<li>With tonic included in name: <code>chord.get('CMaj7')</code></li>
+</ul>
+<p>This function can be partially applied (see examples)</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>name</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>
+            </td>
+            <td><p>the chord name (optionally can include the tonic)</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>a data object with the chord properties</p>
+
+      </span>
+
+
+    <h4>Examples</h4>
+<pre><span class="hljs-keyword">var</span> get = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/chord/get'</span>)
+<span class="hljs-comment">// with name and tonic</span>
+get(<span class="hljs-string">'Maj7'</span>, <span class="hljs-string">'C'</span>) <span class="hljs-comment">// =&gt; ['C', 'D', 'E', 'F', 'G', 'A', 'B']</span>
+<span class="hljs-comment">// with tonic inside the name</span>
+get(<span class="hljs-string">'C major'</span>) <span class="hljs-comment">// =&gt; ['C', 'D', 'E', 'F', 'G', 'A', 'B']</span>
+<span class="hljs-comment">// partially applied</span>
+<span class="hljs-keyword">var</span> major = get(<span class="hljs-string">'major'</span>)
+major(<span class="hljs-string">'C'</span>) <span class="hljs-comment">// =&gt; ['C', 'D', 'E', 'F', 'G', 'A', 'B']</span></pre>
+
+
+
+
+</section>
+<section id='chord-names'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#chord-names'>
+      <code>
+        chord.names<span class='gray'>(notes)</span>
+      </code>
+    </a>
+  </h3>
+  <p>Given a list of notes get the chord names</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>notes</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>
+            </td>
+            <td><p>the chord notes</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>an array of chord names or all known chord names if no arguments provided</p>
+
+      </span>
+
+
+    <h4>Examples</h4>
+<pre><span class="hljs-comment">// get all known chord names</span>
+chord.names() <span class="hljs-comment">// =&gt; ['Maj7', 'm7', ... ] (109 names)</span>
+chord.names(<span class="hljs-string">'D E F G A B C'</span>) [ <span class="hljs-string">'D dorian'</span> ]
+chord.names(<span class="hljs-string">'D E F G A B C'</span>) [ <span class="hljs-string">'D dorian'</span> ]</pre>
+
+
+
+
+</section>
+<section id='d'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#d'>
+      <code>
+        d<span class='gray'></span>
+      </code>
+    </a>
+  </h3>
+  <p>Dictionary is a module to work with dictionaries of pitch collections</p>
+<p>Its the foundation of the scale and chord dictionary of music.kit</p>
+
+
+
+
+
+
+
+
+
+
+</section>
+<section id='dictionary-build'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#dictionary-build'>
+      <code>
+        dictionary.build<span class='gray'>(data)</span>
+      </code>
+    </a>
+  </h3>
+  <p>Create a dictionary</p>
+<p>The data is a hash map of keys associated to arrays. The array contains:</p>
+<ul>
+<li>A interval list (as string or as array)</li>
+<li>(Optionally) an array of name aliases</li>
+</ul>
+<p>This function is exported in music.kit as ´dictionary´  (see example)</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>data</td>
+            <td>
+              <code>Hash</code>
+            </td>
+            <td><p>the dictionary data</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+      <h4>Returns</h4>
+      <code><code>Hash</code></code>
+      :
+      <span class='force-inline'>
+        <p>the dictionary</p>
+
+      </span>
+
+
+    <h4>Examples</h4>
+<pre><span class="hljs-keyword">var</span> dictionary = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/dictionary/build'</span>)
+<span class="hljs-keyword">var</span> chords = dictionary({<span class="hljs-string">'Maj7'</span>, [<span class="hljs-string">'1 3 5 7'</span>, [<span class="hljs-string">'maj7'</span>, <span class="hljs-string">'M7'</span>]]})
+
+<span class="hljs-comment">// get chord by name</span>
+chords[<span class="hljs-string">'Maj7'</span>].name = <span class="hljs-string">'Maj7'</span>
+chords[<span class="hljs-string">'Maj7'</span>].aliases = [<span class="hljs-string">'maj7'</span>, <span class="hljs-string">'M7'</span>]
+chords[<span class="hljs-string">'Maj7'</span>].intervals <span class="hljs-comment">// =&gt; ['1', '3', '5', '7']</span>
+
+<span class="hljs-comment">// get chord by aliases</span>
+chords[<span class="hljs-string">'maj7'</span>].intervals <span class="hljs-comment">// =&gt; ['1', '3', '5', '7']</span>
+chords[<span class="hljs-string">'maj7'</span>].name <span class="hljs-comment">// =&gt; 'Maj7'</span>
+chords[<span class="hljs-string">'M7'</span>].intervals <span class="hljs-comment">// =&gt; ['1', '3', '5', '7']</span>
+chords[<span class="hljs-string">'M7'</span>].name <span class="hljs-comment">// =&gt; 'Maj7'</span>
+
+<span class="hljs-comment">// get chord by binary numbers</span>
+chords[<span class="hljs-string">'100010010001'</span>].name <span class="hljs-comment">// =&gt; 'Maj7'</span>
+chords[<span class="hljs-number">2193</span>].name <span class="hljs-comment">// =&gt; 'Maj7'</span></pre><pre><span class="hljs-keyword">var</span> kit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit'</span>)
+<span class="hljs-comment">// this function is exported as `dictionary` not `dictionary.build`</span>
+kit.dictionary(...)</pre>
+
+
+
+
+</section>
+<section id='dictionary-getter'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#dictionary-getter'>
+      <code>
+        dictionary.getter<span class='gray'>(dictionary)</span>
+      </code>
+    </a>
+  </h3>
+  <p>Given a dictionary return a function to get the notes or intervals from it</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>dictionary</td>
+            <td>
+              <code>Hash</code>
+            </td>
+            <td><p>the set dictionary</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>a function to get the notes or intervals from the set dictionary</p>
+
+      </span>
+
+
+    <h4>Examples</h4>
+<pre><span class="hljs-keyword">var</span> d = dictionary({<span class="hljs-string">'Maj7'</span>: [<span class="hljs-string">'1 3 5 7'</span>], <span class="hljs-string">'m7'</span>: [<span class="hljs-string">'1 3b 5 7b'</span>] })
+<span class="hljs-keyword">var</span> get = getter(d)
+get(<span class="hljs-string">'CMaj7'</span>) <span class="hljs-comment">// =&gt; ['C', 'E', 'G', 'B']</span></pre>
+
+
+
+
+</section>
+<section id='dictionary-names'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#dictionary-names'>
+      <code>
+        dictionary.names<span class='gray'>(names, dictionary, builder)</span>
+      </code>
+    </a>
+  </h3>
+  <p>Get a function to perform an inverse dictionary lookup (given notes, return names)</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>names</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>
+            </td>
+            <td><p>the list of all names</p>
+</td>
+          </tr>
+          <tr>
+            <td>dictionary</td>
+            <td>
+              <code>Hash</code>
+            </td>
+            <td><p>the dictionary</p>
+</td>
+          </tr>
+          <tr>
+            <td>builder</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a></code>
+            </td>
+            <td><p>the name builder</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>a function to perform inverse lookup</p>
+
+      </span>
+
+
+
+
+
+
+</section>
+<section id='gamut'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#gamut'>
+      <code>
+        gamut<span class='gray'></span>
+      </code>
+    </a>
+  </h3>
+  <p>In music.kit a gamut is a collection of intervals, pitch classes or notes.
+Scales, chords, pitch sets are examples of gamuts.</p>
+
+
+
+
+
+
 
 
 
@@ -599,70 +884,6 @@ rotate(<span class="hljs-number">1</span>, <span class="hljs-string">'C D E'</sp
 
 
 </section>
-<section id='gamut-scale'class='mt2 mb2 py1 px2 keyline-top'>
-  <h3 class='regular'>
-    <a class='black' href='#gamut-scale'>
-      <code>
-        gamut.scale<span class='gray'>(source, tonic)</span>
-      </code>
-    </a>
-  </h3>
-  <p>Build a scale from a source and a tonic. A scale is a set of notes or
-intervals ordered by frequency with a tonic.</p>
-<p>A source can be a list of intervals or notes. The tonic must be
-a pitch (with or without octave) or false to get the scale intervals</p>
-<p>This function is currified, so you can partially apply the function passing
-one parameter instead of two (see example)</p>
-
-
-    <p>
-      <table class='table-light overflow-hidden bg-cloudy-light'>
-        <thead>
-          <th class='col-3'>parameter</th>
-          <th class='col-3'>type</th>
-          <th class='col-6'>description</th>
-        </thead>
-          <tr>
-            <td>source</td>
-            <td>
-              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>
-            </td>
-            <td><p>the list of intervals or notes</p>
-</td>
-          </tr>
-          <tr>
-            <td>tonic</td>
-            <td>
-              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>
-            </td>
-            <td><p>the tonic of the scale</p>
-</td>
-          </tr>
-      </table>
-    </p>
-
-
-      <h4>Returns</h4>
-      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
-      :
-      <span class='force-inline'>
-        <p>the list of notes</p>
-
-      </span>
-
-
-    <h4>Examples</h4>
-<pre><span class="hljs-keyword">var</span> scale = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/gamut.scale'</span>)
-<span class="hljs-comment">// basic usage</span>
-scale(<span class="hljs-string">'1 2 3 5 6'</span>, <span class="hljs-string">'G'</span>) <span class="hljs-comment">// =&gt; ['G', 'A', 'B', 'D', 'E']</span>
-scale(<span class="hljs-string">'1 2 3 5 6'</span>, <span class="hljs-literal">false</span>) <span class="hljs-comment">// =&gt; ['1P', '2M', '3M', '5P', '6M']</span></pre><pre><span class="hljs-comment">// partially applied</span>
-<span class="hljs-keyword">var</span> dorian = scale(<span class="hljs-string">'D E F G A B C'</span>)
-dorian(<span class="hljs-string">'C4'</span>) <span class="hljs-comment">// =&gt; ['C4', 'D4', 'Eb4', 'F4', 'G4', 'A4', 'Bb4']</span></pre>
-
-
-
-
-</section>
 <section id='gamut-select'class='mt2 mb2 py1 px2 keyline-top'>
   <h3 class='regular'>
     <a class='black' href='#gamut-select'>
@@ -713,53 +934,6 @@ dorian(<span class="hljs-string">'C4'</span>) <span class="hljs-comment">// =&gt
     <h4>Examples</h4>
 <pre><span class="hljs-keyword">var</span> select = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/gamut/select'</span>)
 select(<span class="hljs-string">'1 3 5'</span>, <span class="hljs-string">'C D E F G A B'</span>) <span class="hljs-comment">// =&gt; ['C', 'E', 'G']</span></pre>
-
-
-
-
-</section>
-<section id='gamut-set'class='mt2 mb2 py1 px2 keyline-top'>
-  <h3 class='regular'>
-    <a class='black' href='#gamut-set'>
-      <code>
-        gamut.set<span class='gray'>(gamut)</span>
-      </code>
-    </a>
-  </h3>
-  <p>A set is a list of uniq pitch classes or simplified intervals in ascending pitch order</p>
-
-
-    <p>
-      <table class='table-light overflow-hidden bg-cloudy-light'>
-        <thead>
-          <th class='col-3'>parameter</th>
-          <th class='col-3'>type</th>
-          <th class='col-6'>description</th>
-        </thead>
-          <tr>
-            <td>gamut</td>
-            <td>
-              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>
-            </td>
-            <td><p>the gamut</p>
-</td>
-          </tr>
-      </table>
-    </p>
-
-
-      <h4>Returns</h4>
-      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
-      :
-      <span class='force-inline'>
-        <p>the set</p>
-
-      </span>
-
-
-    <h4>Examples</h4>
-<pre>gamut.set(<span class="hljs-string">'E7 C2 e D5 c1'</span>) <span class="hljs-comment">// =&gt; ['C', 'D', 'E']</span>
-gamut.set(<span class="hljs-string">'11 10 9'</span>) <span class="hljs-comment">// =&gt; [ '2M', '3M', '4P' ]</span></pre>
 
 
 
@@ -1296,6 +1470,55 @@ pitch class is given for the same midi number.</p>
 <pre>midi(<span class="hljs-string">'A4'</span>) <span class="hljs-comment">// =&gt; 69</span>
 midi(<span class="hljs-string">'A3'</span>) <span class="hljs-comment">// =&gt; 57</span>
 midi([<span class="hljs-number">0</span>, <span class="hljs-number">2</span>]) <span class="hljs-comment">// =&gt; 36 (C2 in array notation)</span></pre>
+
+
+
+
+</section>
+<section id='note-name'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#note-name'>
+      <code>
+        note.name<span class='gray'>(note)</span>
+      </code>
+    </a>
+  </h3>
+  <p>Get note name (or null if not valid note)</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>note</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>
+            </td>
+            <td><p>the note</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>the note name in scientific notation</p>
+
+      </span>
+
+
+    <h4>Examples</h4>
+<pre>name = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/note/name'</span>)
+name(<span class="hljs-string">'fx2'</span>) <span class="hljs-comment">// =&gt; 'F##2'</span>
+name(<span class="hljs-string">'bbb'</span>) <span class="hljs-comment">// =&gt; 'Bbb'</span>
+name(<span class="hljs-string">'blah'</span>) <span class="hljs-comment">// =&gt; null</span></pre>
 
 
 
@@ -1885,6 +2108,74 @@ by pitch</p>
 
 
 </section>
+<section id='scale-build'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#scale-build'>
+      <code>
+        scale.build<span class='gray'>(source, tonic)</span>
+      </code>
+    </a>
+  </h3>
+  <p>Build a scale from a source and a tonic. A scale is a set of notes or
+intervals ordered by frequency with a tonic.</p>
+<p>A source can be a list of intervals or notes. The tonic must be
+a pitch (with or without octave) or false to get the scale intervals</p>
+<p>This function is currified, so you can partially apply the function passing
+one parameter instead of two (see example)</p>
+<p>This function is exported in music.kit as <code>scale</code> instead of <code>scale.build</code>
+(see example)</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>source</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>
+            </td>
+            <td><p>the list of intervals or notes</p>
+</td>
+          </tr>
+          <tr>
+            <td>tonic</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>
+            </td>
+            <td><p>the tonic of the scale</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>the list of notes</p>
+
+      </span>
+
+
+    <h4>Examples</h4>
+<pre><span class="hljs-keyword">var</span> scale = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/scale/build'</span>)
+<span class="hljs-comment">// basic usage</span>
+scale(<span class="hljs-string">'1 2 3 5 6'</span>, <span class="hljs-string">'G'</span>) <span class="hljs-comment">// =&gt; ['G', 'A', 'B', 'D', 'E']</span>
+scale(<span class="hljs-string">'1 2 3 5 6'</span>, <span class="hljs-literal">false</span>) <span class="hljs-comment">// =&gt; ['1P', '2M', '3M', '5P', '6M']</span></pre><pre><span class="hljs-comment">// partially applied</span>
+<span class="hljs-keyword">var</span> dorian = scale(<span class="hljs-string">'D E F G A B C'</span>)
+dorian(<span class="hljs-string">'C4'</span>) <span class="hljs-comment">// =&gt; ['C4', 'D4', 'Eb4', 'F4', 'G4', 'A4', 'Bb4']</span></pre><pre><span class="hljs-comment">// music.kit exports 'scale'</span>
+<span class="hljs-keyword">var</span> kit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit'</span>)
+kit.scale(<span class="hljs-string">'D E F G A B C'</span>)</pre>
+
+
+
+
+</section>
 <section id='scale-dictionary'class='mt2 mb2 py1 px2 keyline-top'>
   <h3 class='regular'>
     <a class='black' href='#scale-dictionary'>
@@ -1916,16 +2207,15 @@ scales[<span class="hljs-string">'major'</span>] <span class="hljs-comment">// =
       </code>
     </a>
   </h3>
-  <p>Get a scale by name using a dictionary. It returns a data object with the
-following properties:</p>
+  <p>Get a scale by name using a dictionary.</p>
+<p>You can get scale notes by passing a tonic or the scale intervals by passing
+<code>false</code> as tonic</p>
+<p>There is two ways to get a scale:</p>
 <ul>
-<li>name {String}: the name of the scale</li>
-<li>tonic {String}: the tonic of the scale or null if no tonic</li>
-<li>intervals {Array}: an array of scale intervals</li>
-<li>notes {Array}: an array of scale notes (if tonic) or empty array</li>
-<li>binary: intervals in a 12-digit binary number</li>
-<li>decimal: the decimal equivalent of the binary number</li>
+<li>With name and tonic: <code>scale.get('major', 'C')</code></li>
+<li>With tonic included in name: <code>scale.get('C major')</code></li>
 </ul>
+<p>This function can be partially applied (see examples)</p>
 
 
     <p>
@@ -1957,14 +2247,14 @@ following properties:</p>
 
 
     <h4>Examples</h4>
-<pre><span class="hljs-keyword">var</span> getScale = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/scale.get'</span>)
-getScale(<span class="hljs-string">'major'</span>) <span class="hljs-comment">// =&gt; { name: 'major', aliases: [ 'ionian' ],</span>
-<span class="hljs-comment">// binary: '101011010101', decimal: 2773, tonic: null, notes: [],</span>
-<span class="hljs-comment">// intervals: [ '1', '2', '3', '4', '5', '6', '7' ] }</span>
-getScale(<span class="hljs-string">'C major'</span>) <span class="hljs-comment">// =&gt; { name: 'C major', aliases: [ 'C ionian' ],</span>
-<span class="hljs-comment">// binary: '101011010101', decimal: 2773, tonic: 'C',</span>
-<span class="hljs-comment">// notes: [ 'C', 'D', 'E', 'F', 'G', 'A', 'B' ],</span>
-<span class="hljs-comment">// intervals: [ '1', '2', '3', '4', '5', '6', '7' ] }</span></pre>
+<pre><span class="hljs-keyword">var</span> get = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/scale/get'</span>)
+<span class="hljs-comment">// with name and tonic</span>
+get(<span class="hljs-string">'major'</span>, <span class="hljs-string">'C'</span>) <span class="hljs-comment">// =&gt; ['C', 'D', 'E', 'F', 'G', 'A', 'B']</span>
+<span class="hljs-comment">// with tonic inside the name</span>
+get(<span class="hljs-string">'C major'</span>) <span class="hljs-comment">// =&gt; ['C', 'D', 'E', 'F', 'G', 'A', 'B']</span>
+<span class="hljs-comment">// partially applied</span>
+<span class="hljs-keyword">var</span> major = get(<span class="hljs-string">'major'</span>)
+major(<span class="hljs-string">'C'</span>) <span class="hljs-comment">// =&gt; ['C', 'D', 'E', 'F', 'G', 'A', 'B']</span></pre>
 
 
 
@@ -2014,58 +2304,6 @@ getScale(<span class="hljs-string">'C major'</span>) <span class="hljs-comment">
 scale.names() <span class="hljs-comment">// =&gt; ['major', 'minor', ... ] (89 names)</span>
 scale.names(<span class="hljs-string">'D E F G A B C'</span>) [ <span class="hljs-string">'D dorian'</span> ]
 scale.names(<span class="hljs-string">'D E F G A B C'</span>) [ <span class="hljs-string">'D dorian'</span> ]</pre>
-
-
-
-
-</section>
-<section id='scale-notes'class='mt2 mb2 py1 px2 keyline-top'>
-  <h3 class='regular'>
-    <a class='black' href='#scale-notes'>
-      <code>
-        scale.notes<span class='gray'>(type, tonic)</span>
-      </code>
-    </a>
-  </h3>
-  <p>Get scale notes from a scale type and a tonic</p>
-
-
-    <p>
-      <table class='table-light overflow-hidden bg-cloudy-light'>
-        <thead>
-          <th class='col-3'>parameter</th>
-          <th class='col-3'>type</th>
-          <th class='col-6'>description</th>
-        </thead>
-          <tr>
-            <td>type</td>
-            <td>
-              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>
-            </td>
-            <td><p>the scale type</p>
-</td>
-          </tr>
-          <tr>
-            <td>tonic</td>
-            <td>
-              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>
-            </td>
-            <td><p>the tonic</p>
-</td>
-          </tr>
-      </table>
-    </p>
-
-
-      <h4>Returns</h4>
-      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
-      :
-      <span class='force-inline'>
-        <p>the scale notes</p>
-
-      </span>
-
-
 
 
 
@@ -2208,6 +2446,57 @@ contains same intervals (regarding of note names)</p>
     <h4>Examples</h4>
 <pre><span class="hljs-keyword">var</span> binary = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/set/binary'</span>)
 binary(<span class="hljs-string">'C2 E4 D3'</span>) <span class="hljs-comment">// =&gt; '101010000000'</span></pre>
+
+
+
+
+</section>
+<section id='set-build'class='mt2 mb2 py1 px2 keyline-top'>
+  <h3 class='regular'>
+    <a class='black' href='#set-build'>
+      <code>
+        set.build<span class='gray'>(gamut)</span>
+      </code>
+    </a>
+  </h3>
+  <p>A set is a list of uniq pitch classes or simplified intervals in ascending pitch order</p>
+<p>This function is exported as <code>set</code> (see examples)</p>
+
+
+    <p>
+      <table class='table-light overflow-hidden bg-cloudy-light'>
+        <thead>
+          <th class='col-3'>parameter</th>
+          <th class='col-3'>type</th>
+          <th class='col-6'>description</th>
+        </thead>
+          <tr>
+            <td>gamut</td>
+            <td>
+              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>
+            </td>
+            <td><p>the gamut</p>
+</td>
+          </tr>
+      </table>
+    </p>
+
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> or <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>the set</p>
+
+      </span>
+
+
+    <h4>Examples</h4>
+<pre><span class="hljs-keyword">var</span> set = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit/set/build'</span>)
+set(<span class="hljs-string">'E7 C2 e D5 c1'</span>) <span class="hljs-comment">// =&gt; ['C', 'D', 'E']</span>
+set(<span class="hljs-string">'11 10 9'</span>) <span class="hljs-comment">// =&gt; [ '2M', '3M', '4P' ]</span></pre><pre><span class="hljs-comment">// use the function from music.kit</span>
+<span class="hljs-keyword">var</span> kit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'music.kit'</span>)
+kit.set(<span class="hljs-string">'e4 f5 ...'</span>)</pre>
 
 
 
