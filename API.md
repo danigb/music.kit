@@ -87,6 +87,80 @@ chord.names('D E F G A B C') [ 'D dorian' ]
 Returns `Array` an array of chord names or all known chord names if no arguments provided
 
 
+## `dictionary.build`
+
+Create a dictionary
+
+The data is a hash map of keys associated to arrays. The array contains:
+
+- A interval list (as string or as array)
+- (Optionally) an array of name aliases
+
+### Parameters
+
+* `data` **`Hash`** the dictionary data
+
+
+### Examples
+
+```js
+var dictionary = require('music.kit/dictionary/build')
+var chords = dictionary({'Maj7', ['1 3 5 7', ['maj7', 'M7']]})
+
+// get chord by name
+chords['Maj7'].name = 'Maj7'
+chords['Maj7'].aliases = ['maj7', 'M7']
+chords['Maj7'].intervals // => ['1', '3', '5', '7']
+
+// get chord by aliases
+chords['maj7'].intervals // => ['1', '3', '5', '7']
+chords['maj7'].name // => 'Maj7'
+chords['M7'].intervals // => ['1', '3', '5', '7']
+chords['M7'].name // => 'Maj7'
+
+// get chord by binary numbers
+chords['100010010001'].name // => 'Maj7'
+chords[2193].name // => 'Maj7'
+```
+
+Returns `Hash` the dictionary
+
+
+## `dictionary.getter`
+
+Given a dictionary return a function to get the notes or intervals from it
+
+### Parameters
+
+* `dictionary` **`Hash`** the set dictionary
+
+
+### Examples
+
+```js
+var d = dictionary({'Maj7': ['1 3 5 7'], 'm7': ['1 3b 5 7b'] })
+var get = getter(d)
+get('CMaj7') // => ['C', 'E', 'G', 'B']
+```
+
+Returns `Function` a function to get the notes or intervals from the set dictionary
+
+
+## `dictionary.names`
+
+Get a function to perform an inverse dictionary lookup (given notes, return names)
+
+### Parameters
+
+* `names` **`Array`** the list of all names
+* `dictionary` **`Hash`** the dictionary
+* `builder` **`Function`** the name builder
+
+
+
+Returns `Function` a function to perform inverse lookup
+
+
 ## `gamut`
 
 In music.kit a gamut is a collection of intervals, pitch classes or notes.
@@ -387,83 +461,6 @@ can be use to develop any kind of midi or audio software.
 
 
 
-
-
-## `namedSet.dictionary`
-
-Create a named set dictionary
-
-### Parameters
-
-* `data` **`Hash`** the dictionary data
-
-
-### Examples
-
-```js
-var dictionary = require('music.kit/namedSet/dictionary')
-var chords = dictionary({'Maj7', ['1 3 5 7', ['maj7', 'M7']]})
-
-// get chord by name
-chords['Maj7'].name = 'Maj7'
-chords['Maj7'].aliases = ['maj7', 'M7']
-chords['Maj7'].intervals // => ['1', '3', '5', '7']
-
-// get chord by aliases
-chords['maj7'].intervals // => ['1', '3', '5', '7']
-chords['maj7'].name // => 'Maj7'
-chords['M7'].intervals // => ['1', '3', '5', '7']
-chords['M7'].name // => 'Maj7'
-
-// get chord by binary numbers
-chords['100010010001'].name // => 'Maj7'
-chords[2193].name // => 'Maj7'
-```
-
-Returns `Hash` the dictionary
-
-
-## `namedSet.getter`
-
-Given a dictionary return a function to get the notes or intervals from it
-
-### Parameters
-
-* `dictionary` **`Hash`** the set dictionary
-
-
-### Examples
-
-```js
-var d = dictionary({'Maj7': ['1 3 5 7'], 'm7': ['1 3b 5 7b'] })
-var get = getter(d)
-get('CMaj7') // => ['C', 'E', 'G', 'B']
-```
-
-Returns `Function` a function to get the notes or intervals from the set dictionary
-
-
-## `namedSet.names`
-
-Get a function to perform an inverse dictionary lookup (given notes, return names)
-
-### Parameters
-
-* `names` **`Array`** the list of all names
-* `dictionary` **`Hash`** the dictionary
-* `builder` **`Function`** the name builder
-
-
-### Examples
-
-```js
-// get all known scale names
-scale.names() // => ['major', 'minor', ... ] (89 names)
-scale.names('D E F G A B C') [ 'D dorian' ]
-scale.names('D E F G A B C') [ 'D dorian' ]
-```
-
-Returns `Function` a function to perform inverse lookup
 
 
 ## `note`

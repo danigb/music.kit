@@ -1,8 +1,8 @@
 var vows = require('vows')
 var assert = require('assert')
-var splitName = require('../../lib/namedSet/splitName')
+var splitName = require('../../lib/dictionary/splitName')
 
-vows.describe('namedSet.splitName').addBatch({
+vows.describe('dictionary.splitName').addBatch({
   'no tonic': function () {
     assert.deepEqual(splitName('major'), ['major'])
     assert.deepEqual(splitName('n3 major'), ['n3 major'])
