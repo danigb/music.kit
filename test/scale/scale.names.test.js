@@ -7,6 +7,7 @@ vows.describe('scale.names').addBatch({
     assert.equal(names().length, 89)
   },
   'by notes': function () {
+    assert.deepEqual(names('C D E F G A B C'), ['C major', 'C ionian'])
     assert.deepEqual(names('D E F G A B C'), ['D dorian'])
   },
   'with aliases': function () {

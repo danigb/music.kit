@@ -1,5 +1,6 @@
 CHANGELOG
 
+[0.0.14] scale.get and scale.spell merged
 [0.0.13] Fix a bug parsing descending intervals
 [0.0.12] Experimental module key
 [0.0.11] Add gamut rotations and select
