@@ -1,6 +1,6 @@
 # User Guide
 
-You can read the [generated API documentation here](https://github.com/danigb/music.kit/blob/master/GUIDE.md)
+You can read the [generated API documentation here](http://danigb.github.io/music.kit/docs/)
 
 #### A class-free library
 
@@ -14,13 +14,14 @@ Once you accept this two things (no classes, pure functions), music.kit its just
 
 music.kit is divided in modules:
 
-- note: parse and build, midi, freqnecies, transposition and distances
-- interval: parse and build intervals.
-- pitch: an abstraction that allows to work with notes, pitch classes and intervals in an uniform way
-- gamut: work with collection of notes
-- set: create pitch sets and binary representations
-- scale: create scales, a scale dictionary, scale name detection
-- chord: create chords and chords dictionary
+- __note__: parse and build, midi, frequencies, transposition and distances
+- __interval__: parse and build intervals.
+- __pitch__: an abstraction that allows to work with notes, pitch classes and intervals in an uniform way
+- __gamut__: work with collection of notes
+- __set__: create pitch sets and binary representations
+- __dictionary__: work with named sets. Scale and chord uses dictionaries.
+- __scale__: create scales, a scale dictionary, scale name detection
+- __chord__: create chords and chords dictionary
 
 #### Node environments
 

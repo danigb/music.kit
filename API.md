@@ -123,11 +123,18 @@ chord.names('D E F G A B C') [ 'D dorian' ]
 Returns `Array` an array of chord names or all known chord names if no arguments provided
 
 
-## `d`
+## `dictionary`
 
 Dictionary is a module to work with dictionaries of pitch collections
 
 Its the foundation of the scale and chord dictionary of music.kit
+
+Currently `dictionary` module has the following functions:
+
+- build: create dictionaries
+- getter: create a getter function for a dictionary
+- names: create a reverse lookup function for a dictionary
+- splitName: split a set name into type and tonic
 
 
 
