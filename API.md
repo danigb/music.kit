@@ -32,18 +32,59 @@ chords['Maj7'] // => { name: 'Maj7', intervals: ['1', '3', ...], aliases: [] }
 
 
 
-## `chord.notes`
+## `chord.get`
 
-Get chord notes from a chord type and a tonic
+Get a chord by name using a dictionary.
+
+You can get chord notes with a note as tonic or the chord intervals by passing
+`false` as tonic
+
+There is two ways to get a chord:
+- With type and tonic: `chord.get('Maj7', 'C')`
+- With tonic included in name: `chord.get('CMaj7')`
+
+This function can be partially applied (see examples)
 
 ### Parameters
 
-* `type` **`String`** the chord type
-* `tonic` **`String`** the tonic
+* `name` **`String`** the chord name (optionally can include the tonic)
 
 
+### Examples
 
-Returns `Array` the chord notes
+```js
+var get = require('music.kit/chord/get')
+// with name and tonic
+get('Maj7', 'C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+// with tonic inside the name
+get('C major') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+// partially applied
+var major = get('major')
+major('C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+```
+
+Returns `Object` a data object with the chord properties
+
+
+## `chord.names`
+
+Given a list of notes get the chord names
+
+### Parameters
+
+* `notes` **`String or Array`** the chord notes
+
+
+### Examples
+
+```js
+// get all known chord names
+chord.names() // => ['Maj7', 'm7', ... ] (109 names)
+chord.names('D E F G A B C') [ 'D dorian' ]
+chord.names('D E F G A B C') [ 'D dorian' ]
+```
+
+Returns `Array` an array of chord names or all known chord names if no arguments provided
 
 
 ## `gamut`
@@ -348,6 +389,83 @@ can be use to develop any kind of midi or audio software.
 
 
 
+## `namedSet.dictionary`
+
+Create a named set dictionary
+
+### Parameters
+
+* `data` **`Hash`** the dictionary data
+
+
+### Examples
+
+```js
+var dictionary = require('music.kit/namedSet/dictionary')
+var chords = dictionary({'Maj7', ['1 3 5 7', ['maj7', 'M7']]})
+
+// get chord by name
+chords['Maj7'].name = 'Maj7'
+chords['Maj7'].aliases = ['maj7', 'M7']
+chords['Maj7'].intervals // => ['1', '3', '5', '7']
+
+// get chord by aliases
+chords['maj7'].intervals // => ['1', '3', '5', '7']
+chords['maj7'].name // => 'Maj7'
+chords['M7'].intervals // => ['1', '3', '5', '7']
+chords['M7'].name // => 'Maj7'
+
+// get chord by binary numbers
+chords['100010010001'].name // => 'Maj7'
+chords[2193].name // => 'Maj7'
+```
+
+Returns `Hash` the dictionary
+
+
+## `namedSet.getter`
+
+Given a dictionary return a function to get the notes or intervals from it
+
+### Parameters
+
+* `dictionary` **`Hash`** the set dictionary
+
+
+### Examples
+
+```js
+var d = dictionary({'Maj7': ['1 3 5 7'], 'm7': ['1 3b 5 7b'] })
+var get = getter(d)
+get('CMaj7') // => ['C', 'E', 'G', 'B']
+```
+
+Returns `Function` a function to get the notes or intervals from the set dictionary
+
+
+## `namedSet.names`
+
+Get a function to perform an inverse dictionary lookup (given notes, return names)
+
+### Parameters
+
+* `names` **`Array`** the list of all names
+* `dictionary` **`Hash`** the dictionary
+* `builder` **`Function`** the name builder
+
+
+### Examples
+
+```js
+// get all known scale names
+scale.names() // => ['major', 'minor', ... ] (89 names)
+scale.names('D E F G A B C') [ 'D dorian' ]
+scale.names('D E F G A B C') [ 'D dorian' ]
+```
+
+Returns `Function` a function to perform inverse lookup
+
+
 ## `note`
 
 In music.kit a note is represented by string, usually in scientific notation.
@@ -477,6 +595,27 @@ midi([0, 2]) // => 36 (C2 in array notation)
 ```
 
 Returns `Integer` the midi number
+
+
+## `note.name`
+
+Get note name (or null if not valid note)
+
+### Parameters
+
+* `note` **`String or Array`** the note
+
+
+### Examples
+
+```js
+name = require('music.kit/note/name')
+name('fx2') // => 'F##2'
+name('bbb') // => 'Bbb'
+name('blah') // => null
+```
+
+Returns `String` the note name in scientific notation
 
 
 ## `note.parse`
@@ -763,15 +902,16 @@ scales['major'] // => { name: 'major', intervals: ['1', '2', ...], aliases: [] }
 
 ## `scale.get`
 
-Get a scale by name using a dictionary. It returns a data object with the
-following properties:
+Get a scale by name using a dictionary.
 
-- name {String}: the name of the scale
-- tonic {String}: the tonic of the scale or null if no tonic
-- intervals {Array}: an array of scale intervals
-- notes {Array}: an array of scale notes (if tonic) or empty array
-- binary: intervals in a 12-digit binary number
-- decimal: the decimal equivalent of the binary number
+You can get scale notes by passing a tonic or the scale intervals by passing
+`false` as tonic
+
+There is two ways to get a scale:
+- With name and tonic: `scale.get('major', 'C')`
+- With tonic included in name: `scale.get('C major')`
+
+This function can be partially applied (see examples)
 
 ### Parameters
 
@@ -781,14 +921,14 @@ following properties:
 ### Examples
 
 ```js
-var getScale = require('music.kit/scale.get')
-getScale('major') // => { name: 'major', aliases: [ 'ionian' ],
-// binary: '101011010101', decimal: 2773, tonic: null, notes: [],
-// intervals: [ '1', '2', '3', '4', '5', '6', '7' ] }
-getScale('C major') // => { name: 'C major', aliases: [ 'C ionian' ],
-// binary: '101011010101', decimal: 2773, tonic: 'C',
-// notes: [ 'C', 'D', 'E', 'F', 'G', 'A', 'B' ],
-// intervals: [ '1', '2', '3', '4', '5', '6', '7' ] }
+var get = require('music.kit/scale/get')
+// with name and tonic
+get('major', 'C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+// with tonic inside the name
+get('C major') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+// partially applied
+var major = get('major')
+major('C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
 ```
 
 Returns `Object` a data object with the scale properties
@@ -813,20 +953,6 @@ scale.names('D E F G A B C') [ 'D dorian' ]
 ```
 
 Returns `Array` an array of scale names or all known scale names if no arguments provided
-
-
-## `scale.notes`
-
-Get scale notes from a scale type and a tonic
-
-### Parameters
-
-* `type` **`String`** the scale type
-* `tonic` **`String`** the tonic
-
-
-
-Returns `Array` the scale notes
 
 
 ## `scale.pattern`

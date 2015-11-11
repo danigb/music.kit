@@ -225,32 +225,46 @@ dorian(false) // => ['1P', '2M', '3m', '4P', '5P', '6M', '7m']
 
 #### Get scale by name
 
-music.kit includes a dictionary with 89 scales. You can access them by passing the scale name (with or without tonic) to the `scale.get` function:
+music.kit includes a dictionary with 89 scales. You can access them by passing the scale name (and optionally a tonic) to the `scale.get` function. There are three ways to get the scale:
 
 ```js
-kit.scale('major') // => { name: 'major', intervals: ['1P', '2M'...], ...}
-kit.scale('C major') // => { name: 'C major', notes: ['C', 'D', ...], ...}
+// with name and tonic
+kit.scale.get('major', 'C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+// with tonic inside the name
+kit.scale.get('C major') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+// partially applied
+var major = kit.scale.get('major')
+major('C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
 ```
 
-`scale.get` returns a data object with the following properties:
+Set `false` as tonic to get the intervals:
 
-- name: the scale name
-- aliases: an array of scale aliases
-- intervals: an array of scale intervals
-- notes: an array of notes (or empty array if the scale has no tonic)
+```js
+kit.scale.get('major', false) // => ['1P', '2M', '3M', '4P', '5P', '6M', '7M'])
+var major = kit.scale.get('major')
+major(false) // => ['1P', '2M', '3M', '4P', '5P', '6M', '7M'])
+```
 
 #### Get scale names
+
+You can get the name(s) of the scale with the `scale.names` function:
+
+```js
+kit.scale.names('C D E F G A B') // => ['C major', 'C ionian']
+kit.scale.names('D E F G A B C') // => ['D dorian']
+```
+
+The first name is always the principal name and the rest is the aliases (if any). A convenient `scale.name` (in singular) function is provided to get only the main name:
+
+```js
+kit.scale.name('C D E F G A B') // => 'C major'
+kit.scale.name('D E F G A B C') // => 'D dorian'
+```
 
 You can all available scale names invoking `scale.names` without arguments:
 
 ```js
 kit.scale.names() // => ['major', 'dorian', ...] (89 names)
-```
-
-You can pass a list of notes to `scale.names` function:
-
-```js
-kit.scale.names('C D E F G A Bb') // => ['C mixolydian', 'C dominant']
 ```
 
 #### Melodic patterns with scales
