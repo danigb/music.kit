@@ -983,7 +983,7 @@ scale.names('D E F G A B C') [ 'D dorian' ]
 Returns `Array` an array of scale names or all known scale names if no arguments provided
 
 
-## `scale.pattern`
+## `scale.select`
 
 Select notes from a scale using degree numbers.
 
@@ -1002,17 +1002,17 @@ This function is currified so it can be partially applied.
 ### Examples
 
 ```js
-var pattern = require('music.kit/scale.pattern')
+var select = require('music.kit/scale.select')
 // basic usage:
-pattern('1 3 5', 'C D E F G A B') // => [ 'C', 'E', 'G' ]
+select('1 3 5', 'C D E F G A B') // => [ 'C', 'E', 'G' ]
 // order matters:
-pattern('1 5 2 6', 'C D E F G A B') // => [ 'C', 'G', 'D', 'A' ]
+select('1 5 2 6', 'C D E F G A B') // => [ 'C', 'G', 'D', 'A' ]
 // not found degrees are null:
-pattern('1 2 6', 'C D E F G') // => [ 'C', 'D', null ]
+select('1 2 6', 'C D E F G') // => [ 'C', 'D', null ]
 // numbers bigger than 7 are transposed one octave or more:
-pattern('1 8 15', 'C2 D2 E2') // => ['C2', 'C3', 'C4']
+select('1 8 15', 'C2 D2 E2') // => ['C2', 'C3', 'C4']
 // partially applied:
-var triad = scale.pattern('1 3 5')
+var triad = select('1 3 5')
 triad('C D E F G A B') // => ['C', 'E', 'G']
 ```
 
