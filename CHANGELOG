@@ -1,5 +1,6 @@
 CHANGELOG
 
+[0.0.22] Add scale.modes function (20.3kb)
 [0.0.21] Add chord.type function
 [0.0.20] Rename scale.pattern to scale.select
 [0.0.19] Note distance now returns an ascending interval if pitch class is involved

@@ -962,6 +962,25 @@ major('C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
 Returns `Object` a data object with the scale properties
 
 
+## `scale.modes`
+
+Get all modes of a scale
+
+### Parameters
+
+* `scale` **`Array`** the scale
+* `all` **`Array`** the modes of the scale
+
+
+### Examples
+
+```js
+var modes = require('music.kit/scale/modes')
+modes('C D E') // => [ ['C', 'D', 'E'], ['D', 'E', 'C'], ['E', 'C', 'D'] ]
+```
+
+
+
 ## `scale.names`
 
 Given a list of notes get the scale names
