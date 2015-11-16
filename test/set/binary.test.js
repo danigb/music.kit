@@ -11,5 +11,8 @@ vows.describe('set.binary').addBatch({
   },
   'compare binary sets': function () {
     assert.equal(binary('c d eb f g a bb'), binary('d e f g a b c'))
+  },
+  'strange notes binary set': function () {
+    assert.equal(binary('C2 D1'), binary('c2 d2'))
   }
 }).export(module)

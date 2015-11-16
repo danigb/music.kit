@@ -1,5 +1,6 @@
 CHANGELOG
 
+[0.0.19] Note distance now returns an ascending interval if pitch class is involved
 [0.0.18] Remove key module
 [0.0.17] Move gamut functions to its modules
 [0.0.16] Expose dictionary module

@@ -6,10 +6,13 @@ vows.describe('note.distance').addBatch({
   'basic': function () {
     assert.equal(distance('C2', 'D2'), '2M')
   },
-  'pitch classes': function () {
-    assert.equal(distance('C', 'D'), null)
-    assert.equal(distance('C', 'D2'), null)
-    assert.equal(distance('C2', 'D'), null)
+  'pitch class distance': function () {
+    assert.equal(distance('C', 'D'), '2M')
+    assert.equal(distance('C', 'D2'), '2M')
+    assert.equal(distance('C2', 'D'), '2M')
+    assert.equal(distance('C', 'c4'), '1P')
+    assert.equal(distance('D', 'C'), '7m')
+    assert.equal(distance('A', 'C'), '3m')
   },
   'curry': function () {
     assert.deepEqual('C2 D2 E2 F2 G2 A2 B2 C3'.split(' ').map(distance('C2')),

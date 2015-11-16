@@ -463,6 +463,8 @@ The note module provides functions to manipulate notes:
 
 Get the interval between two notes
 
+If one or both notes are pitch classes, a simple ascending interval is returned
+
 This function can be partially applied (see examples)
 
 ### Parameters
@@ -471,6 +473,14 @@ This function can be partially applied (see examples)
 * `to` **`String or Array`** the other note
 
 
+### Examples
+
+```js
+var distance = require('music.kit/note/distance')
+distance('C2', 'D3') // => '9M'
+distance('D2', 'C2') // => '-2M'
+distance('D', 'C') // => '7m'
+```
 
 Returns  the interval between them
 

@@ -83,5 +83,8 @@ vows.describe('note.transpose').addBatch({
   'array notation': function () {
     assert.deepEqual(transpose([0, 2, 0], [2, -1]), [ 2, 1, 0 ])
     assert.deepEqual(transpose('C2', [-12, 7]), 'Dbb2')
+    assert.deepEqual(transpose([0, 2, 0], '2M'), 'D2')
+    assert.deepEqual(transpose('C2', [2, -1]), 'D2')
+    assert.deepEqual(transpose('C2')([2, -1]), 'D2')
   }
 }).export(module)
