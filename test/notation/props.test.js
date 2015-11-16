@@ -1,14 +1,14 @@
 var vows = require('vows')
 var assert = require('assert')
-var props = require('../../lib/pitch/props')
-var note = require('../../lib/note/parse')
-var interval = require('../../lib/interval/parse')
+var props = require('../../lib/notation/props')
+var note = require('../../lib/notation/note.parse')
+var interval = require('../../lib/notation/interval.parse')
 
 function prop (i, str, parser) {
   return str.split(' ').map(parser).map(props).map(function (e) { return e[i] })
 }
 
-vows.describe('pitch.height').addBatch({
+vows.describe('notation.props').addBatch({
   'note letters': function () {
     assert.deepEqual(prop(0, 'C D E F G A B', note), [0, 1, 2, 3, 4, 5, 6])
     assert.deepEqual(prop(0, 'C2 D2 E2 F2 G2 A2 B2', note), [0, 1, 2, 3, 4, 5, 6])

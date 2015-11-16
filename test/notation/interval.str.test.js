@@ -1,15 +1,15 @@
 var vows = require('vows')
 var assert = require('assert')
-var parse = require('../../lib/interval/parse')
-var build = require('../../lib/interval/str')
+var parse = require('../../lib/notation/interval.parse')
+var str = require('../../lib/notation/interval.str')
 
 function test (intervals, expected) {
   expected = expected || intervals
   var actual = intervals.split(' ').map(parse)
-  assert.deepEqual(actual.map(build).join(' '), expected)
+  assert.deepEqual(actual.map(str).join(' '), expected)
 }
 
-vows.describe('interval.str').addBatch({
+vows.describe('notation.interval.str').addBatch({
   'simples': function () {
     test('1 2 3 4 5 6 7 8', '1P 2M 3M 4P 5P 6M 7M 8P')
     test('1b 2b 3b 4b 5b 6b 7b 8b', '1d 2m 3m 4d 5d 6m 7m 8d')
@@ -22,10 +22,10 @@ vows.describe('interval.str').addBatch({
     test('-1 -2 -3 -4 -5 -6 -7 -8', '1P -2M -3M -4P -5P -6M -7M -8P')
   },
   'invalid arrays': function () {
-    assert.equal(build(null), null)
-    assert.equal(build('C2'), null)
-    assert.equal(build(3), null)
-    assert.equal(build({}), null)
-    assert.equal(build([]), null)
+    assert.equal(str(null), null)
+    assert.equal(str('C2'), null)
+    assert.equal(str(3), null)
+    assert.equal(str({}), null)
+    assert.equal(str([]), null)
   }
 }).export(module)

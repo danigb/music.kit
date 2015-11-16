@@ -1,7 +1,7 @@
 var vows = require('vows')
 var assert = require('assert')
-var parse = require('../../lib/note/parse')
-var build = require('../../lib/note/str')
+var parse = require('../../lib/notation/note.parse')
+var build = require('../../lib/notation/note.str')
 
 function test (notes) {
   var expected = notes.split(' ')

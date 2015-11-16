@@ -383,7 +383,18 @@ The interval module has functions to create and manipulate intervals
 
 
 
-## `interval.parse`
+## `music.kit`
+
+music.kit is a compact library to manipulate music abstractions (not actual music)
+and while its designed to create algorithmic composition programs,
+can be use to develop any kind of midi or audio software.
+
+
+
+
+
+
+## `notation.interval.parse`
 
 Convert a [interval shorthand notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)
 to [array interval notation](https://github.com/danigb/music.array.notation)
@@ -398,7 +409,7 @@ This function is cached for better performance.
 ### Examples
 
 ```js
-var parse = require('music.kit/interval.parse')
+var parse = require('music.notation/interval.parse')
 parse('3m') // => [2, -1, 0]
 parse('9b') // => [1, -1, 1]
 parse('-2M') // => [6, -1, -1]
@@ -407,7 +418,7 @@ parse('-2M') // => [6, -1, -1]
 Returns `Array` the interval in array notation or null if not a valid interval
 
 
-## `interval.str`
+## `notation.interval.str`
 
 Convert from [array interval notation](https://github.com/danigb/music.array.notation)
 to [shorthand interval notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)
@@ -424,22 +435,97 @@ and the quality is one of: 'M', 'm', 'P', 'd', 'A' (major, minor, perfect, dimis
 ### Examples
 
 ```js
-interval.str([1, 0, 0]) // => '2M'
-interval.str([1, 0, 1]) // => '9M'
+var str = require('music.notation/interval.str')
+str([1, 0, 0]) // => '2M'
+str([1, 0, 1]) // => '9M'
 ```
 
 Returns `String` the interval string in shorthand notation or null if not valid interval
 
 
-## `music.kit`
+## `notation.note.parse`
 
-music.kit is a compact library to manipulate music abstractions (not actual music)
-and while its designed to create algorithmic composition programs,
-can be use to develop any kind of midi or audio software.
+Convert from [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
+to [array pitch notation](https://github.com/danigb/music.array.notation)
+
+The string to parse must be in the form of: `letter[accidentals][octave]`
+The accidentals can be up to four # (sharp) or b (flat) or two x (double sharps)
+
+This function is cached for better performance.
+
+### Parameters
+
+* `str` **`String`** the string to parse
 
 
+### Examples
+
+```js
+var parse = require('music.notation/note.parse')
+parse('C') // => [ 0 ]
+parse('c#') // => [ 8 ]
+parse('c##') // => [ 16 ]
+parse('Cx') // => [ 16 ] (double sharp)
+parse('Cb') // => [ -6 ]
+parse('db') // => [ -4 ]
+parse('G4') // => [ 2, 3, null ]
+parse('c#3') // => [ 8, -1, null ]
+```
+
+Returns `Array` the note in array notation or null if not valid note
 
 
+## `notation.note.str`
+
+Convert from [array notation](https://github.com/danigb/music.array.notation)
+to [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
+
+Array length must be 1 or 3 (see array notation documentation)
+
+The returned string format is `letter[+ accidentals][+ octave][/duration]` where the letter
+is always uppercase, and the accidentals, octave and duration are optional.
+
+This function is memoized for better perfomance.
+
+### Parameters
+
+* `arr` **`Array`** the note in array notation
+
+
+### Examples
+
+```js
+var str = require('music.notation/note.str')
+str([0]) // => 'F'
+str([0, 4]) // => null (its an interval)
+str([0, 4, null]) // => 'F4'
+str([0, 4, 2]) // => 'F4/2'
+```
+
+Returns `String` the note in scientific notation or null if not valid note array
+
+
+## `notation.props`
+
+Get the properties of a pitch in array notation as an array of properties
+
+The properties is in the form [number, alteration, octave, duration]
+
+__This is the only function in music.kit that only accepts array.notation format__
+
+### Parameters
+
+* `array` **`Array`** the pitch in array notation
+
+
+### Examples
+
+```js
+var props = require('music.notation/props')
+props([2, 1, 4]) // => [1, 2, 4]
+```
+
+Returns `Array` the properties array
 
 
 ## `note`
@@ -457,6 +543,27 @@ The note module provides functions to manipulate notes:
 
 
 
+
+
+## `note.build`
+
+Get note name (or null if not valid note)
+
+### Parameters
+
+* `note` **`String or Array`** the note
+
+
+### Examples
+
+```js
+build = require('music.kit/note/build')
+build('fx2') // => 'F##2'
+build('bbb') // => 'Bbb'
+build('blah') // => null
+```
+
+Returns `String` the note build in scientific notation
 
 
 ## `note.distance`
@@ -583,59 +690,6 @@ midi([0, 2]) // => 36 (C2 in array notation)
 Returns `Integer` the midi number
 
 
-## `note.name`
-
-Get note name (or null if not valid note)
-
-### Parameters
-
-* `note` **`String or Array`** the note
-
-
-### Examples
-
-```js
-name = require('music.kit/note/name')
-name('fx2') // => 'F##2'
-name('bbb') // => 'Bbb'
-name('blah') // => null
-```
-
-Returns `String` the note name in scientific notation
-
-
-## `note.parse`
-
-Convert from [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
-to [array pitch notation](https://github.com/danigb/music.array.notation)
-
-The string to parse must be in the form of: `letter[accidentals][octave]`
-The accidentals can be up to four # (sharp) or b (flat) or two x (double sharps)
-
-This function is cached for better performance.
-
-### Parameters
-
-* `str` **`String`** the string to parse
-
-
-### Examples
-
-```js
-var parse = require('music.kit/note.parse')
-parse('C') // => [ 0 ]
-parse('c#') // => [ 8 ]
-parse('c##') // => [ 16 ]
-parse('Cx') // => [ 16 ] (double sharp)
-parse('Cb') // => [ -6 ]
-parse('db') // => [ -4 ]
-parse('G4') // => [ 2, 3, null ]
-parse('c#3') // => [ 8, -1, null ]
-```
-
-Returns `Array` the note in array notation or null if not valid note
-
-
 ## `note.pitchClass`
 
 Get the [pitch class](https://en.wikipedia.org/wiki/pitch_class) of a note
@@ -674,36 +728,6 @@ setOctave('2', 'C#1') // => 'C#2'
 ```
 
 Returns  a copy of the same note with the octave changed
-
-
-## `note.str`
-
-Convert from [array notation](https://github.com/danigb/music.array.notation)
-to [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
-
-Array length must be 1 or 3 (see array notation documentation)
-
-The returned string format is `letter[+ accidentals][+ octave][/duration]` where the letter
-is always uppercase, and the accidentals, octave and duration are optional.
-
-This function is memoized for better perfomance.
-
-### Parameters
-
-* `arr` **`Array`** the note in array notation
-
-
-### Examples
-
-```js
-var note = require('music.kit').note
-note.str([0]) // => 'F'
-note.str([0, 4]) // => null (its an interval)
-note.str([0, 4, null]) // => 'F4'
-note.str([0, 4, 2]) // => 'F4/2'
-```
-
-Returns `String` the note in scientific notation or null if not valid note array
 
 
 ## `note.transpose`
@@ -789,29 +813,6 @@ pitch.parse('5P') // => [1, 0]
 ```
 
 Returns `Array` the pitch in array notation
-
-
-## `pitch.props`
-
-Get the properties of a pitch in array notation as an array of properties
-
-The properties is in the form [number, alteration, octave, duration]
-
-__This is the only function in music.kit that only accepts array.notation format__
-
-### Parameters
-
-* `array` **`Array`** the pitch in array notation
-
-
-### Examples
-
-```js
-var props = require('music.kit/pitch.props')
-props([2, 1, 4]) // => [1, 2, 4]
-```
-
-Returns `Array` the properties array
 
 
 ## `pitch.simplify`

@@ -1,8 +1,8 @@
 var vows = require('vows')
 var assert = require('assert')
-var parse = require('../../lib/note/parse')
+var parse = require('../../lib/notation/note.parse')
 
-vows.describe('note.parse').addBatch({
+vows.describe('notation.note.parse').addBatch({
   'parse pitch class': function () {
     assert.deepEqual('F C G D A E B'.split(' ').map(parse),
       [ [ -1 ], [ 0 ], [ 1 ], [ 2 ], [ 3 ], [ 4 ], [ 5 ] ])

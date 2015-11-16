@@ -1,8 +1,8 @@
 var vows = require('vows')
 var assert = require('assert')
-var parse = require('../../lib/interval/parse')
+var parse = require('../../lib/notation/interval.parse')
 
-vows.describe('interval.parse').addBatch({
+vows.describe('notation.interval.parse').addBatch({
   'ascending intervals': function () {
     assert.deepEqual('1 2 3 4 5 6 7'.split(' ').map(parse),
       [ [ 0, 0 ], [ 2, -1 ], [ 4, -2 ], [ -1, 1 ], [ 1, 0 ], [ 3, -1 ], [ 5, -2 ] ])
