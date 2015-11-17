@@ -5,6 +5,7 @@ var get = require('../../lib/scale/get')
 vows.describe('music.scale.get').addBatch({
   'get by type and tonic': function () {
     assert.deepEqual(get('major', 'Db'), [ 'Db', 'Eb', 'F', 'Gb', 'Ab', 'Bb', 'C' ])
+    assert.deepEqual(get('dorian', 'C'), ['C', 'D', 'Eb', 'F', 'G', 'A', 'Bb'])
   },
   'get by complete name': function () {
     assert.deepEqual(get('Db major'), [ 'Db', 'Eb', 'F', 'Gb', 'Ab', 'Bb', 'C' ])
