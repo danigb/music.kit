@@ -1,5 +1,6 @@
 CHANGELOG
 
+[0.0.24] Add scale.chords function (21kb)
 [0.0.23] Extract notation parse memoization (20.5kb)
 [0.0.22] Create notation module (20.5kb)
 [0.0.22] Add scale.modes function (20.3kb)

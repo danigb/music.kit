@@ -123,6 +123,26 @@ chord.names('D E F G A B C') [ 'D dorian' ]
 Returns `Array` an array of chord names or all known chord names if no arguments provided
 
 
+## `chord.type`
+
+Get the type of the chord (can be 'M', 'm', '7' or 'o' to represent major,
+minot, dominant and dimished respectively)
+
+### Parameters
+
+* `chord` **`Array`** the chord notes
+
+
+### Examples
+
+```js
+var chord = require('music.kit/chord/type')
+chord.type('C E G')
+```
+
+Returns `String` the chord type ('M', 'm', '7', 'o' or null)
+
+
 ## `dictionary`
 
 Dictionary is a module to work with dictionaries of pitch collections
@@ -912,6 +932,24 @@ kit.scale('D E F G A B C')
 ```
 
 Returns `Array` the list of notes
+
+
+## `scale.chords`
+
+Get chords of a scale
+
+### Parameters
+
+* `scale` **`Array or String`** the scale
+
+
+### Examples
+
+```js
+scale.chords('c d e f g a b') // => ['C', 'Dm', 'Em', 'F', 'G7', 'Am', 'Bo'
+```
+
+Returns `Array` an array with the key chord names
 
 
 ## `scale.dictionary`
