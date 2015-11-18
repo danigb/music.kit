@@ -1,7 +1,7 @@
 var vows = require('vows')
 var assert = require('assert')
-var parse = require('../../lib/notation/note.parse')
-var build = require('../../lib/notation/note.str')
+var parse = require('../../lib/notation/ntc')
+var build = require('../../lib/notation/ctn')
 
 function test (notes) {
   var expected = notes.split(' ')
@@ -9,7 +9,7 @@ function test (notes) {
   assert.deepEqual(actual, expected)
 }
 
-vows.describe('note.str').addBatch({
+vows.describe('ctn').addBatch({
   'pitch classes': function () {
     test('C D E F G A B')
     test('C# D# E# F# G# A# B#')

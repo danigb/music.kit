@@ -1,8 +1,8 @@
 var vows = require('vows')
 var assert = require('assert')
-var props = require('../../lib/notation/props')
-var note = require('../../lib/notation/note.parse')
-var interval = require('../../lib/notation/interval.parse')
+var props = require('../../lib/notation/ctp')
+var note = require('../../lib/notation/ntc')
+var interval = require('../../lib/notation/itc')
 
 function prop (i, str, parser) {
   return str.split(' ').map(parser).map(props).map(function (e) { return e[i] })

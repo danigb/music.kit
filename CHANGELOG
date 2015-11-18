@@ -1,5 +1,7 @@
 CHANGELOG
 
+
+[0.0.28] Notation module function names shortened
 [0.0.27] scale.modes bug fixed
 [0.0.26]
   - scale.build now accepts null as tonic (it uses the first note of the source)

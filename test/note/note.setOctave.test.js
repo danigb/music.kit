@@ -1,7 +1,7 @@
 var vows = require('vows')
 var assert = require('assert')
 var setOctave = require('../../lib/note/setOctave')
-var note = require('../../lib/notation/note.str')
+var note = require('../../lib/notation/ctn')
 
 function pitchClasses (str) { return str.split('').map(function (i) { return [ +i ] }) }
 
