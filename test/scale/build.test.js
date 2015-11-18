@@ -3,6 +3,10 @@ var assert = require('assert')
 var build = require('../../lib/scale/build')
 
 vows.describe('scale.build').addBatch({
+  'null tonic': function () {
+    assert.deepEqual(build('c d e f g a b c2 d2', null), ['C', 'D', 'E', 'F', 'G', 'A', 'B'])
+    assert.deepEqual(build('1 2 3', null), ['C0', 'D0', 'E0'])
+  },
   'build build from intervals': function () {
     assert.deepEqual(build('1 2 3 4', 'C'), ['C', 'D', 'E', 'F'])
     assert.deepEqual(build('8 9 10 11', 'C2'), [ 'C2', 'D2', 'E2', 'F2' ])
@@ -28,7 +32,6 @@ vows.describe('scale.build').addBatch({
   },
   'invalid params': function () {
     assert.deepEqual(build(null, 'C'), [])
-    assert.deepEqual(build('1 2 3', null), [null, null, null])
   },
   'pitch classes': function () {
     assert.deepEqual(build('c d e f g a b c', false),

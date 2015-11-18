@@ -128,6 +128,11 @@ Returns `Array` an array of chord names or all known chord names if no arguments
 Get the type of the chord (can be 'M', 'm', '7' or 'o' to represent major,
 minot, dominant and dimished respectively)
 
+It assumes that the chord is not inversed (first note is always the tonic)
+
+It detects major, minor, augmented, diminished and dominant chords. All
+chord notes beyond the 5th (except 7th for dominant chords) are ignored
+
 ### Parameters
 
 * `chord` **`Array`** the chord notes
@@ -137,10 +142,15 @@ minot, dominant and dimished respectively)
 
 ```js
 var chord = require('music.kit/chord/type')
-chord.type('C E G')
+chord.type('C E G') // => 'M'
+chord.type('C Eb G') // => 'm'
+chord.type('C Eb Gb') // => 'dim'
+chord.type('C E G#') // => 'aug'
+chord.type('C E G B') // => 'M'
+chord.type('C E G B7') // => '7'
 ```
 
-Returns `String` the chord type ('M', 'm', '7', 'o' or null)
+Returns `String` the chord type ('M', 'm', '7', 'dim', 'aug' or null)
 
 
 ## `dictionary`
@@ -897,8 +907,10 @@ The `scale` module has functions to create and manipulate scales
 Build a scale from a source and a tonic. A scale is a set of notes or
 intervals ordered by frequency with a tonic.
 
-A source can be a list of intervals or notes. The tonic must be
-a pitch (with or without octave) or false to get the scale intervals
+A source can be a list of intervals or notes.
+
+The tonic can be a note (with or without octave), false to get the scale
+intervals or null to set the first note of the source as tonic
 
 This function is currified, so you can partially apply the function passing
 one parameter instead of two (see example)
@@ -921,6 +933,10 @@ scale('1 2 3 5 6', 'G') // => ['G', 'A', 'B', 'D', 'E']
 scale('1 2 3 5 6', false) // => ['1P', '2M', '3M', '5P', '6M']
 ```
 ```js
+// uses first note of the source as tonic
+scale('c d e f g a b c d e', null) // => []
+```
+```js
 // partially applied
 var dorian = scale('D E F G A B C')
 dorian('C4') // => ['C4', 'D4', 'Eb4', 'F4', 'G4', 'A4', 'Bb4']
@@ -934,22 +950,22 @@ kit.scale('D E F G A B C')
 Returns `Array` the list of notes
 
 
-## `scale.chords`
+## `scale.chord`
 
-Get chords of a scale
+Get the (triad) chord name of a scale
 
 ### Parameters
 
-* `scale` **`Array or String`** the scale
+* `scale` **`Array or String`** the scale notes
 
 
 ### Examples
 
 ```js
-scale.chords('c d e f g a b') // => ['C', 'Dm', 'Em', 'F', 'G7', 'Am', 'Bo'
+scale.chords('c d e f g a b') // => 'CM'
 ```
 
-Returns `Array` an array with the key chord names
+Returns `String` the chord name
 
 
 ## `scale.dictionary`

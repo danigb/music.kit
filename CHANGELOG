@@ -1,5 +1,10 @@
 CHANGELOG
 
+[0.0.26]
+  - scale.build now accepts null as tonic (it uses the first note of the source)
+  - gamut.operation accepts source as parameter (and can be currified)
+  - scale.chords are scale.chord (and returns only the chord of the scale)
+  - chord.type now detects augmented chords
 [0.0.25] Fix a bug in dictionary.getter that splits names unnecesary
 [0.0.24] Add scale.chords function (21kb)
 [0.0.23] Extract notation parse memoization (20.5kb)

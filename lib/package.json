@@ -1,6 +1,6 @@
 {
   "name": "music.kit",
-  "version": "0.0.24",
+  "version": "0.0.26",
   "description": "Your javascript music kit",
   "main": "index.js",
   "scripts": {
