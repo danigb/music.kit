@@ -1,5 +1,6 @@
 CHANGELOG
 
+[0.0.27] scale.modes bug fixed
 [0.0.26]
   - scale.build now accepts null as tonic (it uses the first note of the source)
   - gamut.operation accepts source as parameter (and can be currified)

@@ -12,5 +12,12 @@ vows.describe('scale.modes').addBatch({
       [ 'G', 'A', 'B', 'C', 'D', 'E', 'F' ],
       [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ],
       [ 'B', 'C', 'D', 'E', 'F', 'G', 'A' ]])
+    assert.deepEqual(modes('bb c d eb f g'), [
+      [ 'Bb', 'C', 'D', 'Eb', 'F', 'G' ],
+      [ 'C', 'D', 'Eb', 'F', 'G', 'Bb' ],
+      [ 'D', 'Eb', 'F', 'G', 'Bb', 'C' ],
+      [ 'Eb', 'F', 'G', 'Bb', 'C', 'D' ],
+      [ 'F', 'G', 'Bb', 'C', 'D', 'Eb' ],
+      [ 'G', 'Bb', 'C', 'D', 'Eb', 'F' ]])
   }
 }).export(module)
