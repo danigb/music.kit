@@ -1,6 +1,6 @@
 var vows = require('vows')
 var assert = require('assert')
-var build = require('../../lib/scale/build')
+var build = require('../../lib/scale/scale')
 
 vows.describe('scale.build').addBatch({
   'null tonic': function () {

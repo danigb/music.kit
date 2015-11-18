@@ -1,8 +1,8 @@
 var vows = require('vows')
 var assert = require('assert')
-var set = require('../../lib/set/build')
+var set = require('../../lib/set/set')
 
-vows.describe('gamut.set').addBatch({
+vows.describe('set.set').addBatch({
   'pitch set': function () {
     assert.deepEqual(set('C2 C4 C C6'), ['C'])
     assert.deepEqual(set('f c g c6 e5'), ['C', 'E', 'F', 'G'])

@@ -1,6 +1,6 @@
 var vows = require('vows')
 var assert = require('assert')
-var build = require('../../lib/chord/build')
+var build = require('../../lib/chord/chord')
 
 vows.describe('chord.build').addBatch({
   'basic': function () {

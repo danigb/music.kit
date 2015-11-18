@@ -1,6 +1,6 @@
 CHANGELOG
 
-
+[0.0.29] Better module isolation (move each index file inside its module)
 [0.0.28] Notation module function names shortened
 [0.0.27] scale.modes bug fixed
 [0.0.26]
