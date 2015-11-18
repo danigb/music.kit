@@ -17,9 +17,9 @@ kit.chord.get('Cmaj7') // => ['C', 'E', 'G', 'B']
 
 
 
-## `chord.build`
+## `chord.chord`
 
-Build a chord from a source and a tonic. A chord is a list of notes or
+Create a chord from a source and a tonic. A chord is a list of notes or
 intervals in asceding pitch order
 
 The source can be a list of intervals or notes. The tonic must be
@@ -27,8 +27,6 @@ a pitch (with or without octave) or false to get the intervals
 
 This function is currified, so you can partially apply the function passing
 one parameter instead of two (see example)
-
-This function is exported as 'chord' (instead of 'chord.build') in music.kit
 
 ### Parameters
 
@@ -39,15 +37,10 @@ This function is exported as 'chord' (instead of 'chord.build') in music.kit
 ### Examples
 
 ```js
-var chord = require('music.kit/chord/build')
+var chord = require('music.kit/chord/chord')
 chord('1 3 5 6', 'G') // => ['G', 'B', 'D', 'E']
 var maj79 = chord('C E G B D')
 maj79('A4') // => ['A4', 'C#5', 'E5', 'G#5', 'B5']
-```
-```js
-// exported as chord
-var kit = require('music.kit')
-kit.chord('1 3 5', 'C')
 ```
 
 Returns `Array` the chord notes (or intervals if null tonic)
@@ -161,7 +154,7 @@ Its the foundation of the scale and chord dictionary of music.kit
 
 Currently `dictionary` module has the following functions:
 
-- build: create dictionaries
+- dictionary: create dictionaries
 - getter: create a getter function for a dictionary
 - names: create a reverse lookup function for a dictionary
 - splitName: split a set name into type and tonic
@@ -171,7 +164,7 @@ Currently `dictionary` module has the following functions:
 
 
 
-## `dictionary.build`
+## `dictionary.dictionary`
 
 Create a dictionary
 
@@ -190,7 +183,7 @@ This function is exported in music.kit as ´dictionary´  (see example)
 ### Examples
 
 ```js
-var dictionary = require('music.kit/dictionary/build')
+var dictionary = require('music.kit/dictionary/dictionary')
 var chords = dictionary({'Maj7', ['1 3 5 7', ['maj7', 'M7']]})
 
 // get chord by name
@@ -210,7 +203,7 @@ chords[2193].name // => 'Maj7'
 ```
 ```js
 var kit = require('music.kit')
-// this function is exported as `dictionary` not `dictionary.build`
+// this function is exported as `dictionary` not `dictionary.dictionary`
 kit.dictionary(...)
 ```
 
@@ -574,27 +567,6 @@ The note module provides functions to manipulate notes:
 
 
 
-## `note.build`
-
-Get note name (or null if not valid note)
-
-### Parameters
-
-* `note` **`String or Array`** the note
-
-
-### Examples
-
-```js
-build = require('music.kit/note/build')
-build('fx2') // => 'F##2'
-build('bbb') // => 'Bbb'
-build('blah') // => null
-```
-
-Returns `String` the note build in scientific notation
-
-
 ## `note.distance`
 
 Get the interval between two notes
@@ -719,6 +691,27 @@ midi([0, 2]) // => 36 (C2 in array notation)
 Returns `Integer` the midi number
 
 
+## `note.note`
+
+Get a note from a string (or null if not valid note)
+
+### Parameters
+
+* `src` **`String`** the source
+
+
+### Examples
+
+```js
+note = require('music.kit/note/note')
+note('fx2') // => 'F##2'
+note('bbb') // => 'Bbb'
+note('blah') // => null
+```
+
+Returns `String` the note in scientific notation
+
+
 ## `note.pitchClass`
 
 Get the [pitch class](https://en.wikipedia.org/wiki/pitch_class) of a note
@@ -796,11 +789,40 @@ All the function in this module are valid for notes, or intervals
 ### Examples
 
 ```js
-var pitch = require('music.kit').pitch
+var pitch = require('music.pitch')
 pitch.height('C2') // => 24
 pitch.height('5P') // => 7
 ```
 
+
+
+## `pitch.fromCoord`
+
+Convert a pitch in array notation to string. It deals with notes, pitch
+classes and intervals.
+
+### Parameters
+
+* `pitch` **`Array`** the pitch in array notation
+
+
+### Examples
+
+```js
+var pitch = require('music.pitch')
+// pitch class
+pitch.fromCoord([0]) // => 'C'
+// interval
+pitch.fromCoord([0, 0]) // => '1P'
+// note
+pitch.fromCoord([0, 2, 4]) // => 'C2/4'
+```
+```js
+// require the function only
+var fromCoord = require('music.pitch/fromCoord')
+```
+
+Returns `String` the pitch string
 
 
 ## `pitch.height`
@@ -818,30 +840,32 @@ Returns `Integer` the height of -1 if not valid note
 
 ## `pitch.operation`
 
-Decorate a function to work with parsed pitches
+Decorate a function to work with pitches in coord notation
 
 
 
 
 
 
-## `pitch.parse`
+## `pitch.pitch`
 
-Parse a note or an interval
+Get a pitch from a string
 
 ### Parameters
 
-* `pitch` **`String`** the note or interval to parse
+* `source` **`String`** the string
 
 
 ### Examples
 
 ```js
-pitch.parse('C2') // => [0, 2, null]
-pitch.parse('5P') // => [1, 0]
+var pitch = require('music.pitch')
+pitch('c2') // => 'C2'
+pitch('2') // => '2M'
+pitch('blah') // => null
 ```
 
-Returns `Array` the pitch in array notation
+Returns `String` the pitch or null if not a valid pitch
 
 
 ## `pitch.simplify`
@@ -865,28 +889,23 @@ simplify('9m') // => '2m'
 Returns  the simplified pitch
 
 
-## `pitch.str`
+## `pitch.toCoord`
 
-Convert a pitch in array notation to string. It deals with notes, pitch
-classes and intervals.
+Convert a note or interval string into [coord notation]()
 
 ### Parameters
 
-* `pitch` **`Array`** the pitch in array notation
+* `pitch` **`String`** the note or interval to parse
 
 
 ### Examples
 
 ```js
-// pitch class
-pitch.str([0]) // => 'C'
-// interval
-pitch.str([0, 0]) // => '1P'
-// note
-pitch.str([0, 2, 4]) // => 'C2/4'
+pitch.parse('C2') // => [0, 2, null]
+pitch.parse('5P') // => [1, 0]
 ```
 
-Returns `String` the pitch string
+Returns `Array` the pitch in array notation
 
 
 ## `scale`
@@ -899,54 +918,6 @@ The `scale` module has functions to create and manipulate scales
 
 
 
-
-
-## `scale.build`
-
-Build a scale from a source and a tonic. A scale is a set of notes or
-intervals ordered by frequency with a tonic.
-
-A source can be a list of intervals or notes.
-
-The tonic can be a note (with or without octave), false to get the scale
-intervals or null to set the first note of the source as tonic
-
-This function is currified, so you can partially apply the function passing
-one parameter instead of two (see example)
-
-This function is exported in music.kit as `scale` instead of `scale.build`
-(see example)
-
-### Parameters
-
-* `source` **`Array`** the list of intervals or notes
-* `tonic` **`String`** the tonic of the scale
-
-
-### Examples
-
-```js
-var scale = require('music.kit/scale/build')
-// basic usage
-scale('1 2 3 5 6', 'G') // => ['G', 'A', 'B', 'D', 'E']
-scale('1 2 3 5 6', false) // => ['1P', '2M', '3M', '5P', '6M']
-```
-```js
-// uses first note of the source as tonic
-scale('c d e f g a b c d e', null) // => []
-```
-```js
-// partially applied
-var dorian = scale('D E F G A B C')
-dorian('C4') // => ['C4', 'D4', 'Eb4', 'F4', 'G4', 'A4', 'Bb4']
-```
-```js
-// music.kit exports 'scale'
-var kit = require('music.kit')
-kit.scale('D E F G A B C')
-```
-
-Returns `Array` the list of notes
 
 
 ## `scale.chord`
@@ -1056,6 +1027,46 @@ scale.names('D E F G A B C') [ 'D dorian' ]
 Returns `Array` an array of scale names or all known scale names if no arguments provided
 
 
+## `scale.scale`
+
+Create a scale from a gamut and a tonic. A scale is a set of notes or
+intervals ordered by frequency with a tonic.
+
+A source can be a list of intervals or notes.
+
+The tonic can be a note (with or without octave), false to get the scale
+intervals or null to set the first note of the source as tonic
+
+This function is currified, so you can partially apply the function passing
+one parameter instead of two (see example)
+
+### Parameters
+
+* `source` **`Array`** the list of intervals or notes
+* `tonic` **`String`** the tonic of the scale
+
+
+### Examples
+
+```js
+var scale = require('music.kit/scale/scale')
+// basic usage
+scale('1 2 3 5 6', 'G') // => ['G', 'A', 'B', 'D', 'E']
+scale('1 2 3 5 6', false) // => ['1P', '2M', '3M', '5P', '6M']
+```
+```js
+// uses first note of the source as tonic
+scale('c d e f g a b c d e', null) // => []
+```
+```js
+// partially applied
+var dorian = scale('D E F G A B C')
+dorian('C4') // => ['C4', 'D4', 'Eb4', 'F4', 'G4', 'A4', 'Bb4']
+```
+
+Returns `Array` the list of notes
+
+
 ## `scale.select`
 
 Select notes from a scale using degree numbers.
@@ -1129,28 +1140,22 @@ binary('C2 E4 D3') // => '101010000000'
 Returns `String` the binary number
 
 
-## `set.build`
+## `set.set`
 
-A set is a list of uniq pitch classes or simplified intervals in ascending pitch order
-
-This function is exported as `set` (see examples)
+Create a set: a set is a list of uniq pitch classes or simplified intervals
+in ascending pitch order
 
 ### Parameters
 
-* `gamut` **`String or Array`** the gamut
+* `notes` **`String or Array`** the note list
 
 
 ### Examples
 
 ```js
-var set = require('music.kit/set/build')
+var set = require('music.set/set')
 set('E7 C2 e D5 c1') // => ['C', 'D', 'E']
 set('11 10 9') // => [ '2M', '3M', '4P' ]
-```
-```js
-// use the function from music.kit
-var kit = require('music.kit')
-kit.set('e4 f5 ...')
 ```
 
 Returns  the set

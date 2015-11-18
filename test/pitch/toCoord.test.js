@@ -1,6 +1,6 @@
 var vows = require('vows')
 var assert = require('assert')
-var parse = require('../../lib/pitch/parse')
+var parse = require('../../lib/pitch/toCoord')
 
 vows.describe('itc').addBatch({
   'invalid values': function () {

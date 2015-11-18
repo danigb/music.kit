@@ -1,6 +1,7 @@
 CHANGELOG
 
-[0.0.29] Better module isolation (move each index file inside its module)
+[0.0.30] More consistent naming in pitch module
+[0.0.29] Better module isolation (move each index file inside its module) (21.1kb / 26kb)
 [0.0.28] Notation module function names shortened
 [0.0.27] scale.modes bug fixed
 [0.0.26]
