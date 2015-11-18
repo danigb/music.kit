@@ -245,6 +245,15 @@ Get a function to perform an inverse dictionary lookup (given notes, return name
 Returns `Function` a function to perform inverse lookup
 
 
+## `exports`
+
+Coordinate to properties
+
+
+
+
+
+
 ## `gamut`
 
 In music.kit a gamut is a collection of intervals, pitch classes or notes.
@@ -906,6 +915,26 @@ pitch.parse('5P') // => [1, 0]
 ```
 
 Returns `Array` the pitch in array notation
+
+
+## `rtc`
+
+Roman to coordinate: convert from [roman numerals](https://en.wikipedia.org/wiki/Roman_numeral_analysis)
+to [pitch coordinates]()
+
+### Parameters
+
+* `str` **`String`** the roman numeral string
+
+
+### Examples
+
+```js
+rtc('V') // => [1]
+rtc('bII') // => [-5]
+```
+
+Returns `Array` a coord or null if not valid roman numeral literal
 
 
 ## `scale`
