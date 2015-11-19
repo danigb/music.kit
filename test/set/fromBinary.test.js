@@ -10,6 +10,7 @@ vows.describe('set.fromBinary').addBatch({
   'decimal number': function () {
     assert.deepEqual(fromBinary(2773, 'C'), [ 'C', 'D', 'E', 'F', 'G', 'A', 'B' ])
     assert.deepEqual(fromBinary(2773, false), ['1P', '2M', '3M', '4', '5', '6M', '7M'])
+    assert.deepEqual(fromBinary(3434, 'B'), [ 'B', 'C', 'D', 'E', 'F', 'G', 'A' ])
   },
   'partial': function () {
     var major = fromBinary(2773)

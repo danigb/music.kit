@@ -264,32 +264,6 @@ Scales, chords, pitch sets are examples of gamuts.
 
 
 
-## `gamut.fromBinary`
-
-Get a set from a binary set number and (optionally) a tonic. If the tonic is
-a note, you get a pitch set. If its false you get a interval set.
-
-### Parameters
-
-* `source` **`String or Array or Array<Array>`** the gamut
-* `tonic` **`String`** the first note of the set or false to get the intervals
-
-
-### Examples
-
-```js
-var fromBinary = require('music.kit/gamut.fromBinary')
-// use a 12 digit binary number:
-fromBinary('101011010101', 'C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
-// or its decimal equivalent:
-fromBinary(2773, 'C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
-// get the interval set by passing `false` as tonic:
-fromBinary(2773, false) // => ['1P', '2M', '3M', '4', '5', '6M', '7M']
-```
-
-Returns  the set pitch classes (note names without octaves)
-
-
 ## `gamut.harmonics`
 
 Get the distances from the first note of a gamut to the rest of notes
@@ -1167,6 +1141,32 @@ binary('C2 E4 D3') // => '101010000000'
 ```
 
 Returns `String` the binary number
+
+
+## `set.fromBinary`
+
+Get a set from a binary set number and (optionally) a tonic. If the tonic is
+a note, you get a pitch set. If its false you get a interval set.
+
+### Parameters
+
+* `source` **`String or Array or Array<Array>`** the gamut
+* `tonic` **`String`** the first note of the set or false to get the intervals
+
+
+### Examples
+
+```js
+var fromBinary = require('music.kit/gamut.fromBinary')
+// use a 12 digit binary number:
+fromBinary('101011010101', 'C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+// or its decimal equivalent:
+fromBinary(2773, 'C') // => ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+// get the interval set by passing `false` as tonic:
+fromBinary(2773, false) // => ['1P', '2M', '3M', '4', '5', '6M', '7M']
+```
+
+Returns  the set pitch classes (note names without octaves)
 
 
 ## `set.set`
