@@ -48,15 +48,18 @@ Returns `Array` the chord notes (or intervals if null tonic)
 
 ## `chord.dictionary`
 
-Chord dictionary
+A chord dictionary
 
+### Parameters
+
+* `name` **`String`** the chord name
 
 
 ### Examples
 
 ```js
 var chords = require('music.kit/chord/dictionary')
-chords['Maj7'] // => { name: 'Maj7', intervals: ['1', '3', ...], aliases: [] }
+chords('Maj7') // => { name: 'Maj7', intervals: ['1', '3', ...], aliases: [] }
 ```
 
 
@@ -183,23 +186,18 @@ This function is exported in music.kit as ´dictionary´  (see example)
 ### Examples
 
 ```js
-var dictionary = require('music.kit/dictionary/dictionary')
-var chords = dictionary({'Maj7', ['1 3 5 7', ['maj7', 'M7']]})
+var dictionary = require('music.dictionary/dictionary')
+var chords = dictionary({'Maj7': ['1 3 5 7', ['maj7', 'M7']]})
 
 // get chord by name
-chords['Maj7'].name = 'Maj7'
-chords['Maj7'].aliases = ['maj7', 'M7']
-chords['Maj7'].intervals // => ['1', '3', '5', '7']
+chords('Maj7') // => { name: 'Maj7', aliases: ['maj7', 'M7'],
+               //      intervals: ['1', '3', '5', '7'] }
 
 // get chord by aliases
-chords['maj7'].intervals // => ['1', '3', '5', '7']
-chords['maj7'].name // => 'Maj7'
-chords['M7'].intervals // => ['1', '3', '5', '7']
-chords['M7'].name // => 'Maj7'
+chords('Maj7') === chords('maj7') === chords('M7')
 
 // get chord by binary numbers
-chords['100010010001'].name // => 'Maj7'
-chords[2193].name // => 'Maj7'
+chords('100010010001') === chords(22193) === chords('Maj7')
 ```
 ```js
 var kit = require('music.kit')
